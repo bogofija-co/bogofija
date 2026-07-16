@@ -1,0 +1,1948 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bogofija | Plataforma Oficial y Comunidad</title>
+    <link rel="icon" type="image/png" href="https://i.ibb.co/sdD7xzGX/Logo-Bogofija-2021-simbolo.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            yellow: '#FACC15',
+                            dark: '#000000',
+                            zinc850: '#1f1f22',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { 
+            background-color: #000000; 
+            color: #F4F4F5; 
+            overflow-x: hidden; 
+        }
+
+        /* Animaciones Base */
+        @keyframes float { 
+            0% { transform: translateY(0px); } 
+            50% { transform: translateY(-12px); } 
+            100% { transform: translateY(0px); } 
+        }
+        .animate-float { animation: float 5s ease-in-out infinite; }
+
+        @keyframes glow { 
+            0% { opacity: 0.15; } 
+            50% { opacity: 0.4; } 
+            100% { opacity: 0.15; } 
+        }
+        .glow-effect { animation: glow 4s ease-in-out infinite; }
+
+        /* Animaciones de Entrada (Scroll) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Utilidades Visuales */
+        .text-glow-yellow {
+            text-shadow: 0 0 15px rgba(250, 204, 21, 0.6), 0 0 30px rgba(250, 204, 21, 0.3);
+        }
+        .glass-card { 
+            background: linear-gradient(145deg, rgba(39, 39, 42, 0.7) 0%, rgba(24, 24, 27, 0.9) 100%); 
+            backdrop-filter: blur(16px); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+        }
+        .glass-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 20px 40px -12px rgba(250, 204, 21, 0.15); 
+        }
+
+        /* Estilos Calculadora */
+        .number-transition {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+
+        /* Personalización del input range */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #FACC15; /* Color brand-yellow oficial */
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
+            transition: transform 0.1s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #27272a; /* bg-zinc-800 */
+            border-radius: 2px;
+        }
+
+        /* Shimmer Vol 3 */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .shimmer-bg {
+            background: linear-gradient(90deg, #09090b 25%, #1c1c1f 50%, #09090b 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
+        }
+
+        @keyframes slow-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .animate-slow-spin { animation: slow-spin 8s infinite linear; }
+        
+        /* Estilos Vol 2 Salón de la Fama */
+        .legacy-rank-1 { background: linear-gradient(90deg, rgba(250, 204, 21, 0.1) 0%, transparent 100%); border-left: 3px solid #FACC15; }
+        .legacy-rank-2 { background: linear-gradient(90deg, rgba(228, 228, 231, 0.08) 0%, transparent 100%); border-left: 3px solid #E4E4E7; }
+        .legacy-rank-3 { background: linear-gradient(90deg, rgba(217, 119, 6, 0.1) 0%, transparent 100%); border-left: 3px solid #D97706; }
+
+        /* Estilos Lista de Subidas */
+        .subida-card {
+            width: 100%;
+            max-width: 190px;
+            background-color: #121212;
+            border: 1px solid #27272a; /* zinc-800 */
+            border-radius: 8px;
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .subida-card:hover {
+            border-color: #52525b; /* zinc-600 */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+        }
+
+        .truncate-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Utilidades añadidas para el modal */
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-yellow selection:text-black">
+
+    <header class="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/5 transition-all duration-300">
+        <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative z-20">
+            <div class="flex items-center gap-3">
+                <img src="https://i.ibb.co/99R1NsRX/Logo-Bogofija-2021.png" alt="Logo Bogofija" class="h-8 w-auto drop-shadow-lg">
+                <div>
+                    <span class="font-black tracking-tighter text-lg leading-none block">BOGOFIJA</span>
+                    <span class="text-[9px] text-zinc-500 font-bold uppercase tracking-widest block">Cultura de Piñón Fijo</span>
+                </div>
+            </div>
+            <div class="space-x-8 font-bold text-xs uppercase tracking-widest hidden md:block">
+                <a href="#productos" class="text-zinc-400 hover:text-brand-yellow transition-colors">Catálogo</a>
+                <a href="#calculadora" class="text-zinc-400 hover:text-brand-yellow transition-colors">Calculadora</a>
+                <a href="#lista-subidas" class="text-zinc-400 hover:text-brand-yellow transition-colors">Rutas</a>
+                <a href="#reto-vol3" class="text-white hover:text-brand-yellow transition-colors"><span class="text-brand-yellow mr-1">●</span> Vol 3</a>
+                <a href="#reto-vol2" class="text-zinc-400 hover:text-white transition-colors">Historial</a>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <!-- Botón Carrito -->
+                <button id="btnOpenCart" class="relative text-white hover:text-brand-yellow transition-colors md:ml-4 group">
+                    <i class="fa-solid fa-cart-shopping text-xl group-hover:scale-110 transition-transform"></i>
+                    <span id="cartBadge" class="absolute -top-2 -right-2 bg-brand-yellow text-black text-[10px] font-black rounded-full h-4 w-4 flex items-center justify-center opacity-0 transition-opacity scale-50">0</span>
+                </button>
+
+                <!-- Mobile Menu Icon -->
+                <button id="btnMobileMenu" class="md:hidden text-white hover:text-brand-yellow w-8 h-8 flex items-center justify-center">
+                    <i class="fa-solid fa-bars text-xl transition-transform"></i>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- Menú Móvil Desplegable -->
+        <div id="mobileMenu" class="md:hidden absolute top-full left-0 w-full bg-black/95 backdrop-blur-xl border-b border-zinc-800 flex-col items-center py-6 gap-6 hidden shadow-2xl z-10 transition-all">
+            <a href="#productos" class="mobile-link text-zinc-400 hover:text-brand-yellow font-bold text-sm uppercase tracking-widest transition-colors">Catálogo</a>
+            <a href="#calculadora" class="mobile-link text-zinc-400 hover:text-brand-yellow font-bold text-sm uppercase tracking-widest transition-colors">Calculadora</a>
+            <a href="#lista-subidas" class="mobile-link text-zinc-400 hover:text-brand-yellow font-bold text-sm uppercase tracking-widest transition-colors">Rutas</a>
+            <a href="#reto-vol3" class="mobile-link text-white hover:text-brand-yellow font-bold text-sm uppercase tracking-widest transition-colors"><span class="text-brand-yellow mr-1">●</span> Vol 3</a>
+            <a href="#reto-vol2" class="mobile-link text-zinc-400 hover:text-white font-bold text-sm uppercase tracking-widest transition-colors">Historial</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20 relative overflow-hidden">
+            <!-- Background Glows -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-yellow-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+            
+            <div class="relative group mb-8 reveal">
+                <div class="absolute -inset-10 bg-brand-yellow rounded-full blur-3xl glow-effect opacity-20"></div>
+                <img src="https://i.ibb.co/sdD7xzGX/Logo-Bogofija-2021-simbolo.png" alt="Símbolo Bogofija" class="relative w-48 md:w-56 h-auto animate-float drop-shadow-2xl">
+            </div>
+            <h1 class="text-6xl md:text-9xl font-black mb-6 leading-none tracking-tighter reveal" style="transition-delay: 100ms;">
+                PIÑÓN<br><span class="text-brand-yellow text-glow-yellow">FIJO</span>
+            </h1>
+            <p class="text-base md:text-lg text-zinc-400 mb-10 max-w-xl reveal" style="transition-delay: 200ms;">
+                Somos una comunidad y tienda de ciclismo urbano en Bogotá. Enfocados en la cultura, diseño y pasión sobre dos ruedas.
+            </p>
+
+            <div class="reveal w-full max-w-3xl mx-auto flex flex-col items-center gap-6 mb-10" style="transition-delay: 250ms;">
+                <!-- Contenedor horizontal para los logotipos de la familia BOGO -->
+                <div class="flex flex-wrap items-center justify-center gap-6 md:gap-8">
+                    <a href="https://www.instagram.com/bogofija/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all">
+                        <img src="https://i.ibb.co/99R1NsRX/Logo-Bogofija-2021.png" alt="Bogofija" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
+                    </a>
+                    <a href="https://bogochicas.netlify.app/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all">
+                        <img src="https://i.ibb.co/qLYvYCrT/Logotipos-Eventos.png" alt="Bogochicas" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
+                    </a>
+                    <a href="https://bogoruta.netlify.app/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all">
+                        <img src="https://i.ibb.co/cK1KpZbK/bogoruta.png" alt="Bogoruta" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
+                    </a>
+                    <a href="https://bogomtb.netlify.app/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all">
+                        <img src="https://i.ibb.co/Q3FqNsjH/bogo-MTB.png" alt="Bogo MTB" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
+                    </a>
+                    <a href="https://www.instagram.com/bogopublica/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all">
+                        <img src="https://i.ibb.co/mCWrvnXQ/logo-Bogo-Publica.png" alt="Bogo Pública" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
+                    </a>
+                    <a href="https://www.instagram.com/bogofixie/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all">
+                        <img src="https://i.ibb.co/RGSwjNpd/bogofixie.png" alt="Bogo Fixie" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
+                    </a>
+                </div>
+
+                <!-- Grupo salidas WhatsApp -->
+                <div>
+                    <a href="https://chat.whatsapp.com/KAckgvLp521D4vt3FeP37U" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-6 py-3 bg-[#25D366] hover:bg-[#20bd5a] text-black font-extrabold text-sm rounded-full transition-all transform hover:scale-105 shadow-lg shadow-[#25D366]/10">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>Grupo salidas WhatsApp</span>
+                    </a>
+                </div>
+            </div>
+
+            <a href="#productos" class="reveal bg-brand-yellow text-black font-black px-8 py-4 rounded-full uppercase hover:bg-white transition-all transform hover:scale-105 active:scale-95 text-sm md:text-base shadow-[0_0_20px_rgba(250,204,21,0.3)]" style="transition-delay: 350ms;">
+                Explorar Comunidad
+            </a>
+        </section>
+
+        <section id="productos" class="py-24 px-6 bg-zinc-950 relative z-10 border-t border-zinc-900">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-16 reveal">
+                    <span class="text-brand-yellow font-extrabold uppercase tracking-widest text-xs">Tienda Oficial</span>
+                    <h2 class="text-4xl md:text-5xl font-black mt-2 italic uppercase tracking-tighter text-white">Bogo Catálogo</h2>
+                </div>
+                
+                <!-- grid de productos actualizado -->
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 reveal" style="transition-delay: 100ms;">
+                    <!-- Botón Modificado: Marcos abre Modal con selector -->
+                    <button type="button" id="btnMarcos" class="glass-card hover:bg-blue-600/20 p-6 rounded-2xl flex flex-col items-center text-center group focus:outline-none w-full">
+                        <span class="text-3xl mb-3 group-hover:scale-110 transition-transform">🚴</span>
+                        <h3 class="font-black text-[10px] uppercase tracking-widest text-zinc-300 group-hover:text-white">Marcos</h3>
+                    </button>
+                    
+                    <a href="https://bogofija.catalog.kyte.site/" target="_blank" class="glass-card hover:bg-green-600/20 p-6 rounded-2xl flex flex-col items-center text-center group">
+                        <span class="text-3xl mb-3 group-hover:scale-110 transition-transform">👕</span>
+                        <h3 class="font-black text-[10px] uppercase tracking-widest text-zinc-300 group-hover:text-white">Jersey</h3>
+                    </a>
+                    
+                    <a href="https://aagoshoes.netlify.app/" target="_blank" class="glass-card hover:bg-teal-600/20 p-6 rounded-2xl flex flex-col items-center justify-center text-center group">
+                        <img src="https://i.ibb.co/qFXjywhR/aagoshoes-logo.png" alt="aagoshoes-logo" class="h-8 w-auto object-contain mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]" />
+                        <h3 class="font-black text-[10px] uppercase tracking-widest text-zinc-300 group-hover:text-white mt-1">Tenis aagoshoes</h3>
+                    </a>
+                    
+                    <a href="https://bogofija.catalog.kyte.site/" target="_blank" class="glass-card hover:bg-red-600/20 p-6 rounded-2xl flex flex-col items-center text-center group">
+                        <span class="text-3xl mb-3 group-hover:scale-110 transition-transform">🧢</span>
+                        <h3 class="font-black text-[10px] uppercase tracking-widest text-zinc-300 group-hover:text-white">Caps</h3>
+                    </a>
+                    <a href="https://bogofija.catalog.kyte.site/" target="_blank" class="glass-card hover:bg-orange-600/20 p-6 rounded-2xl flex flex-col items-center text-center group">
+                        <span class="text-3xl mb-3 group-hover:scale-110 transition-transform">🏷️</span>
+                        <h3 class="font-black text-[10px] uppercase tracking-widest text-zinc-300 group-hover:text-white">Etiquetas</h3>
+                    </a>
+                    <a href="https://bogofija.catalog.kyte.site/" target="_blank" class="glass-card hover:bg-purple-600/20 p-6 rounded-2xl flex flex-col items-center text-center group">
+                        <span class="text-3xl mb-3 group-hover:scale-110 transition-transform">💳</span>
+                        <h3 class="font-black text-[10px] uppercase tracking-widest text-zinc-300 group-hover:text-white">Tarjetas</h3>
+                    </a>
+                    <a href="https://bogofija.catalog.kyte.site/" target="_blank" class="glass-card hover:bg-brand-yellow/20 border-brand-yellow/30 p-6 rounded-2xl flex flex-col items-center text-center group">
+                        <span class="text-3xl mb-3 group-hover:scale-110 transition-transform">📱</span>
+                        <h3 class="font-black text-[10px] uppercase tracking-widest text-zinc-300 group-hover:text-brand-yellow">Porta Cel</h3>
+                    </a>
+                    <a href="https://linktr.ee/bogofija" target="_blank" class="glass-card hover:bg-brand-yellow/20 border-brand-yellow/30 p-6 rounded-2xl flex flex-col items-center text-center group">
+                        <span class="text-3xl mb-3 group-hover:scale-110 transition-transform">✨</span>
+                        <h3 class="font-black text-[10px] uppercase tracking-widest text-zinc-300 group-hover:text-brand-yellow">Exhibición Completa</h3>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- VENTANA SUB-VENTANA (MODAL SUPERPUESTO PARA MARCOS ACTUALIZADO) -->
+        <div id="modalMarcos" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+            <!-- Contenedor del Modal -->
+            <div class="bg-white text-gray-900 rounded-[30px] max-w-sm w-full shadow-2xl border border-gray-100 flex flex-col relative max-h-[90vh] overflow-y-auto scrollbar-hide transform scale-95 transition-transform duration-300" id="modalContent">
+                
+                <!-- BOTÓN VOLVER / CERRAR -->
+                <button id="btnVolver" class="absolute top-4 left-4 z-30 bg-gray-900/80 backdrop-blur-md text-white font-bold px-4 py-2 rounded-full text-xs uppercase tracking-wider hover:bg-brand-yellow hover:text-black transition-colors flex items-center gap-1 shadow-md">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+                    Volver
+                </button>
+
+                <!-- IMAGEN Y ETIQUETAS DEL MARCO -->
+                <div class="relative overflow-hidden aspect-square bg-gray-50 flex items-center justify-center p-6 mt-12">
+                    <img id="marcoImagenPrevia" src="https://i.ibb.co/r282NKDQ/marco-bogofija-negra.png" alt="Marco Fixie Track" class="w-full h-full object-cover rounded-2xl relative z-10 shadow-lg transition-all duration-300" />
+                    
+                    <div class="absolute bottom-4 left-4 flex flex-col gap-2 z-20">
+                        <span class="bg-gray-900 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md">Piñón Fijo</span>
+                        <span class="bg-green-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider flex items-center gap-1 shadow-lg shadow-green-500/30">
+                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> 
+                            Premium
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- CUERPO DE LA TARJETA -->
+                <div class="p-6 flex-1 flex flex-col justify-between bg-white text-left">
+                    <div>
+                        <div class="flex justify-between items-start mb-3 gap-3">
+                            <h3 id="marcoNombrePrevia" class="font-extrabold text-lg text-gray-900 leading-tight">
+                                Marco Fixie Bogofija
+                            </h3>
+                            <span id="marcoPrecioPrevia" class="font-black text-black bg-brand-yellow px-2 py-1 rounded-lg text-lg whitespace-nowrap shadow-sm">
+                                $ 350.000
+                            </span>
+                        </div>
+                        <p id="marcoDescripcionPrevia" class="text-sm text-gray-500 mb-4 leading-relaxed font-medium">
+                            Aluminio ultra liviano 6061, soldadura lisa y geometría de pista perfecta para la ciudad.
+                        </p>
+
+                        <!-- NUEVO: SELECTOR DE DISEÑO DE MARCO -->
+                        <div class="mb-4 bg-slate-50 p-3 rounded-2xl border border-slate-150">
+                            <p class="text-[10px] font-black text-gray-800 uppercase tracking-widest mb-2 flex items-center gap-1">
+                                🎨 Modelo de Marco
+                            </p>
+                            <div class="grid grid-cols-3 gap-2" id="selectorModelosMarco">
+                                <!-- Se renderiza dinámicamente -->
+                            </div>
+                        </div>
+
+                        <!-- CALCULADORA MATEMÁTICA INTERACTIVA -->
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 mb-4">
+                            <p class="text-xs font-black text-gray-800 uppercase tracking-widest mb-2 flex items-center gap-1">
+                                📐 ¿No sabes tu talla? Calcúlala aquí
+                            </p>
+                            <div class="flex gap-2 mb-2">
+                                <input type="number" id="inputEntrepierna" placeholder="Entrepierna en cm (ej. 80)" class="w-full text-xs p-2.5 rounded-xl border border-gray-300 focus:outline-none focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow text-gray-900" min="100" max="250">
+                                <button id="btnCalcular" class="bg-gray-900 text-white text-xs font-bold px-4 rounded-xl hover:bg-brand-yellow hover:text-black transition-colors">Calcular</button>
+                            </div>
+                            <p id="resultadoCalculo" class="text-xs text-black bg-brand-yellow/20 p-2 rounded-lg font-bold hidden border border-brand-yellow/50 mt-2"></p>
+                        </div>
+
+                        <!-- SELECCIÓN DE TALLAS COMERCIALES -->
+                        <p class="text-xs font-black text-gray-800 uppercase tracking-widest mb-2">Selecciona la talla del Marco</p>
+                        <div class="flex flex-wrap gap-2 mb-4 max-h-[110px] overflow-y-auto scrollbar-hide" id="contenedorTallas">
+                            <button class="btn-talla flex-1 min-w-[55px] h-10 rounded-xl text-xs font-bold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="XXS" data-cm="46-48">XXS (48)</button>
+                            <button class="btn-talla flex-1 min-w-[55px] h-10 rounded-xl text-xs font-bold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="XS" data-cm="49-50">XS (50)</button>
+                            <button class="btn-talla flex-1 min-w-[55px] h-10 rounded-xl text-xs font-bold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="S" data-cm="51-52">S (52)</button>
+                            <button class="btn-talla flex-1 min-w-[55px] h-10 rounded-xl text-xs font-bold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="M" data-cm="53-54">M (54)</button>
+                            <button class="btn-talla flex-1 min-w-[55px] h-10 rounded-xl text-xs font-bold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="L" data-cm="55-56">L (56)</button>
+                            <button class="btn-talla flex-1 min-w-[55px] h-10 rounded-xl text-xs font-bold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="XL" data-cm="57-58">XL (58)</button>
+                        </div>
+
+                        <!-- NUEVO: SELECTOR DE CANTIDAD -->
+                        <div class="flex items-center justify-between bg-slate-50 p-4 rounded-2xl border border-slate-200 mb-6">
+                            <span class="text-xs font-black text-gray-800 uppercase tracking-widest">Cantidad</span>
+                            <div class="flex items-center gap-2">
+                                <button type="button" id="btnDecQty" class="w-8 h-8 rounded-xl bg-gray-200 text-gray-850 font-black hover:bg-brand-yellow hover:text-black transition-colors flex items-center justify-center">-</button>
+                                <span id="qtyVal" class="font-extrabold text-sm text-gray-900 w-8 text-center">1</span>
+                                <button type="button" id="btnIncQty" class="w-8 h-8 rounded-xl bg-gray-200 text-gray-850 font-black hover:bg-brand-yellow hover:text-black transition-colors flex items-center justify-center">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- BOTÓN DE COMPRA -->
+                    <button id="btnAgregarCarrito" class="w-full bg-gray-900 text-white py-4 rounded-xl text-sm font-bold hover:bg-brand-yellow hover:text-black transition-colors shadow-lg active:scale-95 disabled:opacity-50 disabled:pointer-events-none" disabled>
+                        Selecciona una talla para agregar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <section id="calculadora" class="py-24 px-6 border-t border-zinc-900 bg-[#09090b] relative z-10 text-white">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center space-y-4 mb-16 reveal">
+                    <div class="inline-flex items-center px-4 py-1.5 mb-2 rounded-full bg-zinc-900 border border-brand-yellow/30 text-xs font-bold uppercase tracking-widest text-brand-yellow">
+                        <i class="fa-solid fa-calculator mr-2"></i> Bogo Herramienta de Piñon Fijo
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter">Calculadora de <span class="text-brand-yellow text-glow-yellow">Rendimiento</span></h2>
+                    <p class="text-zinc-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+                        Ajusta tu relación de transmisión para el #retobogofija. Selecciona un puerto oficial para ver su compatibilidad con tu configuración actual, optimiza tus vatios y calcula tus puntos de derrape.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    
+                    <!-- Panel de controles -->
+                    <div class="lg:col-span-5 glass-card p-8 rounded-3xl relative overflow-hidden reveal">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-brand-yellow/10 blur-2xl rounded-bl-full pointer-events-none"></div>
+
+                        <div class="space-y-8 relative z-10">
+                            <div class="space-y-3">
+                                <label class="text-xs font-bold uppercase tracking-wider text-brand-yellow flex items-center">
+                                    <i class="fa-solid fa-map-location-dot mr-2"></i> 1. Selecciona el Objetivo
+                                </label>
+                                <div class="relative">
+                                    <select id="port-selector" onchange="updateCalculator()" class="w-full bg-zinc-900 border border-zinc-800 text-white text-sm rounded-xl focus:ring-brand-yellow focus:border-brand-yellow block p-4 appearance-none cursor-pointer outline-none transition-all">
+                                        <option value="none">Ruta Libre (Sin puerto específico)</option>
+                                        <optgroup label="Cundinamarca">
+                                            <option value="romeral">Romeral (10 KM)</option>
+                                            <option value="lavega">La Vega al Vino (28 KM)</option>
+                                            <option value="patios">Patios desde Arepas (14 KM)</option>
+                                            <option value="sumapaz">Sumapaz (30 KM)</option>
+                                        </optgroup>
+                                        <optgroup label="Fuera de Cundinamarca">
+                                            <option value="letras">Alto de Letras (81 KM)</option>
+                                            <option value="sifon">Alto El Sifón (84 KM)</option>
+                                        </optgroup>
+                                    </select>
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-brand-yellow">
+                                        <i class="fa-solid fa-chevron-down text-sm"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-6 pt-6 border-t border-zinc-800/50">
+                                <label class="text-xs font-bold uppercase tracking-wider text-brand-yellow flex items-center">
+                                    <i class="fa-solid fa-gear mr-2"></i> 2. Configura tu Máquina
+                                </label>
+                                
+                                <div class="space-y-3 bg-black/40 p-5 rounded-2xl border border-zinc-800/50">
+                                    <div class="flex justify-between items-end">
+                                        <span class="text-sm font-semibold text-zinc-300">Plato delantero</span>
+                                        <span id="chainring-val" class="text-3xl font-black text-white number-transition tracking-tighter">47T</span>
+                                    </div>
+                                    <input type="range" id="chainring" min="42" max="53" value="47" class="w-full" oninput="updateCalculator()">
+                                </div>
+
+                                <div class="space-y-3 bg-black/40 p-5 rounded-2xl border border-zinc-800/50">
+                                    <div class="flex justify-between items-end">
+                                        <span class="text-sm font-semibold text-zinc-300">Piñón trasero</span>
+                                        <span id="cog-val" class="text-3xl font-black text-white number-transition tracking-tighter">17T</span>
+                                    </div>
+                                    <input type="range" id="cog" min="13" max="22" value="17" class="w-full" oninput="updateCalculator()">
+                                </div>
+                            </div>
+
+                            <div class="space-y-3 pt-6 border-t border-zinc-800/50">
+                                <label class="text-xs font-bold uppercase tracking-wider text-brand-yellow flex items-center">
+                                    <i class="fa-solid fa-shoe-prints mr-2"></i> 3. Estilo de Derrape
+                                </label>
+                                <div class="flex bg-black rounded-xl p-1.5 border border-zinc-800">
+                                    <button id="btn-single-skid" onclick="setAmbiMode(false)" class="flex-1 py-2.5 text-xs font-bold uppercase rounded-lg bg-zinc-800 text-white shadow transition-all">Un Pie</button>
+                                    <button id="btn-ambi-skid" onclick="setAmbiMode(true)" class="flex-1 py-2.5 text-xs font-bold uppercase rounded-lg text-zinc-500 hover:text-white transition-all bg-transparent">Ambidextro</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel de resultados -->
+                    <div class="lg:col-span-7 flex flex-col gap-6 reveal" style="transition-delay: 200ms;">
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="glass-card p-6 rounded-3xl flex flex-col justify-between transition-all">
+                                <span class="text-[10px] font-bold uppercase text-zinc-400 tracking-widest flex items-center gap-2">
+                                    <i class="fa-solid fa-chart-line text-brand-yellow"></i> Ratio / Dificultad
+                                </span>
+                                <div class="mt-4 flex items-end gap-2">
+                                    <span id="res-ratio" class="text-6xl font-black text-brand-yellow number-transition tracking-tighter">2.76</span>
+                                </div>
+                                <div class="mt-4 h-1.5 w-full bg-black rounded-full overflow-hidden">
+                                    <div id="ratio-bar" class="h-full bg-brand-yellow transition-all duration-500" style="width: 50%"></div>
+                                </div>
+                                <p id="ratio-feedback" class="text-xs text-zinc-400 mt-3 font-medium">Relación versátil. Buen equilibrio.</p>
+                            </div>
+
+                            <div class="glass-card p-6 rounded-3xl flex flex-col justify-between transition-all">
+                                <span class="text-[10px] font-bold uppercase text-zinc-400 tracking-widest flex items-center gap-2">
+                                    <i class="fa-solid fa-ruler-horizontal text-brand-yellow"></i> Desarrollo (Avance)
+                                </span>
+                                <div class="mt-4 flex items-end gap-2">
+                                    <span id="res-dev" class="text-6xl font-black text-white number-transition tracking-tighter">5.80</span>
+                                    <span class="text-sm text-zinc-500 mb-2 font-mono font-bold">m</span>
+                                </div>
+                                <p class="text-xs text-zinc-400 mt-auto pt-4 font-medium">Distancia por cada pedalada completa (Llanta 700x25c).</p>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-6 sm:p-8 rounded-3xl flex-1 flex flex-col sm:flex-row items-center gap-8 transition overflow-hidden relative border border-brand-yellow/20 bg-brand-yellow/5">
+                            <div class="flex-1 space-y-2 z-10 w-full text-center sm:text-left">
+                                <div class="inline-flex items-center gap-2 px-2.5 py-1 bg-black rounded border border-zinc-800 mb-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse"></span>
+                                    <span class="text-[10px] font-bold tracking-widest text-zinc-400 uppercase">Análisis de desgaste</span>
+                                </div>
+                                <h4 class="text-3xl font-black uppercase tracking-tight">Skid Patches: <span id="res-skids" class="text-brand-yellow number-transition">17</span></h4>
+                                <p class="text-sm text-zinc-400 leading-relaxed max-w-sm mx-auto sm:mx-0">
+                                    Puntos exactos donde la llanta rozará el asfalto al bloquear. <br>
+                                    <span id="skid-warning" class="text-brand-yellow font-bold mt-1 block">Excelente distribución de desgaste.</span>
+                                </p>
+                            </div>
+                            
+                            <div class="relative w-40 h-40 flex-shrink-0 z-10 mx-auto">
+                                <svg class="absolute inset-0 w-full h-full transform -rotate-90 drop-shadow-[0_0_12px_rgba(250,204,21,0.2)]" id="skid-diagram-svg"></svg>
+                                <div class="absolute inset-0 flex items-center justify-center flex-col">
+                                    <span class="text-xl text-zinc-800 font-black opacity-50 tracking-tighter">HUB</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recomendación de Puerto Dinámica -->
+                        <div id="port-recommendation" class="hidden bg-red-500/10 border border-red-500/30 p-5 rounded-2xl items-start gap-4 transition-all">
+                            <div class="bg-red-500 p-2.5 rounded-xl text-black shadow-lg shadow-red-500/20">
+                                <i class="fa-solid fa-triangle-exclamation text-lg"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-sm font-black text-white uppercase tracking-wide" id="rec-title">Análisis de Ruta</h5>
+                                <p class="text-sm text-zinc-300 mt-1 leading-relaxed" id="rec-text">Selecciona un puerto para ver consejos de transmisión.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="lista-subidas" class="py-24 px-6 bg-[#000000] relative z-10 border-t border-zinc-900 min-h-screen">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-12 reveal">
+                    <div class="inline-flex items-center px-4 py-1.5 mb-2 rounded-full bg-zinc-900 border border-brand-yellow/30 text-[10px] font-bold uppercase tracking-widest text-brand-yellow">
+                        <i class="fa-solid fa-route mr-2"></i> Bogo Rutas Oficiales 
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white">Lista de <span class="text-brand-yellow text-glow-yellow">Subidas</span></h2>
+                    <p class="text-zinc-500 text-sm max-w-2xl mx-auto font-medium mt-3">Base de datos dinámica con las rutas oficiales. Solo se muestran las subidas que se encuentran activas en el reto actual.</p>
+                </div>
+                
+                <!-- Contenedor inyectado por JS -->
+                <div id="subidas-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 justify-items-center reveal" style="transition-delay: 100ms;">
+                    <!-- Cards se renderizan aquí mediante JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <section id="reto-vol3" class="py-24 px-4 sm:px-6 lg:px-8 bg-black relative border-t border-zinc-900">
+            <!-- Background Accent -->
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-yellow-500/5 to-transparent pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto relative z-10">
+                <!-- Título -->
+                <div class="text-center mb-14 reveal">
+                    <div class="inline-flex items-center px-4 py-1.5 mb-6 rounded-full bg-zinc-900 border border-brand-yellow/30 text-xs font-bold uppercase tracking-widest text-brand-yellow animate-pulse">
+                        <span class="w-2 h-2 rounded-full bg-brand-yellow mr-2"></span> Próximo Evento
+                    </div>
+                    
+                    <h2 class="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none">
+                        Clasificación Oficial –<br>
+                        <span class="text-brand-yellow text-glow-yellow">#RetoBogofija 2027</span> <span class="text-zinc-500 font-light">| Vol. 3</span>
+                    </h2>
+                    <p class="mt-6 max-w-2xl mx-auto text-sm md:text-base text-zinc-400 leading-relaxed">
+                        Prepárate para la nueva temporada. Actualmente nos encontramos en fase de expectativa configurando la plataforma para la competencia más exigente de Bogotá.
+                    </p>
+                </div>
+
+                <!-- Cuenta Regresiva & Avisos -->
+                <div class="max-w-4xl mx-auto mb-16 reveal">
+                    <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6 md:p-8 shadow-2xl mb-6 relative overflow-hidden backdrop-blur-md">
+                        <div class="absolute top-0 left-0 w-2 h-full bg-brand-yellow"></div>
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                            <div>
+                                <h3 class="text-lg font-bold text-white flex items-center uppercase tracking-wide">
+                                    <i class="fa-regular fa-clock text-brand-yellow mr-2.5 text-xl"></i>
+                                    Inicio del Volumen 3
+                                </h3>
+                                <p class="text-zinc-500 text-xs mt-1">Lanzamiento programado: 21 de febrero de 2027</p>
+                            </div>
+                            <!-- Reloj -->
+                            <div class="grid grid-cols-4 gap-3 text-center">
+                                <div class="bg-black/60 rounded-xl p-3 min-w-[70px] border border-zinc-800">
+                                    <span id="days" class="block text-2xl md:text-3xl font-black text-brand-yellow">--</span>
+                                    <span class="text-[10px] text-zinc-500 uppercase font-bold tracking-wider">Días</span>
+                                </div>
+                                <div class="bg-black/60 rounded-xl p-3 min-w-[70px] border border-zinc-800">
+                                    <span id="hours" class="block text-2xl md:text-3xl font-black text-white">--</span>
+                                    <span class="text-[10px] text-zinc-500 uppercase font-bold tracking-wider">Hrs</span>
+                                </div>
+                                <div class="bg-black/60 rounded-xl p-3 min-w-[70px] border border-zinc-800">
+                                    <span id="minutes" class="block text-2xl md:text-3xl font-black text-white">--</span>
+                                    <span class="text-[10px] text-zinc-500 uppercase font-bold tracking-wider">Min</span>
+                                </div>
+                                <div class="bg-black/60 rounded-xl p-3 min-w-[70px] border border-zinc-800">
+                                    <span id="seconds" class="block text-2xl md:text-3xl font-black text-brand-yellow">--</span>
+                                    <span class="text-[10px] text-zinc-500 uppercase font-bold tracking-wider">Seg</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controlador Simulación -->
+                    <div class="flex flex-wrap gap-4 items-center justify-between p-4 bg-zinc-900/40 rounded-xl border border-zinc-800/60 text-xs">
+                        <span class="text-zinc-400 flex items-center">
+                            <i class="fa-solid fa-code text-brand-yellow mr-2"></i>
+                            Modo Desarrollador: Previsualiza el diseño del ranking activo.
+                        </span>
+                        <button onclick="toggleMockData()" id="btn-toggle" class="bg-brand-yellow hover:bg-yellow-400 text-black font-black px-4 py-2 rounded-lg transition-all transform hover:scale-105 flex items-center space-x-2">
+                            <i class="fa-solid fa-play"></i> <span>Simular Datos</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Columnas de Ranking Vol 3 -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20 reveal">
+                    <!-- Piñón Fijo Vol 3 -->
+                    <div class="bg-zinc-950 border border-zinc-850 rounded-3xl p-6 flex flex-col shadow-xl">
+                        <div class="flex justify-between items-center mb-6 pb-4 border-b border-zinc-800">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-cog animate-slow-spin text-brand-yellow text-2xl"></i>
+                                <h3 class="text-xl font-black text-white uppercase tracking-wider">Piñón Fijo</h3>
+                            </div>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-500 v3-status uppercase">Esperando</span>
+                        </div>
+                        <div class="space-y-3" id="col-v3-pinon"></div>
+                    </div>
+
+                    <!-- Ruta Hombre Vol 3 -->
+                    <div class="bg-zinc-950 border border-zinc-850 rounded-3xl p-6 flex flex-col shadow-xl">
+                        <div class="flex justify-between items-center mb-6 pb-4 border-b border-zinc-800">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-person-biking text-blue-400 text-2xl"></i>
+                                <h3 class="text-xl font-black text-white uppercase tracking-wider">Ruta Hombre</h3>
+                            </div>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-500 v3-status uppercase">Esperando</span>
+                        </div>
+                        <div class="space-y-3" id="col-v3-ruta-h"></div>
+                    </div>
+
+                    <!-- Ruta Mujer Vol 3 -->
+                    <div class="bg-zinc-950 border border-zinc-850 rounded-3xl p-6 flex flex-col shadow-xl">
+                        <div class="flex justify-between items-center mb-6 pb-4 border-b border-zinc-800">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-person-biking text-pink-400 text-2xl"></i>
+                                <h3 class="text-xl font-black text-white uppercase tracking-wider">Ruta Mujer</h3>
+                            </div>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-500 v3-status uppercase">Esperando</span>
+                        </div>
+                        <div class="space-y-3" id="col-v3-ruta-m"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch reveal">
+                    <div class="lg:col-span-5 bg-zinc-900/60 border border-zinc-800 rounded-3xl p-8 flex flex-col justify-center">
+                        <div class="w-12 h-12 rounded-2xl bg-zinc-800 flex items-center justify-center text-brand-yellow mb-6">
+                            <i class="fa-solid fa-mountain-city text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-black text-white mb-4 uppercase tracking-tight">¿Qué es el #RetoBogofija?</h3>
+                        <p class="text-zinc-400 text-sm leading-relaxed mb-6">
+                            La máxima prueba de resistencia mental y física de Bogotá. Ciclistas de Piñón Fijo y Ruta desafían las pendientes más exigentes de la sabana, acumulando puntos salida tras salida.
+                        </p>
+                        <ul class="space-y-3 text-sm text-zinc-300 font-medium">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-brand-yellow mr-3"></i> Rutas de alta montaña en Bogotá</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-brand-yellow mr-3"></i> Modalidades Fijo y Ruta</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-brand-yellow mr-3"></i> Clasificación acumulativa oficial</li>
+                        </ul>
+                    </div>
+                        
+                    <div class="lg:col-span-7 bg-zinc-950 border border-zinc-850 rounded-3xl overflow-hidden flex flex-col min-h-[400px]">
+                        <div class="bg-zinc-900/80 px-4 py-3 border-b border-zinc-800/50 flex items-center justify-between">
+                            <div class="flex space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                            </div>
+                            <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest"><i class="fa-solid fa-images mr-1"></i> Galería Instagram</span>
+                        </div>
+                        
+                        <div class="p-6 flex-grow flex items-center justify-center">
+                            <div class="w-full grid grid-cols-2 md:grid-cols-3 gap-4">
+                                <a href="https://www.instagram.com/bogofija/" target="_blank" rel="noopener noreferrer" class="relative group overflow-hidden rounded-xl aspect-square block bg-zinc-900 cursor-pointer">
+                                    <img src="https://i.ibb.co/9HncS6Wp/1676374309997.jpg" alt="Bogofija 1" class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 group-hover:opacity-50">
+                                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="fa-brands fa-instagram text-white text-4xl drop-shadow-lg"></i>
+                                    </div>
+                                </a>
+                                <a href="https://www.instagram.com/bogofija/" target="_blank" rel="noopener noreferrer" class="relative group overflow-hidden rounded-xl aspect-square block bg-zinc-900 cursor-pointer">
+                                    <img src="https://i.ibb.co/WqBSPWh/Bogofija-1.png" alt="Bogofija 2" class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 group-hover:opacity-50">
+                                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="fa-brands fa-instagram text-white text-4xl drop-shadow-lg"></i>
+                                    </div>
+                                </a>
+                                <a href="https://www.instagram.com/bogofija/" target="_blank" rel="noopener noreferrer" class="relative group overflow-hidden rounded-xl aspect-square block bg-zinc-900 cursor-pointer">
+                                    <img src="https://i.ibb.co/GfCW66C5/Bogofija-2.png" alt="Bogofija 3" class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 group-hover:opacity-50">
+                                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="fa-brands fa-instagram text-white text-4xl drop-shadow-lg"></i>
+                                    </div>
+                                </a>
+                                <a href="https://www.instagram.com/bogofija/" target="_blank" rel="noopener noreferrer" class="relative group overflow-hidden rounded-xl aspect-square block bg-zinc-900 cursor-pointer">
+                                    <img src="https://i.ibb.co/m5QpvD25/Bogofija-3.png" alt="Bogofija 4" class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 group-hover:opacity-50">
+                                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="fa-brands fa-instagram text-white text-4xl drop-shadow-lg"></i>
+                                    </div>
+                                </a>
+                                <a href="https://www.instagram.com/bogofija/" target="_blank" rel="noopener noreferrer" class="relative group overflow-hidden rounded-xl aspect-square block bg-zinc-900 cursor-pointer">
+                                    <img src="https://i.ibb.co/Kc6Cc9qX/Bogofija-4.png" alt="Bogofija 5" class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 group-hover:opacity-50">
+                                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="fa-brands fa-instagram text-white text-4xl drop-shadow-lg"></i>
+                                    </div>
+                                </a>
+                                <a href="https://www.instagram.com/bogofija/" target="_blank" rel="noopener noreferrer" class="relative group overflow-hidden rounded-xl aspect-square block bg-zinc-900 cursor-pointer">
+                                    <img src="https://i.ibb.co/hJCp02f2/Bogofija-6.png" alt="Bogofija 6" class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 group-hover:opacity-50">
+                                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <i class="fa-brands fa-instagram text-white text-4xl drop-shadow-lg"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reto-vol2" class="py-24 px-4 sm:px-6 lg:px-8 bg-[#09090b] relative border-t border-zinc-900">
+            <div class="max-w-7xl mx-auto relative z-10">
+                <div class="text-center mb-16 reveal">
+                    <div class="inline-flex items-center px-4 py-1 rounded-full bg-zinc-900 border border-zinc-700 text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-4">
+                        <i class="fa-solid fa-landmark mr-2"></i> Salón de la Fama
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-black mb-4 uppercase tracking-tighter text-white">
+                        Resultados Finales <br>
+                        <span class="text-zinc-500">#RetoBogofija 2025 | Vol. 2</span>
+                    </h2>
+                    <p class="text-zinc-500 text-sm max-w-2xl mx-auto font-medium">
+                        Honor a quienes dominaron las montañas en la edición anterior. Estos son los resultados oficiales consolidados que forman parte de la historia de Bogofija.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 relative reveal" style="transition-delay: 100ms;">
+                    <!-- Se llenan por JS con estilo Legacy/Archived -->
+                    <div id="col-v2-pinon"></div>
+                    <div id="col-v2-ruta-h"></div>
+                    <div id="col-v2-ruta-m"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 px-6 bg-brand-yellow text-black text-center relative z-10 overflow-hidden">
+            <div class="relative z-10 reveal">
+                <h2 class="text-4xl md:text-6xl font-black mb-8 uppercase tracking-tighter">Sé parte de la ruta</h2>
+                <p class="text-lg font-medium mb-10 max-w-xl mx-auto opacity-80">Únete a nuestra comunidad en redes sociales, entérate de las salidas y prepárate para el Vol. 3.</p>
+                <a href="https://www.instagram.com/bogofija/" target="_blank" class="inline-flex items-center gap-3 bg-black text-white px-8 py-4 rounded-full font-black text-lg hover:bg-zinc-800 transition-all hover:-translate-y-1 shadow-2xl">
+                    <i class="fa-brands fa-instagram text-2xl"></i> @BOGOFIJA
+                </a>
+            </div>
+            <!-- Decals bg -->
+            <i class="fa-solid fa-bicycle absolute -right-10 -bottom-10 text-[200px] text-black/10 -rotate-12 pointer-events-none"></i>
+        </section>
+
+        <!-- Overlay del Carrito -->
+        <div id="cartOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[105] opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+        <!-- Sidebar del Carrito -->
+        <div id="cartSidebar" class="fixed inset-y-0 right-0 w-full md:w-[400px] bg-[#09090b] border-l border-zinc-800 z-[110] transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col">
+            <div class="p-6 border-b border-zinc-800 flex justify-between items-center bg-black/80 backdrop-blur-md">
+                <h3 class="text-white font-black text-xl uppercase tracking-wider flex items-center gap-2">
+                    <i class="fa-solid fa-cart-shopping text-brand-yellow"></i> Tu Carrito
+                </h3>
+                <button id="btnCloseCart" class="text-zinc-500 hover:text-white transition-colors bg-zinc-900 rounded-full w-8 h-8 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-4 text-white">
+                <div class="flex flex-col items-center justify-center h-full text-zinc-500 opacity-60">
+                    <i class="fa-solid fa-cart-arrow-down text-4xl mb-3"></i>
+                    <p class="text-sm font-medium">Tu carrito está vacío.</p>
+                </div>
+            </div>
+            
+            <div class="p-6 border-t border-zinc-800 bg-black/80 backdrop-blur-md">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-zinc-400 text-sm font-bold uppercase tracking-wider">Total</span>
+                    <span id="cartTotal" class="text-brand-yellow text-2xl font-black">$ 0</span>
+                </div>
+                <button id="btnCheckout" class="w-full bg-brand-yellow text-black font-black py-4 rounded-xl hover:bg-white transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_15px_rgba(250,204,21,0.2)] disabled:opacity-50 disabled:pointer-events-none" disabled>
+                    Proceder al Pago
+                </button>
+            </div>
+        </div>
+
+        <!-- NUEVO: MODAL DE CHECKOUT PREMIUM -->
+        <div id="checkoutModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[120] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+            <div class="bg-zinc-950 text-white rounded-[30px] max-w-md w-full border border-zinc-800 shadow-2xl flex flex-col relative max-h-[90vh] overflow-y-auto scrollbar-hide transform scale-95 transition-transform duration-300" id="checkoutContent">
+                
+                <!-- Cabecera de Checkout -->
+                <div class="p-6 border-b border-zinc-900 flex justify-between items-center bg-black/50 sticky top-0 backdrop-blur-md z-10">
+                    <h3 class="font-black text-lg uppercase tracking-wider text-white flex items-center gap-2">
+                        <i class="fa-solid fa-file-invoice text-brand-yellow"></i> Datos de Envío
+                    </h3>
+                    <button id="btnCloseCheckout" class="text-zinc-500 hover:text-white bg-zinc-900 rounded-full w-8 h-8 flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+                
+                <!-- Formulario -->
+                <form id="checkoutForm" class="p-6 space-y-4">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="space-y-1">
+                            <label class="text-[9px] font-bold uppercase tracking-wider text-zinc-450">Nombre *</label>
+                            <input type="text" id="custNombre" required class="w-full bg-zinc-900/60 border border-zinc-800 text-white text-xs rounded-xl focus:ring-1 focus:ring-brand-yellow focus:border-brand-yellow p-3 outline-none transition-all" placeholder="Ej. Sneyder">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[9px] font-bold uppercase tracking-wider text-zinc-450">Apellido *</label>
+                            <input type="text" id="custApellido" required class="w-full bg-zinc-900/60 border border-zinc-800 text-white text-xs rounded-xl focus:ring-1 focus:ring-brand-yellow focus:border-brand-yellow p-3 outline-none transition-all" placeholder="Ej. Riaño">
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-1">
+                        <label class="text-[9px] font-bold uppercase tracking-wider text-zinc-450">Celular *</label>
+                        <input type="tel" id="custCelular" required class="w-full bg-zinc-900/60 border border-zinc-800 text-white text-xs rounded-xl focus:ring-1 focus:ring-brand-yellow focus:border-brand-yellow p-3 outline-none transition-all" placeholder="Ej. 3110000000">
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-[9px] font-bold uppercase tracking-wider text-zinc-450">Dirección *</label>
+                        <input type="text" id="custDireccion" required class="w-full bg-zinc-900/60 border border-zinc-800 text-white text-xs rounded-xl focus:ring-1 focus:ring-brand-yellow focus:border-brand-yellow p-3 outline-none transition-all" placeholder="Ej. Cra 68 B 10-29">
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-[9px] font-bold uppercase tracking-wider text-zinc-450">Ciudad *</label>
+                        <input type="text" id="custCiudad" required class="w-full bg-zinc-900/60 border border-zinc-800 text-white text-xs rounded-xl focus:ring-1 focus:ring-brand-yellow focus:border-brand-yellow p-3 outline-none transition-all" placeholder="Ej. Bogotá">
+                    </div>
+
+                    <!-- Selección de Pago -->
+                    <div class="space-y-2">
+                        <label class="text-[9px] font-bold uppercase tracking-wider text-zinc-450 block">Método de Pago *</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="flex items-center gap-2 p-2.5 bg-zinc-900/40 border border-zinc-800 rounded-xl cursor-pointer hover:border-brand-yellow/30 transition-colors">
+                                <input type="radio" name="paymentMethod" value="Nequi" checked class="accent-brand-yellow">
+                                <span class="text-xs font-bold text-white">Nequi</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2.5 bg-zinc-900/40 border border-zinc-800 rounded-xl cursor-pointer hover:border-brand-yellow/30 transition-colors">
+                                <input type="radio" name="paymentMethod" value="Daviplata" class="accent-brand-yellow">
+                                <span class="text-xs font-bold text-white">Daviplata</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2.5 bg-zinc-900/40 border border-zinc-800 rounded-xl cursor-pointer hover:border-brand-yellow/30 transition-colors">
+                                <input type="radio" name="paymentMethod" value="Bancolombia" class="accent-brand-yellow">
+                                <span class="text-xs font-bold text-white">Bancolombia</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2.5 bg-zinc-900/40 border border-zinc-800 rounded-xl cursor-pointer hover:border-brand-yellow/30 transition-colors">
+                                <input type="radio" name="paymentMethod" value="Efectivo" class="accent-brand-yellow">
+                                <span class="text-xs font-bold text-white">Efectivo</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Resumen del Pedido -->
+                    <div class="bg-zinc-900/80 p-4 rounded-2xl border border-zinc-800/80 mt-2">
+                        <div class="flex justify-between items-center text-xs text-zinc-400 mb-1">
+                            <span>Subtotal</span>
+                            <span id="checkoutSubtotal" class="font-bold text-white">$ 0</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs text-zinc-400 mb-2">
+                            <span>Envío</span>
+                            <span class="font-bold text-green-500">A Convenir</span>
+                        </div>
+                        <div class="flex justify-between items-center border-t border-zinc-850 pt-2">
+                            <span class="text-xs font-bold uppercase text-zinc-350">Total General</span>
+                            <span id="checkoutTotal" class="text-brand-yellow text-lg font-black">$ 0</span>
+                        </div>
+                    </div>
+
+                    <!-- Botón Enviar WhatsApp -->
+                    <button type="submit" class="w-full bg-[#25D366] text-black font-black py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-[#20bd5a] transition-all transform hover:scale-[1.01] shadow-[0_0_15px_rgba(37,211,102,0.2)]">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        Confirmar vía WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Contenedor de Notificaciones (Toasts) -->
+        <div id="toastContainer" class="fixed bottom-4 right-4 z-[120] flex flex-col gap-2 pointer-events-none"></div>
+
+    </main>
+
+    <footer class="py-12 px-6 bg-black border-t border-zinc-900 text-center relative z-10">
+        <!-- Contenedor horizontal para los logotipos de la familia BOGO -->
+        <div class="flex flex-wrap items-center justify-center gap-6 md:gap-8 mb-8 max-w-3xl mx-auto">
+            <a href="https://www.instagram.com/bogofija/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all">
+                <img src="https://i.ibb.co/99R1NsRX/Logo-Bogofija-2021.png" alt="Bogofija" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
+            </a>
+            <a href="https://bogochicas.netlify.app/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all">
+                <img src="https://i.ibb.co/qLYvYCrT/Logotipos-Eventos.png" alt="Bogochicas" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
+            </a>
+            <a href="https://bogoruta.netlify.app/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all">
+                <img src="https://i.ibb.co/cK1KpZbK/bogoruta.png" alt="Bogoruta" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
+            </a>
+            <a href="https://bogomtb.netlify.app/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all">
+                <img src="https://i.ibb.co/Q3FqNsjH/bogo-MTB.png" alt="Bogo MTB" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
+            </a>
+            <a href="https://www.instagram.com/bogopublica/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all">
+                <img src="https://i.ibb.co/mCWrvnXQ/logo-Bogo-Publica.png" alt="Bogo Pública" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
+            </a>
+            <a href="https://www.instagram.com/bogofixie/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all">
+                <img src="https://i.ibb.co/RGSwjNpd/bogofixie.png" alt="Bogo Fixie" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all" />
+            </a>
+        </div>
+        
+        <!-- Ubicación y Correo -->
+        <p class="text-zinc-500 text-sm mb-2 font-medium">Bogotá, Colombia</p>
+        <a href="mailto:bogopublica@gmail.com" class="text-zinc-300 hover:text-brand-yellow font-bold block mb-8 transition-colors">bogopublica@gmail.com</a>
+        
+        <!-- PRINCIPAL: Grupo salidas WhatsApp -->
+        <div class="mb-8">
+            <a href="https://chat.whatsapp.com/KAckgvLp521D4vt3FeP37U" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-6 py-3 bg-[#25D366] hover:bg-[#20bd5a] text-black font-extrabold text-sm rounded-full transition-all transform hover:scale-105 shadow-lg shadow-[#25D366]/10">
+                <i class="fa-brands fa-whatsapp text-lg"></i>
+                <span>Grupo salidas WhatsApp</span>
+            </a>
+        </div>
+
+        <!-- REDES SOCIALES -->
+        <div class="flex justify-center items-center gap-6 mb-8">
+            <a href="https://www.tiktok.com/@bogofija" target="_blank" rel="noopener noreferrer" class="text-zinc-600 hover:text-white text-xl transition-colors" aria-label="TikTok">
+                <i class="fa-brands fa-tiktok"></i>
+            </a>
+            <a href="https://www.strava.com/clubs/bogofija" target="_blank" rel="noopener noreferrer" class="text-zinc-600 hover:text-white text-xl transition-colors" aria-label="Strava">
+                <i class="fa-brands fa-strava"></i>
+            </a>
+            <a href="https://www.instagram.com/bogofija/" target="_blank" rel="noopener noreferrer" class="text-zinc-600 hover:text-white text-xl transition-colors" aria-label="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://www.youtube.com/channel/UCi5ZT2D3YvF3M3_dDLtwVXg" target="_blank" rel="noopener noreferrer" class="text-zinc-600 hover:text-white text-xl transition-colors" aria-label="YouTube">
+                <i class="fa-brands fa-youtube"></i>
+            </a>
+        </div>
+        
+        <!-- Copyright -->
+        <p class="text-zinc-700 text-[10px] font-bold tracking-widest uppercase">&copy; 2021 by BOGOFIJA</p>
+    </footer>
+
+    <script>
+        
+        // --- 0. MENÚ MÓVIL (Lógica Agregada) ---
+        const btnMobileMenu = document.getElementById('btnMobileMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const iconMenu = btnMobileMenu?.querySelector('i');
+
+        if (btnMobileMenu && mobileMenu) {
+            // Abrir y cerrar tocando el botón
+            btnMobileMenu.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileMenu.classList.toggle('flex');
+                
+                // Cambiar el icono visual
+                if (mobileMenu.classList.contains('flex')) {
+                    iconMenu.classList.remove('fa-bars');
+                    iconMenu.classList.add('fa-xmark');
+                } else {
+                    iconMenu.classList.remove('fa-xmark');
+                    iconMenu.classList.add('fa-bars');
+                }
+            });
+
+            // Cerrar menú automáticamente cuando se selecciona una opción
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                    iconMenu.classList.remove('fa-xmark');
+                    iconMenu.classList.add('fa-bars');
+                });
+            });
+        }
+
+        // --- 1. ANIMACIONES SCROLL (Intersection Observer) ---
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            
+            // Inicializar vistas
+            renderVol3Leaderboards();
+            renderVol2History();
+            updateCalculator(); // Inicializar calculadora
+            renderizarSubidas(); // Inicializar lista de rutas
+            renderMarcosSelector(); // Inicializar selector de marcos en modal
+        });
+
+        // --- BASE DE DATOS DE MARCOS EDITABLE ---
+        const MARCOS_DB = [
+            {
+                id: "marco-negro",
+                nombre: "Marco Fixie Bogofija",
+                precio: 350000,
+                imagen: "https://i.ibb.co/r282NKDQ/marco-bogofija-negra.png",
+                descripcion: "Aluminio ultra liviano 6061, soldadura lisa y geometría de pista perfecta para la ciudad."
+            },
+            {
+                id: "marco-tornasol",
+                nombre: "Marco Bogofija Tornasol",
+                precio: 380000,
+                imagen: "https://i.ibb.co/DHQ7yWHb/marco-bogofija-tornasol.png",
+                descripcion: "Edición limitada con acabado tornasol camaleónico que cambia con la luz. Geometría de pista agresiva."
+            },
+            {
+                id: "marco-bogochicas",
+                nombre: "Marco Bogochicas",
+                precio: 360000,
+                imagen: "https://i.ibb.co/RT7g6sqK/marco-bogochicas.png",
+                descripcion: "Diseño exclusivo en colaboración con Bogochicas. Estilo urbano único con la máxima rigidez."
+            }
+        ];
+
+        let selectedMarcoIndex = 0;
+        let selectedQty = 1;
+        let selectedTalla = null;
+
+        // --- 2. LÓGICA CALCULADORA DE RENDIMIENTO ---
+        let isAmbi = false;
+
+        function gcd(a, b) {
+            return b ? gcd(b, a % b) : a;
+        }
+
+        function animateNumber(elementId, newValue) {
+            const el = document.getElementById(elementId);
+            if(el && el.innerText !== newValue.toString()) {
+                el.classList.add('scale-110');
+                el.innerText = newValue;
+                setTimeout(() => {
+                    el.classList.remove('scale-110');
+                }, 300);
+            }
+        }
+
+        function updateCalculator() {
+            const chainringEl = document.getElementById('chainring');
+            const cogEl = document.getElementById('cog');
+            const portSelector = document.getElementById('port-selector');
+            
+            if(!chainringEl || !cogEl || !portSelector) return;
+
+            const chainring = parseInt(chainringEl.value);
+            const cog = parseInt(cogEl.value);
+            const portId = portSelector.value;
+            
+            document.getElementById('chainring-val').innerText = chainring + "T";
+            document.getElementById('cog-val').innerText = cog + "T";
+            
+            // 1. Cálculo de Relación (Ratio)
+            const ratio = (chainring / cog).toFixed(2);
+            animateNumber('res-ratio', ratio);
+            
+            // Barra visual de dificultad del Ratio
+            const minRatio = 1.9; 
+            const maxRatio = 4.0; 
+            let ratioPercent = ((ratio - minRatio) / (maxRatio - minRatio)) * 100;
+            ratioPercent = Math.max(0, Math.min(100, ratioPercent));
+            document.getElementById('ratio-bar').style.width = ratioPercent + '%';
+
+            // Retroalimentación del Ratio
+            let feedback = "";
+            if(ratio < 2.5) feedback = "Relación muy blanda. Ideal para muros extremos como Romeral.";
+            else if(ratio < 2.9) feedback = "Relación versátil. Buen equilibrio para la sabana y subidas medias.";
+            else if(ratio < 3.2) feedback = "Relación dura. Cuidado en rampas sobre el 10%.";
+            else feedback = "Rompepiernas. Solo para asfalto plano o descensos rápidos.";
+            document.getElementById('ratio-feedback').innerText = feedback;
+
+            // 2. Desarrollo métrico (Avance estimado por pedalada para rueda 700x25c)
+            const development = (ratio * 2.105).toFixed(2); 
+            animateNumber('res-dev', development);
+            
+            // 3. Puntos de Derrape (Skid Patches)
+            const g = gcd(chainring, cog);
+            let skidPatches = cog / g;
+            if (isAmbi && ((chainring / g) % 2 !== 0)) {
+                skidPatches *= 2;
+            }
+            
+            animateNumber('res-skids', skidPatches);
+            
+            const warningEl = document.getElementById('skid-warning');
+            if(warningEl) {
+                if (skidPatches <= 2) {
+                    warningEl.innerText = "¡Peligro! Destruirás la llanta rápidamente.";
+                    warningEl.className = "text-red-500 font-bold mt-1 block";
+                } else if (skidPatches <= 6) {
+                    warningEl.innerText = "Desgaste moderado. Rota la llanta frecuentemente.";
+                    warningEl.className = "text-orange-500 font-medium mt-1 block";
+                } else {
+                    warningEl.innerText = "Excelente distribución de desgaste.";
+                    warningEl.className = "text-brand-yellow font-bold mt-1 block";
+                }
+            }
+
+            renderSkidSVG(skidPatches);
+            updatePortRecommendation(portId, ratio);
+        }
+
+        function setAmbiMode(mode) {
+            isAmbi = mode;
+            const btnSingle = document.getElementById('btn-single-skid');
+            const btnAmbi = document.getElementById('btn-ambi-skid');
+            
+            if(!btnSingle || !btnAmbi) return;
+
+            if (isAmbi) {
+                btnAmbi.className = "flex-1 py-2.5 text-xs font-bold uppercase rounded-lg bg-zinc-800 text-white shadow transition-all";
+                btnSingle.className = "flex-1 py-2.5 text-xs font-bold uppercase rounded-lg text-zinc-500 hover:text-white transition-all bg-transparent";
+            } else {
+                btnSingle.className = "flex-1 py-2.5 text-xs font-bold uppercase rounded-lg bg-zinc-800 text-white shadow transition-all";
+                btnAmbi.className = "flex-1 py-2.5 text-xs font-bold uppercase rounded-lg text-zinc-500 hover:text-white transition-all bg-transparent";
+            }
+            updateCalculator();
+        }
+
+        function renderSkidSVG(patches) {
+            const svg = document.getElementById('skid-diagram-svg');
+            if(!svg) return;
+            svg.innerHTML = ''; 
+            
+            const baseCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            baseCircle.setAttribute("cx", "80");
+            baseCircle.setAttribute("cy", "80");
+            baseCircle.setAttribute("r", "70");
+            baseCircle.setAttribute("fill", "none");
+            baseCircle.setAttribute("stroke", "#27272a"); // zinc-800
+            baseCircle.setAttribute("stroke-width", "4");
+            svg.appendChild(baseCircle);
+            
+            const radius = 70;
+            const centerX = 80;
+            const centerY = 80;
+            const drawPatches = Math.min(patches, 100); 
+
+            for (let i = 0; i < drawPatches; i++) {
+                const angle = (i * 2 * Math.PI) / patches;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+                
+                const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                dot.setAttribute("cx", x);
+                dot.setAttribute("cy", y);
+                dot.setAttribute("r", "6");
+                dot.setAttribute("fill", "#FACC15"); // brand-yellow
+                
+                const innerDot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                innerDot.setAttribute("cx", x);
+                innerDot.setAttribute("cy", y);
+                innerDot.setAttribute("r", "2");
+                innerDot.setAttribute("fill", "#000000"); // black
+                
+                svg.appendChild(dot);
+                svg.appendChild(innerDot);
+            }
+        }
+
+        function updatePortRecommendation(portId, ratio) {
+            const recContainer = document.getElementById('port-recommendation');
+            const recTitle = document.getElementById('rec-title');
+            const recText = document.getElementById('rec-text');
+            const iconContainer = recContainer.querySelector('div:first-child');
+            const iconEl = recContainer.querySelector('i');
+            
+            if(!recContainer || !recTitle || !recText) return;
+
+            if (portId === 'none') {
+                recContainer.classList.add('hidden');
+                recContainer.classList.remove('flex');
+                return;
+            }
+
+            recContainer.classList.remove('hidden');
+            recContainer.classList.add('flex');
+
+            let title = "";
+            let text = "";
+            let isWarning = false;
+
+            switch(portId) {
+                case 'romeral':
+                    title = "Análisis: Romeral (El Muro)";
+                    if (ratio > 2.6) { text = "Relación muy alta para este muro del sur. Te costará mover la bicicleta en las rampas del 18%. Recomendado: < 2.5."; isWarning = true; }
+                    else text = "Excelente relación para soportar la inclinación extrema de Romeral.";
+                    break;
+                case 'lavega':
+                    title = "Análisis: La Vega al Vino";
+                    if (ratio < 2.6) { text = "Relación muy blanda. Perderás mucho tiempo en los tramos falsos planos de este largo ascenso (28km). Recomendado: ~2.7 - 2.8."; isWarning = true; }
+                    else text = "Ratio adecuado para mantener cadencia y velocidad en las rampas sostenidas del Vino.";
+                    break;
+                case 'patios':
+                    title = "Análisis: Patios";
+                    if (ratio > 2.9) { text = "Demasiado dura para el clásico bogotano. Sufrirás excesivamente."; isWarning = true; }
+                    else text = "Ratio clásico perfecto para subir Patios con cadencia fluida.";
+                    break;
+                case 'sumapaz':
+                    title = "Análisis: Sumapaz";
+                    text = "Largo aliento (30km). Prioriza la comodidad y reserva piernas para el viento del páramo.";
+                    break;
+                case 'letras':
+                    title = "Análisis: Alto de Letras (81km)";
+                    if (ratio > 2.5) { text = "PELIGRO: Vas a estar más de 5 horas pedaleando. Tu ratio es destructivo para las rodillas en 81km. Baja el plato o sube el piñón urgentemente (Recomendado < 2.4)."; isWarning = true; }
+                    else text = "Ratio de supervivencia. Perfecto para dosificar energía en el gigante de Colombia.";
+                    break;
+                case 'sifon':
+                    title = "Análisis: Alto El Sifón";
+                    text = "A gran altitud la falta de oxígeno castiga. Mantén un ratio blando y asegura una llanta gruesa para las secciones destapadas.";
+                    break;
+            }
+
+            recTitle.innerText = title;
+            recText.innerText = text;
+
+            if(isWarning) {
+                recContainer.className = "flex bg-red-500/10 border border-red-500/30 p-5 rounded-2xl items-start gap-4 transition-all";
+                iconContainer.className = "bg-red-500 p-2.5 rounded-xl text-black shadow-lg shadow-red-500/20";
+                iconEl.className = "fa-solid fa-triangle-exclamation text-lg";
+            } else {
+                recContainer.className = "flex bg-brand-yellow/10 border border-brand-yellow/30 p-5 rounded-2xl items-start gap-4 transition-all";
+                iconContainer.className = "bg-brand-yellow p-2.5 rounded-xl text-black shadow-lg shadow-yellow-500/20";
+                iconEl.className = "fa-solid fa-check text-lg";
+            }
+        }
+
+        // --- 3. CUENTA REGRESIVA VOL 3 ---
+        const targetDate = new Date("Feb 21, 2027 00:00:00").getTime();
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference < 0) {
+                document.getElementById("days").innerText = "00";
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
+                return;
+            }
+
+            const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = d < 10 ? "0" + d : d;
+            document.getElementById("hours").innerText = h < 10 ? "0" + h : h;
+            document.getElementById("minutes").innerText = m < 10 ? "0" + m : m;
+            document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // --- 4. LÓGICA VOL 3 (ESPERA / MOCK DATA) ---
+        let isMockDataActive = false;
+        const vol3MockData = {
+            pinon: [
+                { name: "JHON ELMER BERRIO", score: 95, rides: 6, medal: "gold" },
+                { name: "DANIEL ALEJANDRO", score: 85, rides: 6, medal: "silver" },
+                { name: "SERGIO ANDRÉS", score: 83, rides: 5, medal: "bronze" },
+                { name: "JUAN CAMILO COBOS", score: 75, rides: 5, medal: "normal" },
+                { name: "ESTEBAN PINZON", score: 75, rides: 5, medal: "normal" }
+            ],
+            rutaH: [
+                { name: "ESTEBAN CARDOZO", score: 50, rides: 6, medal: "gold" },
+                { name: "CRITIAN CUERVO", score: 44, rides: 5, medal: "silver" },
+                { name: "JHON PINILLA", score: 40, rides: 5, medal: "bronze" },
+                { name: "VICTOR PALOMINO", score: 35, rides: 4, medal: "normal" },
+                { name: "CRISTIAN VILLAMIL", score: 30, rides: 3, medal: "normal" }
+            ],
+            rutaM: [
+                { name: "ANGIE CASTRO", score: 105, rides: 6, medal: "gold" },
+                { name: "ANDRE HERNANDEZ", score: 84, rides: 4, medal: "silver" },
+                { name: "PAOLA RUIZ", score: 64, rides: 3, medal: "bronze" },
+                { name: "SARA MEDINA", score: 20, rides: 3, medal: "normal" },
+                { name: "YENNY SEMIYARTE", score: 20, rides: 3, medal: "normal" }
+            ]
+        };
+
+        function renderVol3Leaderboards() {
+            const containers = {
+                pinon: document.getElementById('col-v3-pinon'),
+                rutaH: document.getElementById('col-v3-ruta-h'),
+                rutaM: document.getElementById('col-v3-ruta-m')
+            };
+
+            Object.keys(containers).forEach(key => {
+                const container = containers[key];
+                container.innerHTML = ''; 
+
+                for (let i = 0; i < 5; i++) {
+                    const pos = i + 1;
+                    
+                    if (!isMockDataActive) {
+                        let badgeStyle = pos === 1 ? 'bg-brand-yellow/10 border-brand-yellow/30 text-brand-yellow' : 
+                                         pos === 2 ? 'bg-zinc-500/10 border-zinc-500/30 text-zinc-400' :
+                                         pos === 3 ? 'bg-amber-600/10 border-amber-600/30 text-amber-500' : 
+                                         'bg-zinc-900 border-zinc-800 text-zinc-600';
+                        
+                        let crown = pos === 1 ? `<i class="fa-solid fa-crown text-[8px] absolute -top-1 left-1/2 -translate-x-1/2 rotate-12"></i>` : '';
+
+                        container.innerHTML += `
+                            <div class="p-3.5 rounded-xl bg-zinc-900/30 border border-zinc-850 flex items-center justify-between">
+                                <div class="flex items-center space-x-3 w-full">
+                                    <div class="w-8 h-8 rounded-full border ${badgeStyle} flex items-center justify-center font-bold text-xs relative flex-shrink-0">
+                                        ${crown}${pos}
+                                    </div>
+                                    <div class="flex-grow space-y-1.5">
+                                        <div class="h-3 w-24 shimmer-bg rounded"></div>
+                                        <div class="h-2 w-12 shimmer-bg rounded opacity-50"></div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <span class="block text-lg font-black text-zinc-700 leading-none">--</span>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        const rider = vol3MockData[key][i];
+                        let badgeStyle = rider.medal === 'gold' ? 'bg-brand-yellow text-black shadow-lg shadow-yellow-500/20' : 
+                                         rider.medal === 'silver' ? 'bg-zinc-300 text-black' :
+                                         rider.medal === 'bronze' ? 'bg-amber-600 text-white' : 
+                                         'bg-zinc-800 text-zinc-400';
+                        
+                        let crown = rider.medal === 'gold' ? `<i class="fa-solid fa-crown text-[8px] absolute -top-1 left-1/2 -translate-x-1/2 rotate-12 text-brand-yellow"></i>` : '';
+                        let textNameClass = rider.medal === 'gold' ? 'text-brand-yellow' : 'text-white';
+                        let cardBorder = rider.medal === 'gold' ? 'border-brand-yellow/30 bg-brand-yellow/5' : 'border-zinc-800 bg-zinc-900/60';
+
+                        container.innerHTML += `
+                            <div class="p-3.5 rounded-xl border ${cardBorder} flex items-center justify-between hover:scale-[1.02] transition-transform">
+                                <div class="flex items-center space-x-3 overflow-hidden">
+                                    <div class="w-8 h-8 rounded-full ${badgeStyle} flex items-center justify-center font-black text-xs relative flex-shrink-0">
+                                        ${crown}${pos}
+                                    </div>
+                                    <div class="truncate">
+                                        <h4 class="${textNameClass} text-xs font-bold truncate uppercase">${rider.name}</h4>
+                                        <div class="text-[9px] text-zinc-400 font-bold uppercase mt-0.5">
+                                            <i class="fa-solid fa-bicycle mr-1"></i>${rider.rides} salidas
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-right ml-2 flex-shrink-0">
+                                    <span class="block text-lg font-black ${textNameClass} leading-none">${rider.score}</span>
+                                    <span class="text-[8px] font-bold text-zinc-500 uppercase">PTS</span>
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+            });
+
+            document.querySelectorAll('.v3-status').forEach(el => {
+                if(isMockDataActive){
+                    el.className = 'text-[10px] font-bold px-2 py-1 rounded bg-brand-yellow/10 border border-brand-yellow/30 text-brand-yellow v3-status uppercase';
+                    el.innerText = 'Demo Activa';
+                } else {
+                    el.className = 'text-[10px] font-bold px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-500 v3-status uppercase';
+                    el.innerText = 'Esperando';
+                }
+            });
+        }
+
+        function toggleMockData() {
+            isMockDataActive = !isMockDataActive;
+            const btn = document.getElementById('btn-toggle');
+            if (isMockDataActive) {
+                btn.innerHTML = `<i class="fa-solid fa-stop text-sm"></i> <span>Detener Demo</span>`;
+                btn.classList.replace('bg-brand-yellow', 'bg-red-500');
+                btn.classList.replace('hover:bg-yellow-400', 'hover:bg-red-600');
+                btn.classList.replace('text-black', 'text-white');
+            } else {
+                btn.innerHTML = `<i class="fa-solid fa-play text-sm"></i> <span>Simular Datos</span>`;
+                btn.classList.replace('bg-red-500', 'bg-brand-yellow');
+                btn.classList.replace('hover:bg-red-600', 'hover:bg-yellow-400');
+                btn.classList.replace('text-white', 'text-black');
+            }
+            renderVol3Leaderboards();
+        }
+
+        // --- 5. LÓGICA VOL 2 (HISTORIAL ESTÁTICO) ---
+        const vol2FinalData = {
+            pinon: [
+                { name: 'Jhon Elmer Berrio', points: 95, trips: 6 },
+                { name: 'Daniel A. Acosta', points: 85, trips: 6 },
+                { name: 'Sergio A. Veloza', points: 83, trips: 5 },
+                { name: 'Juan Camilo Cobos', points: 75, trips: 5 },
+                { name: 'Esteban Pinzon', points: 75, trips: 5 }
+            ],
+            rutaH: [
+                { name: 'Esteban Cardozo', points: 50, trips: 6 },
+                { name: 'Critian Cuervo', points: 44, trips: 5 },
+                { name: 'Jhon Pinilla', points: 40, trips: 5 },
+                { name: 'Victor Palomino', points: 35, trips: 4 },
+                { name: 'Cristian Villamil', points: 30, trips: 3 }
+            ],
+            rutaM: [
+                { name: 'Angie Castro', points: 105, trips: 6 },
+                { name: 'Andre Hernandez', points: 84, trips: 4 },
+                { name: 'Paola Ruiz', points: 64, trips: 3 },
+                { name: 'Sara Medina', points: 20, trips: 3 },
+                { name: 'Yenny Semiyarte', points: 20, trips: 3 }
+            ]
+        };
+
+        function renderVol2History() {
+            const configs = [
+                { id: 'col-v2-pinon', title: 'Piñón Fijo', icon: 'fa-cog', data: vol2FinalData.pinon },
+                { id: 'col-v2-ruta-h', title: 'Ruta Hombre', icon: 'fa-person-biking', data: vol2FinalData.rutaH },
+                { id: 'col-v2-ruta-m', title: 'Ruta Mujer', icon: 'fa-person-biking', data: vol2FinalData.rutaM }
+            ];
+
+            configs.forEach(cfg => {
+                const container = document.getElementById(cfg.id);
+                let html = `
+                    <div class="glass-card rounded-3xl p-6 h-full flex flex-col relative overflow-hidden group">
+                        <i class="fa-solid ${cfg.icon} absolute -right-4 -top-4 text-7xl text-white/5 group-hover:scale-110 transition-transform duration-500"></i>
+                        <h3 class="text-xl font-black mb-6 text-white uppercase flex items-center border-b border-white/10 pb-4">
+                            ${cfg.title}
+                        </h3>
+                        <div class="space-y-2.5">
+                `;
+
+                cfg.data.forEach((p, idx) => {
+                    const pos = idx + 1;
+                    const isFirst = pos === 1;
+                    const isSecond = pos === 2;
+                    const isThird = pos === 3;
+                    
+                    const rankClass = isFirst ? 'legacy-rank-1' : isSecond ? 'legacy-rank-2' : isThird ? 'legacy-rank-3' : 'bg-white/5 border-l-[3px] border-transparent';
+                    const icon = isFirst ? '🥇' : isSecond ? '🥈' : isThird ? '🥉' : `<span class="text-xs font-bold text-zinc-500">#${pos}</span>`;
+                    const nameColor = isFirst ? 'text-brand-yellow font-black' : isSecond ? 'text-zinc-200' : isThird ? 'text-amber-500' : 'text-zinc-400';
+
+                    html += `
+                        <div class="flex items-center justify-between p-3 rounded-r-xl ${rankClass} hover:bg-white/10 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-6 text-center">${icon}</div>
+                                <div>
+                                    <h4 class="text-sm uppercase ${nameColor}">${p.name}</h4>
+                                    <div class="text-[9px] text-zinc-500 uppercase tracking-widest mt-0.5">
+                                        <i class="fa-solid fa-check text-zinc-600 mr-1"></i>${p.trips} Salidas
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-base font-black ${nameColor}">${p.points}</div>
+                                <div class="text-[8px] uppercase text-zinc-600 font-bold">PTS</div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `</div></div>`;
+                container.innerHTML = html;
+            });
+        }
+
+        // --- 6. BASE DE DATOS Y RENDERIZADO DE RUTAS ---
+        const baseDeDatosSubidas = [
+            { nombre: "La Vega al Vino", referencia: "La Vega", distancia: "28 km", desnivel: "1000 m", pendiente: "3.6%", dificultad: "Alto", estado: "Próximamente" },
+            { nombre: "Romeral", referencia: "Bogotá Sur", distancia: "10 km", desnivel: "600 m", pendiente: "6%", dificultad: "Medio", estado: "Activa" },
+            { nombre: "Fusagasugá a Rosas", referencia: "Fusagasugá", distancia: "26.3 km", desnivel: "1368 m", pendiente: "5.2%", dificultad: "Muy Alto", estado: "Próximamente" },
+            { nombre: "Guadalupe", referencia: "Bogotá Centro", distancia: "2 km", desnivel: "200 m", pendiente: "10%", dificultad: "Alto", estado: "Próximamente" },
+            { nombre: "El Águila por Zipa", referencia: "Zipaquirá", distancia: "15.6 km", desnivel: "587 m", pendiente: "5%", dificultad: "Intermedio", estado: "Próximamente" },
+            { nombre: "Patios desde Arepas", referencia: "Bogotá Norte", distancia: "14 km", desnivel: "650 m", pendiente: "4.6%", dificultad: "Medio", estado: "Próximamente" },
+            { nombre: "El Verjón", referencia: "Bogotá", distancia: "11 km", desnivel: "698 m", pendiente: "4.7%", dificultad: "Alto", estado: "Próximamente" },
+            { nombre: "Canicas desde Tabio", referencia: "Tabio", distancia: "5 km", desnivel: "300 m", pendiente: "6%", dificultad: "Medio", estado: "Próximamente" },
+            { nombre: "Sumapaz", referencia: "Bogotá Sur", distancia: "30 km", desnivel: "1200 m", pendiente: "4%", dificultad: "Muy Alto", estado: "Próximamente" },
+            { nombre: "Choachí al Verjón", referencia: "Choachí", distancia: "22 km", desnivel: "1321 m", pendiente: "6%", dificultad: "Muy Alto", estado: "Próximamente" },
+            { nombre: "Yerbabuena", referencia: "Chía", distancia: "6 km", desnivel: "300 m", pendiente: "5%", dificultad: "Medio", estado: "Próximamente" },
+            { nombre: "Tribuna desde Albán", referencia: "Albán", distancia: "10 km", desnivel: "600 m", pendiente: "6%", dificultad: "Medio", estado: "Próximamente" },
+            { nombre: "Zipacón", referencia: "Zipacón", distancia: "5 km", desnivel: "400 m", pendiente: "8%", dificultad: "Medio", estado: "Próximamente" },
+            { nombre: "Mesitas al Tequendama", referencia: "Mesitas", distancia: "12 km", desnivel: "800 m", pendiente: "6.6%", dificultad: "Alto", estado: "Próximamente" },
+            { nombre: "La Cuchilla por Guasca", referencia: "Guasca", distancia: "18 km", desnivel: "1100 m", pendiente: "6.1%", dificultad: "Alto", estado: "Próximamente" },
+            { nombre: "Gran Vals", referencia: "Sabana", distancia: "125 km", desnivel: "1200 m", pendiente: "1.8%", dificultad: "Extremo", estado: "Próximamente" },
+            { nombre: "La Mesa a Mondoñedo", referencia: "La Mesa", distancia: "15 km", desnivel: "700 m", pendiente: "4.6%", dificultad: "Medio", estado: "Próximamente" },
+            { nombre: "Tequendama", referencia: "Bogotá Sur", distancia: "15 km", desnivel: "900 m", pendiente: "6%", dificultad: "Alto", estado: "Próximamente" },
+            { nombre: "Alto de Letras", referencia: "Mariquita", distancia: "80.4 km", desnivel: "3329 m", pendiente: "4.8%", dificultad: "Legendario", estado: "Próximamente" },
+            { nombre: "Alto La Línea", referencia: "Cajamarca", distancia: "20.8 km", desnivel: "1616 m", pendiente: "7.8%", dificultad: "Legendario", estado: "Próximamente" },
+            { nombre: "Alto El Sifón", referencia: "Líbano", distancia: "88.2 km", desnivel: "3800 m", pendiente: "4.3%", dificultad: "Extremo", estado: "Próximamente" },
+            { nombre: "El Crucero", referencia: "Boyacá", distancia: "100 km", desnivel: "1500 m", pendiente: "1.5%", dificultad: "Extremo", estado: "Próximamente" }
+        ];
+
+        const estilosEstado = {
+            "Activa": "border-green-800 text-green-500 bg-green-900/20",
+            "Próximamente": "border-yellow-800 text-yellow-500 bg-yellow-900/20",
+            "Cerrada": "border-red-800 text-red-500 bg-red-900/20"
+        };
+
+        const estilosDificultad = {
+            "Medio": "text-green-500",
+            "Intermedio": "text-yellow-400",
+            "Alto": "text-orange-500",
+            "Muy Alto": "text-red-500",
+            "Legendario": "text-zinc-400", 
+            "Extremo": "text-zinc-500"     
+        };
+
+        function renderizarSubidas() {
+            const contenedor = document.getElementById('subidas-container');
+            const subidasActivas = baseDeDatosSubidas; 
+
+            contenedor.innerHTML = '';
+
+            subidasActivas.forEach(subida => {
+                const claseEstado = estilosEstado[subida.estado] || "border-zinc-700 text-zinc-400 bg-zinc-900/50";
+                const claseDificultad = estilosDificultad[subida.dificultad] || "text-white";
+
+                const cardHTML = `
+                    <div class="subida-card">
+                        <div class="flex justify-between items-center w-full">
+                            <div class="flex items-center gap-1 overflow-hidden">
+                                <span class="text-[10px] shrink-0">⛰️</span>
+                                <h3 class="text-white font-bold text-[11px] leading-tight truncate-text">${subida.nombre}</h3>
+                            </div>
+                            <span class="text-[7px] font-black px-1 py-[1px] rounded border uppercase tracking-wider shrink-0 ml-1 ${claseEstado}">
+                                ${subida.estado}
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-1 text-zinc-400 text-[9px] mt-0.5">
+                            <i class="fa-solid fa-location-dot text-[8px] w-[10px] text-center"></i>
+                            <span class="truncate-text">${subida.referencia}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-x-1 gap-y-0.5 mt-1">
+                            <div class="flex items-center gap-1 text-zinc-300 text-[10px]">
+                                <span class="text-zinc-500 font-black text-[8px] w-[10px] text-center inline-block transform scale-x-150">-</span>
+                                <span class="font-medium">${subida.distancia}</span>
+                            </div>
+                            <div class="flex items-center justify-end gap-1 text-zinc-300 text-[10px]">
+                                <i class="fa-solid fa-arrow-trend-up text-[8px] text-zinc-500"></i>
+                                <span class="font-medium">${subida.desnivel}</span>
+                            </div>
+                            <div class="flex items-center gap-1 text-zinc-300 text-[10px]">
+                                <i class="fa-solid fa-angle-up text-[9px] text-zinc-500 w-[10px] text-center font-bold"></i>
+                                <span class="font-medium">${subida.pendiente}</span>
+                            </div>
+                            <div class="flex items-center justify-end gap-1 text-[9px] font-black uppercase ${claseDificultad}">
+                                <i class="fa-solid fa-medal text-[8px]"></i>
+                                <span>${subida.dificultad}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                contenedor.insertAdjacentHTML('beforeend', cardHTML);
+            });
+        }
+
+        // --- 7. LÓGICA MODAL MARCOS Y CARRITO (COMPLETA) ---
+        const modalMarcos = document.getElementById('modalMarcos');
+        const modalContent = document.getElementById('modalContent');
+        const btnMarcos = document.getElementById('btnMarcos');
+        const btnVolver = document.getElementById('btnVolver');
+        
+        const inputEntrepierna = document.getElementById('inputEntrepierna');
+        const btnCalcularTalla = document.getElementById('btnCalcular');
+        const resultadoCalculo = document.getElementById('resultadoCalculo');
+        const botonesTalla = document.querySelectorAll('.btn-talla');
+        const btnAgregarCarrito = document.getElementById('btnAgregarCarrito');
+
+        const btnDecQty = document.getElementById('btnDecQty');
+        const btnIncQty = document.getElementById('btnIncQty');
+        const qtyVal = document.getElementById('qtyVal');
+
+        // Abrir Modal
+        if (btnMarcos) {
+            btnMarcos.addEventListener('click', (e) => {
+                e.preventDefault();
+                modalMarcos.classList.remove('opacity-0', 'pointer-events-none');
+                modalContent.classList.remove('scale-95');
+                selectMarco(0); // Seleccionar por defecto el primero
+            });
+        }
+
+        // Cerrar Modal
+        if (btnVolver) {
+            btnVolver.addEventListener('click', () => {
+                modalMarcos.classList.add('opacity-0', 'pointer-events-none');
+                modalContent.classList.add('scale-95');
+            });
+        }
+
+        // Renderizar miniaturas de modelos de marco
+        function renderMarcosSelector() {
+            const container = document.getElementById('selectorModelosMarco');
+            if(!container) return;
+            container.innerHTML = '';
+
+            MARCOS_DB.forEach((marco, index) => {
+                const button = document.createElement('button');
+                button.type = "button";
+                button.className = `marco-thumb-btn flex flex-col items-center p-1.5 rounded-xl border-2 transition-all hover:bg-slate-100 ${index === selectedMarcoIndex ? 'border-brand-yellow bg-slate-50' : 'border-transparent'}`;
+                button.onclick = () => selectMarco(index);
+                button.innerHTML = `
+                    <img src="${marco.imagen}" alt="${marco.nombre}" class="w-12 h-12 object-cover rounded-lg shadow-sm border border-slate-200">
+                    <span class="text-[8px] font-black uppercase text-center truncate w-full text-gray-800 mt-1">${marco.nombre.replace('Marco ', '')}</span>
+                `;
+                container.appendChild(button);
+            });
+        }
+
+        // Cambiar marco activo en la vista
+        function selectMarco(index) {
+            selectedMarcoIndex = index;
+            const marco = MARCOS_DB[index];
+
+            // Actualizar vista previa
+            document.getElementById('marcoImagenPrevia').src = marco.imagen;
+            document.getElementById('marcoImagenPrevia').alt = marco.nombre;
+            document.getElementById('marcoNombrePrevia').innerText = marco.nombre;
+            document.getElementById('marcoPrecioPrevia').innerText = `$ ${marco.precio.toLocaleString('es-CO')}`;
+            document.getElementById('marcoDescripcionPrevia').innerText = marco.descripcion;
+
+            // Resetear cantidad
+            selectedQty = 1;
+            qtyVal.innerText = selectedQty;
+
+            // Resetear tallas
+            selectedTalla = null;
+            botonesTalla.forEach(b => {
+                b.classList.remove('bg-brand-yellow', 'text-black', 'border-black');
+                b.classList.add('bg-gray-100', 'text-gray-700');
+            });
+
+            btnAgregarCarrito.disabled = true;
+            btnAgregarCarrito.innerText = "Selecciona una talla para agregar";
+            btnAgregarCarrito.classList.add('opacity-50');
+
+            // Actualizar clases de los botones selectores
+            const thumbs = document.querySelectorAll('.marco-thumb-btn');
+            thumbs.forEach((t, i) => {
+                if(i === index) {
+                    t.classList.add('border-brand-yellow', 'bg-slate-50');
+                    t.classList.remove('border-transparent');
+                } else {
+                    t.classList.remove('border-brand-yellow', 'bg-slate-50');
+                    t.classList.add('border-transparent');
+                }
+            });
+        }
+
+        // Lógica de Selector de Cantidad
+        if(btnDecQty) {
+            btnDecQty.addEventListener('click', () => {
+                if(selectedQty > 1) {
+                    selectedQty--;
+                    qtyVal.innerText = selectedQty;
+                }
+            });
+        }
+        if(btnIncQty) {
+            btnIncQty.addEventListener('click', () => {
+                selectedQty++;
+                qtyVal.innerText = selectedQty;
+            });
+        }
+
+        // Selección de Talla
+        botonesTalla.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Limpiar todas
+                botonesTalla.forEach(b => {
+                    b.classList.remove('bg-brand-yellow', 'text-black', 'border-black');
+                    b.classList.add('bg-gray-100', 'text-gray-700');
+                });
+                // Seleccionar actual
+                btn.classList.remove('bg-gray-100', 'text-gray-700');
+                btn.classList.add('bg-brand-yellow', 'text-black', 'border-black');
+                selectedTalla = btn.getAttribute('data-talla');
+                
+                // Habilitar botón de carrito
+                btnAgregarCarrito.disabled = false;
+                btnAgregarCarrito.innerText = "Agregar al Carrito";
+                btnAgregarCarrito.classList.remove('opacity-50');
+            });
+        });
+
+        // Calculadora de Entrepierna
+        if(btnCalcularTalla) {
+            btnCalcularTalla.addEventListener('click', () => {
+                const val = parseFloat(inputEntrepierna.value);
+                if(!val || val < 50 || val > 120) {
+                    resultadoCalculo.innerText = "Por favor ingresa un valor de entrepierna válido (ej. 80)";
+                    resultadoCalculo.classList.remove('hidden');
+                    return;
+                }
+                // Fórmula genérica pista/ruta urbana: Entrepierna * 0.65
+                const tallaEstimada = Math.round(val * 0.65);
+                resultadoCalculo.innerText = `Tu talla ideal de marco es aprox: ${tallaEstimada} cm`;
+                resultadoCalculo.classList.remove('hidden');
+            });
+        }
+
+        // --- 8. ESTADO Y FUNCIONES DEL CARRITO ---
+        let cart = [];
+        const cartBadge = document.getElementById('cartBadge');
+        const cartTotal = document.getElementById('cartTotal');
+        const checkoutSubtotal = document.getElementById('checkoutSubtotal');
+        const checkoutTotal = document.getElementById('checkoutTotal');
+        const cartItemsContainer = document.getElementById('cartItemsContainer');
+        const btnCheckout = document.getElementById('btnCheckout');
+        
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.precio * item.qty), 0);
+            
+            // Actualizar Badge
+            if (totalItems > 0) {
+                cartBadge.innerText = totalItems;
+                cartBadge.classList.remove('opacity-0', 'scale-50');
+                btnCheckout.disabled = false;
+            } else {
+                cartBadge.classList.add('opacity-0', 'scale-50');
+                btnCheckout.disabled = true;
+            }
+            
+            // Actualizar Totales
+            const formattedTotal = `$ ${totalPrice.toLocaleString('es-CO')}`;
+            cartTotal.innerText = formattedTotal;
+            if(checkoutSubtotal) checkoutSubtotal.innerText = formattedTotal;
+            if(checkoutTotal) checkoutTotal.innerText = formattedTotal;
+            
+            renderCartItems();
+        }
+        
+        function renderCartItems() {
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="flex flex-col items-center justify-center h-full text-zinc-500 opacity-60 mt-10">
+                        <i class="fa-solid fa-cart-arrow-down text-4xl mb-3"></i>
+                        <p class="text-sm font-medium">Tu carrito está vacío.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            cartItemsContainer.innerHTML = '';
+            cart.forEach((item, index) => {
+                cartItemsContainer.innerHTML += `
+                    <div class="flex justify-between items-center bg-zinc-900/50 p-3 rounded-xl border border-zinc-800 mb-2">
+                        <div class="flex gap-3 items-center">
+                            <img src="${item.imagen}" class="w-12 h-12 rounded object-cover border border-zinc-700">
+                            <div>
+                                <h4 class="text-xs font-bold text-white uppercase">${item.nombre}</h4>
+                                <p class="text-[10px] text-zinc-400">Talla: <span class="text-brand-yellow font-bold">${item.talla}</span> | Cant: ${item.qty}</p>
+                                <p class="text-xs font-black text-brand-yellow mt-1">$ ${(item.precio * item.qty).toLocaleString('es-CO')}</p>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="text-zinc-500 hover:text-red-500 p-2 transition-colors" title="Eliminar">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            });
+        }
+        
+        window.removeFromCart = function(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        };
+
+        // Agregar al Carrito desde el Modal
+        if(btnAgregarCarrito) {
+            btnAgregarCarrito.addEventListener('click', () => {
+                if(!selectedTalla) return;
+                const marco = MARCOS_DB[selectedMarcoIndex];
+                
+                // Verificar si ya existe en el carrito con la misma talla
+                const existingItem = cart.find(i => i.id === marco.id && i.talla === selectedTalla);
+                if(existingItem) {
+                    existingItem.qty += selectedQty;
+                } else {
+                    cart.push({
+                        ...marco,
+                        talla: selectedTalla,
+                        qty: selectedQty
+                    });
+                }
+                
+                updateCartUI();
+                showToast('🛒 Producto agregado al carrito');
+                
+                // Cerrar modal de producto
+                modalMarcos.classList.add('opacity-0', 'pointer-events-none');
+                modalContent.classList.add('scale-95');
+                
+                // Opcional: Abrir carrito automáticamente
+                // toggleCart(true); 
+            });
+        }
+
+        // Funciones de UI para abrir/cerrar paneles de Carrito y Checkout
+        const btnOpenCart = document.getElementById('btnOpenCart');
+        const btnCloseCart = document.getElementById('btnCloseCart');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const cartOverlay = document.getElementById('cartOverlay');
+        
+        const checkoutModal = document.getElementById('checkoutModal');
+        const checkoutContent = document.getElementById('checkoutContent');
+        const btnCloseCheckout = document.getElementById('btnCloseCheckout');
+        
+        function toggleCart(show) {
+            if(show) {
+                cartSidebar.classList.remove('translate-x-full');
+                cartOverlay.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                cartSidebar.classList.add('translate-x-full');
+                cartOverlay.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+        
+        if(btnOpenCart) btnOpenCart.addEventListener('click', () => toggleCart(true));
+        if(btnCloseCart) btnCloseCart.addEventListener('click', () => toggleCart(false));
+        if(cartOverlay) cartOverlay.addEventListener('click', () => toggleCart(false));
+        
+        if(btnCheckout) {
+            btnCheckout.addEventListener('click', () => {
+                toggleCart(false); // Cerramos el sidebar del carrito
+                // Abrimos el modal de checkout
+                checkoutModal.classList.remove('opacity-0', 'pointer-events-none');
+                checkoutContent.classList.remove('scale-95');
+            });
+        }
+        
+        if(btnCloseCheckout) {
+            btnCloseCheckout.addEventListener('click', () => {
+                checkoutModal.classList.add('opacity-0', 'pointer-events-none');
+                checkoutContent.classList.add('scale-95');
+            });
+        }
+
+        // --- 9. PROCESAMIENTO DE CHECKOUT Y CORRECCIÓN WHATSAPP ---
+        const checkoutForm = document.getElementById('checkoutForm');
+        
+        if (checkoutForm) {
+            checkoutForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevenir el envío normal del formulario
+                
+                if (cart.length === 0) {
+                    showToast("Tu carrito está vacío.");
+                    return;
+                }
+                
+                // 1. Recopilar datos del formulario
+                const nombre = document.getElementById('custNombre').value.trim();
+                const apellido = document.getElementById('custApellido').value.trim();
+                const celular = document.getElementById('custCelular').value.trim();
+                const direccion = document.getElementById('custDireccion').value.trim();
+                const ciudad = document.getElementById('custCiudad').value.trim();
+                const metodoPago = document.querySelector('input[name="paymentMethod"]:checked').value;
+                
+                // 2. Construir el mensaje formateado para WhatsApp
+                let mensaje = `*NUEVO PEDIDO BOGOFIJA* 🚴‍♂️\n\n`;
+                mensaje += `*Datos del Cliente:*\n`;
+                mensaje += `Nombre: ${nombre} ${apellido}\n`;
+                mensaje += `Celular: ${celular}\n`;
+                mensaje += `Envío a: ${direccion}, ${ciudad}\n`;
+                mensaje += `Pago vía: ${metodoPago}\n\n`;
+                mensaje += `*Resumen de Compra:*\n`;
+                
+                let totalPrice = 0;
+                cart.forEach(item => {
+                    const itemTotal = item.precio * item.qty;
+                    totalPrice += itemTotal;
+                    mensaje += `▪ ${item.qty}x ${item.nombre}\n  (Talla: ${item.talla}) - $${itemTotal.toLocaleString('es-CO')}\n`;
+                });
+                
+                mensaje += `\n*Total a pagar:* $${totalPrice.toLocaleString('es-CO')}\n`;
+                mensaje += `_(Envío a convenir con el asesor)_\n\n`;
+                mensaje += `Hola, quiero confirmar mi pedido. Quedo atento/a.`;
+
+                // NÚMERO DE DESTINO (Puedes cambiar este por el oficial de la tienda)
+                // Usando un genérico +57 fijo de ejemplo, cámbialo por el real.
+                const numeroDestino = "573118113811"; 
+                
+                // 3. LA CORRECCIÓN CLAVE PARA DISPOSITIVOS MÓVILES
+                // Creamos el enlace Universal (wa.me) que funciona mejor en todas las plataformas
+                const whatsappUrl = `https://wa.me/${numeroDestino}?text=${encodeURIComponent(mensaje)}`;
+                
+                // Detectamos si el usuario está navegando desde un celular/tablet
+                const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                
+                if (isMobile) {
+                    // En móviles: Cambiamos la URL de la ventana actual. 
+                    // Esto evita el bloqueo de popups de Safari/Chrome y fuerza al SO a lanzar la App de WhatsApp.
+                    window.location.href = whatsappUrl;
+                } else {
+                    // En Computadoras: Usamos window.open para abrir WhatsApp Web cómodamente en otra pestaña.
+                    window.open(whatsappUrl, '_blank');
+                }
+                
+                // Opcional: Cerrar el modal tras enviar
+                checkoutModal.classList.add('opacity-0', 'pointer-events-none');
+                checkoutContent.classList.add('scale-95');
+                showToast("Redirigiendo a WhatsApp... 📲");
+            });
+        }
+
+        // Utilidad para mostrar notificaciones breves
+        function showToast(message) {
+            const container = document.getElementById('toastContainer');
+            if(!container) return;
+            
+            const toast = document.createElement('div');
+            toast.className = 'bg-brand-yellow text-black px-4 py-3 rounded-xl font-black text-xs shadow-2xl transform translate-y-10 opacity-0 transition-all duration-300 flex items-center gap-2 border border-yellow-400';
+            toast.innerHTML = message;
+            
+            container.appendChild(toast);
+            
+            // Animar entrada
+            setTimeout(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+            }, 10);
+            
+            // Animar salida y eliminar
+            setTimeout(() => {
+                toast.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+    </script>
+</body>
+</html>

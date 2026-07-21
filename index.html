@@ -96,7 +96,7 @@
             height: 20px;
             width: 20px;
             border-radius: 50%;
-            background: #FACC15; /* Color brand-yellow oficial */
+            background: #FACC15; 
             cursor: pointer;
             margin-top: -8px;
             box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
@@ -107,7 +107,7 @@
             width: 100%;
             height: 4px;
             cursor: pointer;
-            background: #27272a; /* bg-zinc-800 */
+            background: #27272a; 
             border-radius: 2px;
         }
 
@@ -138,7 +138,7 @@
             width: 100%;
             max-width: 190px;
             background-color: #121212;
-            border: 1px solid #27272a; /* zinc-800 */
+            border: 1px solid #27272a; 
             border-radius: 8px;
             padding: 8px 10px;
             display: flex;
@@ -149,7 +149,7 @@
         }
 
         .subida-card:hover {
-            border-color: #52525b; /* zinc-600 */
+            border-color: #52525b; 
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.6);
         }
@@ -204,7 +204,7 @@
             <a href="#calculadora" class="mobile-link text-zinc-400 hover:text-brand-yellow font-bold text-sm uppercase tracking-widest transition-colors">Calculadora</a>
             <a href="#lista-subidas" class="mobile-link text-zinc-400 hover:text-brand-yellow font-bold text-sm uppercase tracking-widest transition-colors">Rutas</a>
             <a href="#reto-vol3" class="mobile-link text-white hover:text-brand-yellow font-bold text-sm uppercase tracking-widest transition-colors"><span class="text-brand-yellow mr-1">●</span> Vol 3</a>
-            <a href="#reto-vol2" class="mobile-link text-zinc-400 hover:text-white font-bold text-sm uppercase tracking-widest transition-colors">Historial</a>
+            <a href="#reto-vol2" class="mobile-link text-zinc-400 hover:text-white transition-colors">Historial</a>
         </div>
     </header>
 
@@ -225,7 +225,6 @@
             </p>
 
             <div class="reveal w-full max-w-3xl mx-auto flex flex-col items-center gap-6 mb-10" style="transition-delay: 250ms;">
-                <!-- Contenedor horizontal para los logotipos de la familia BOGO -->
                 <div class="flex flex-wrap items-center justify-center gap-6 md:gap-8">
                     <a href="https://www.instagram.com/bogofija/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all">
                         <img src="https://i.ibb.co/99R1NsRX/Logo-Bogofija-2021.png" alt="Bogofija" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
@@ -247,7 +246,6 @@
                     </a>
                 </div>
 
-                <!-- Grupo salidas WhatsApp -->
                 <div>
                     <a href="https://chat.whatsapp.com/KAckgvLp521D4vt3FeP37U" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-6 py-3 bg-[#25D366] hover:bg-[#20bd5a] text-black font-extrabold text-sm rounded-full transition-all transform hover:scale-105 shadow-lg shadow-[#25D366]/10">
                         <i class="fa-brands fa-whatsapp text-lg"></i>
@@ -270,16 +268,17 @@
                 
                 <!-- grid de productos actualizado -->
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 reveal" style="transition-delay: 100ms;">
-                    <!-- Botón Modificado: Marcos abre Modal con selector -->
+                    <!-- Botón Modificado: Marcos abre Modal -->
                     <button type="button" id="btnMarcos" class="glass-card hover:bg-blue-600/20 p-6 rounded-2xl flex flex-col items-center text-center group focus:outline-none w-full">
                         <span class="text-3xl mb-3 group-hover:scale-110 transition-transform">🚴</span>
                         <h3 class="font-black text-[10px] uppercase tracking-widest text-zinc-300 group-hover:text-white">Marcos</h3>
                     </button>
                     
-                    <a href="https://bogofija.catalog.kyte.site/" target="_blank" class="glass-card hover:bg-green-600/20 p-6 rounded-2xl flex flex-col items-center text-center group">
+                    <!-- Botón Modificado: Jersey abre Modal con vista Frontal/Trasera -->
+                    <button type="button" id="btnJersey" class="glass-card hover:bg-green-600/20 p-6 rounded-2xl flex flex-col items-center text-center group focus:outline-none w-full">
                         <span class="text-3xl mb-3 group-hover:scale-110 transition-transform">👕</span>
                         <h3 class="font-black text-[10px] uppercase tracking-widest text-zinc-300 group-hover:text-white">Jersey</h3>
-                    </a>
+                    </button>
                     
                     <a href="https://aagoshoes.netlify.app/" target="_blank" class="glass-card hover:bg-teal-600/20 p-6 rounded-2xl flex flex-col items-center justify-center text-center group">
                         <img src="https://i.ibb.co/qFXjywhR/aagoshoes-logo.png" alt="aagoshoes-logo" class="h-8 w-auto object-contain mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]" />
@@ -310,18 +309,15 @@
             </div>
         </section>
 
-        <!-- VENTANA SUB-VENTANA (MODAL SUPERPUESTO PARA MARCOS ACTUALIZADO) -->
+        <!-- VENTANA SUB-VENTANA (MODAL SUPERPUESTO PARA MARCOS) -->
         <div id="modalMarcos" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
-            <!-- Contenedor del Modal -->
             <div class="bg-white text-gray-900 rounded-[30px] max-w-sm w-full shadow-2xl border border-gray-100 flex flex-col relative max-h-[90vh] overflow-y-auto scrollbar-hide transform scale-95 transition-transform duration-300" id="modalContent">
                 
-                <!-- BOTÓN VOLVER / CERRAR -->
                 <button id="btnVolver" class="absolute top-4 left-4 z-30 bg-gray-900/80 backdrop-blur-md text-white font-bold px-4 py-2 rounded-full text-xs uppercase tracking-wider hover:bg-brand-yellow hover:text-black transition-colors flex items-center gap-1 shadow-md">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
                     Volver
                 </button>
 
-                <!-- IMAGEN Y ETIQUETAS DEL MARCO -->
                 <div class="relative overflow-hidden aspect-square bg-gray-50 flex items-center justify-center p-6 mt-12">
                     <img id="marcoImagenPrevia" src="https://i.ibb.co/r282NKDQ/marco-bogofija-negra.png" alt="Marco Fixie Track" class="w-full h-full object-cover rounded-2xl relative z-10 shadow-lg transition-all duration-300" />
                     
@@ -334,7 +330,6 @@
                     </div>
                 </div>
                 
-                <!-- CUERPO DE LA TARJETA -->
                 <div class="p-6 flex-1 flex flex-col justify-between bg-white text-left">
                     <div>
                         <div class="flex justify-between items-start mb-3 gap-3">
@@ -349,7 +344,6 @@
                             Aluminio ultra liviano 6061, soldadura lisa y geometría de pista perfecta para la ciudad.
                         </p>
 
-                        <!-- NUEVO: SELECTOR DE DISEÑO DE MARCO -->
                         <div class="mb-4 bg-slate-50 p-3 rounded-2xl border border-slate-150">
                             <p class="text-[10px] font-black text-gray-800 uppercase tracking-widest mb-2 flex items-center gap-1">
                                 🎨 Modelo de Marco
@@ -359,7 +353,6 @@
                             </div>
                         </div>
 
-                        <!-- CALCULADORA MATEMÁTICA INTERACTIVA -->
                         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 mb-4">
                             <p class="text-xs font-black text-gray-800 uppercase tracking-widest mb-2 flex items-center gap-1">
                                 📐 ¿No sabes tu talla? Calcúlala aquí
@@ -371,7 +364,6 @@
                             <p id="resultadoCalculo" class="text-xs text-black bg-brand-yellow/20 p-2 rounded-lg font-bold hidden border border-brand-yellow/50 mt-2"></p>
                         </div>
 
-                        <!-- SELECCIÓN DE TALLAS COMERCIALES -->
                         <p class="text-xs font-black text-gray-800 uppercase tracking-widest mb-2">Selecciona la talla del Marco</p>
                         <div class="flex flex-wrap gap-2 mb-4 max-h-[110px] overflow-y-auto scrollbar-hide" id="contenedorTallas">
                             <button class="btn-talla flex-1 min-w-[55px] h-10 rounded-xl text-xs font-bold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="XXS" data-cm="46-48">XXS (48)</button>
@@ -382,7 +374,6 @@
                             <button class="btn-talla flex-1 min-w-[55px] h-10 rounded-xl text-xs font-bold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="XL" data-cm="57-58">XL (58)</button>
                         </div>
 
-                        <!-- NUEVO: SELECTOR DE CANTIDAD -->
                         <div class="flex items-center justify-between bg-slate-50 p-4 rounded-2xl border border-slate-200 mb-6">
                             <span class="text-xs font-black text-gray-800 uppercase tracking-widest">Cantidad</span>
                             <div class="flex items-center gap-2">
@@ -393,8 +384,100 @@
                         </div>
                     </div>
                     
-                    <!-- BOTÓN DE COMPRA -->
                     <button id="btnAgregarCarrito" class="w-full bg-gray-900 text-white py-4 rounded-xl text-sm font-bold hover:bg-brand-yellow hover:text-black transition-colors shadow-lg active:scale-95 disabled:opacity-50 disabled:pointer-events-none" disabled>
+                        Selecciona una talla para agregar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- NUEVA VENTANA SUB-VENTANA (MODAL SUPERPUESTO PARA JERSEY BOGOFIJA) -->
+        <div id="modalJersey" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+            <div class="bg-white text-gray-900 rounded-[30px] max-w-sm w-full shadow-2xl border border-gray-100 flex flex-col relative max-h-[90vh] overflow-y-auto scrollbar-hide transform scale-95 transition-transform duration-300" id="modalJerseyContent">
+                
+                <!-- BOTÓN VOLVER / CERRAR -->
+                <button id="btnVolverJersey" class="absolute top-4 left-4 z-30 bg-gray-900/80 backdrop-blur-md text-white font-bold px-4 py-2 rounded-full text-xs uppercase tracking-wider hover:bg-brand-yellow hover:text-black transition-colors flex items-center gap-1 shadow-md">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+                    Volver
+                </button>
+
+                <!-- IMAGEN Y CONTROLES VISTA FRENTE / ATRÁS -->
+                <div class="relative overflow-hidden aspect-square bg-slate-100 flex items-center justify-center p-4 mt-12 group">
+                    <img id="jerseyImagenPrevia" src="https://i.ibb.co/ZpxYPSPZ/Jersey-Bogofija.jpg" alt="Jersey Bogofija" class="w-full h-full object-contain rounded-2xl relative z-10 shadow-md transition-all duration-300" />
+                    
+                    <!-- Badges superiores -->
+                    <div class="absolute top-3 right-3 flex flex-col gap-1 z-20">
+                        <span class="bg-black/90 backdrop-blur-sm text-brand-yellow text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow">Pro Kit 2026</span>
+                    </div>
+
+                    <!-- SELECTOR INTERACTIVO VISTA FRONTAL / TRASERA -->
+                    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 bg-black/80 backdrop-blur-md p-1 rounded-full border border-white/10 flex gap-1 shadow-lg">
+                        <button type="button" id="btnVistaFrente" class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase transition-all bg-brand-yellow text-black">
+                            <i class="fa-solid fa-eye mr-1"></i> Frente
+                        </button>
+                        <button type="button" id="btnVistaAtras" class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase transition-all text-white hover:text-brand-yellow">
+                            Atrás <i class="fa-solid fa-rotate-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- CUERPO DE LA TARJETA JERSEY -->
+                <div class="p-6 flex-1 flex flex-col justify-between bg-white text-left">
+                    <div>
+                        <div class="flex justify-between items-start mb-2 gap-2">
+                            <div>
+                                <span class="text-[9px] font-black uppercase text-green-600 tracking-widest block">Edición Oficial</span>
+                                <h3 class="font-extrabold text-lg text-gray-900 leading-tight">
+                                    Maillot & Culotte Bogofija
+                                </h3>
+                            </div>
+                            <span class="font-black text-black bg-brand-yellow px-2 py-1 rounded-lg text-lg whitespace-nowrap shadow-sm">
+                                $ 280.000
+                            </span>
+                        </div>
+
+                        <!-- Detalle técnico fotorrealista -->
+                        <div class="bg-gray-50 border border-gray-200/80 rounded-2xl p-3.5 mb-4 text-xs text-gray-600 space-y-2">
+                            <p class="leading-relaxed font-medium">
+                                Base blanca minimalista con fino patrón geométrico de cuadrícula abstracta. Texto <strong class="text-black">«BOGOFIJA»</strong> centrado en el pecho y escrito verticalmente a lo largo de la columna vertebral.
+                            </p>
+                            <div class="grid grid-cols-2 gap-2 text-[10px] font-bold text-gray-700 pt-1 border-t border-gray-200/60">
+                                <span class="flex items-center gap-1.5"><i class="fa-solid fa-shirt text-brand-yellow"></i> Textil Microperforado</span>
+                                <span class="flex items-center gap-1.5"><i class="fa-solid fa-sun text-brand-yellow"></i> Protección UV50+</span>
+                                <span class="flex items-center gap-1.5"><i class="fa-solid fa-wind text-brand-yellow"></i> Ajuste Aerodinámico</span>
+                                <span class="flex items-center gap-1.5"><i class="fa-solid fa-arrows-spin text-brand-yellow"></i> Badana HD 120kg</span>
+                            </div>
+                        </div>
+
+                        <!-- GUÍA DE TALLAS JERSEY -->
+                        <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 mb-4">
+                            <p class="text-xs font-black text-gray-800 uppercase tracking-widest mb-2 flex items-center gap-1">
+                                📏 Selecciona la talla del Jersey
+                            </p>
+                            <div class="flex flex-wrap gap-1.5" id="contenedorTallasJersey">
+                                <button type="button" class="btn-talla-jersey flex-1 min-w-[45px] h-9 rounded-xl text-xs font-extrabold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="XS">XS</button>
+                                <button type="button" class="btn-talla-jersey flex-1 min-w-[45px] h-9 rounded-xl text-xs font-extrabold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="S">S</button>
+                                <button type="button" class="btn-talla-jersey flex-1 min-w-[45px] h-9 rounded-xl text-xs font-extrabold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="M">M</button>
+                                <button type="button" class="btn-talla-jersey flex-1 min-w-[45px] h-9 rounded-xl text-xs font-extrabold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="L">L</button>
+                                <button type="button" class="btn-talla-jersey flex-1 min-w-[45px] h-9 rounded-xl text-xs font-extrabold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="XL">XL</button>
+                                <button type="button" class="btn-talla-jersey flex-1 min-w-[45px] h-9 rounded-xl text-xs font-extrabold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="XXL">XXL</button>
+                            </div>
+                        </div>
+
+                        <!-- SELECTOR DE CANTIDAD JERSEY -->
+                        <div class="flex items-center justify-between bg-slate-50 p-3.5 rounded-2xl border border-slate-200 mb-5">
+                            <span class="text-xs font-black text-gray-800 uppercase tracking-widest">Cantidad</span>
+                            <div class="flex items-center gap-2">
+                                <button type="button" id="btnDecQtyJersey" class="w-8 h-8 rounded-xl bg-gray-200 text-gray-850 font-black hover:bg-brand-yellow hover:text-black transition-colors flex items-center justify-center">-</button>
+                                <span id="qtyValJersey" class="font-extrabold text-sm text-gray-900 w-8 text-center">1</span>
+                                <button type="button" id="btnIncQtyJersey" class="w-8 h-8 rounded-xl bg-gray-200 text-gray-850 font-black hover:bg-brand-yellow hover:text-black transition-colors flex items-center justify-center">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- BOTÓN DE COMPRA JERSEY -->
+                    <button id="btnAgregarCarritoJersey" class="w-full bg-gray-900 text-white py-4 rounded-xl text-sm font-bold hover:bg-brand-yellow hover:text-black transition-colors shadow-lg active:scale-95 disabled:opacity-50 disabled:pointer-events-none" disabled>
                         Selecciona una talla para agregar
                     </button>
                 </div>
@@ -416,7 +499,6 @@
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                     
-                    <!-- Panel de controles -->
                     <div class="lg:col-span-5 glass-card p-8 rounded-3xl relative overflow-hidden reveal">
                         <div class="absolute top-0 right-0 w-32 h-32 bg-brand-yellow/10 blur-2xl rounded-bl-full pointer-events-none"></div>
 
@@ -479,7 +561,6 @@
                         </div>
                     </div>
 
-                    <!-- Panel de resultados -->
                     <div class="lg:col-span-7 flex flex-col gap-6 reveal" style="transition-delay: 200ms;">
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -529,7 +610,6 @@
                             </div>
                         </div>
 
-                        <!-- Recomendación de Puerto Dinámica -->
                         <div id="port-recommendation" class="hidden bg-red-500/10 border border-red-500/30 p-5 rounded-2xl items-start gap-4 transition-all">
                             <div class="bg-red-500 p-2.5 rounded-xl text-black shadow-lg shadow-red-500/20">
                                 <i class="fa-solid fa-triangle-exclamation text-lg"></i>
@@ -555,19 +635,15 @@
                     <p class="text-zinc-500 text-sm max-w-2xl mx-auto font-medium mt-3">Base de datos dinámica con las rutas oficiales. Solo se muestran las subidas que se encuentran activas en el reto actual.</p>
                 </div>
                 
-                <!-- Contenedor inyectado por JS -->
                 <div id="subidas-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 justify-items-center reveal" style="transition-delay: 100ms;">
-                    <!-- Cards se renderizan aquí mediante JavaScript -->
                 </div>
             </div>
         </section>
 
         <section id="reto-vol3" class="py-24 px-4 sm:px-6 lg:px-8 bg-black relative border-t border-zinc-900">
-            <!-- Background Accent -->
             <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-yellow-500/5 to-transparent pointer-events-none"></div>
 
             <div class="max-w-7xl mx-auto relative z-10">
-                <!-- Título -->
                 <div class="text-center mb-14 reveal">
                     <div class="inline-flex items-center px-4 py-1.5 mb-6 rounded-full bg-zinc-900 border border-brand-yellow/30 text-xs font-bold uppercase tracking-widest text-brand-yellow animate-pulse">
                         <span class="w-2 h-2 rounded-full bg-brand-yellow mr-2"></span> Próximo Evento
@@ -582,7 +658,6 @@
                     </p>
                 </div>
 
-                <!-- Cuenta Regresiva & Avisos -->
                 <div class="max-w-4xl mx-auto mb-16 reveal">
                     <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6 md:p-8 shadow-2xl mb-6 relative overflow-hidden backdrop-blur-md">
                         <div class="absolute top-0 left-0 w-2 h-full bg-brand-yellow"></div>
@@ -594,7 +669,6 @@
                                 </h3>
                                 <p class="text-zinc-500 text-xs mt-1">Lanzamiento programado: 21 de febrero de 2027</p>
                             </div>
-                            <!-- Reloj -->
                             <div class="grid grid-cols-4 gap-3 text-center">
                                 <div class="bg-black/60 rounded-xl p-3 min-w-[70px] border border-zinc-800">
                                     <span id="days" class="block text-2xl md:text-3xl font-black text-brand-yellow">--</span>
@@ -616,7 +690,6 @@
                         </div>
                     </div>
 
-                    <!-- Controlador Simulación -->
                     <div class="flex flex-wrap gap-4 items-center justify-between p-4 bg-zinc-900/40 rounded-xl border border-zinc-800/60 text-xs">
                         <span class="text-zinc-400 flex items-center">
                             <i class="fa-solid fa-code text-brand-yellow mr-2"></i>
@@ -628,9 +701,7 @@
                     </div>
                 </div>
 
-                <!-- Columnas de Ranking Vol 3 -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20 reveal">
-                    <!-- Piñón Fijo Vol 3 -->
                     <div class="bg-zinc-950 border border-zinc-850 rounded-3xl p-6 flex flex-col shadow-xl">
                         <div class="flex justify-between items-center mb-6 pb-4 border-b border-zinc-800">
                             <div class="flex items-center space-x-3">
@@ -642,7 +713,6 @@
                         <div class="space-y-3" id="col-v3-pinon"></div>
                     </div>
 
-                    <!-- Ruta Hombre Vol 3 -->
                     <div class="bg-zinc-950 border border-zinc-850 rounded-3xl p-6 flex flex-col shadow-xl">
                         <div class="flex justify-between items-center mb-6 pb-4 border-b border-zinc-800">
                             <div class="flex items-center space-x-3">
@@ -654,7 +724,6 @@
                         <div class="space-y-3" id="col-v3-ruta-h"></div>
                     </div>
 
-                    <!-- Ruta Mujer Vol 3 -->
                     <div class="bg-zinc-950 border border-zinc-850 rounded-3xl p-6 flex flex-col shadow-xl">
                         <div class="flex justify-between items-center mb-6 pb-4 border-b border-zinc-800">
                             <div class="flex items-center space-x-3">
@@ -754,7 +823,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 relative reveal" style="transition-delay: 100ms;">
-                    <!-- Se llenan por JS con estilo Legacy/Archived -->
                     <div id="col-v2-pinon"></div>
                     <div id="col-v2-ruta-h"></div>
                     <div id="col-v2-ruta-m"></div>
@@ -770,7 +838,6 @@
                     <i class="fa-brands fa-instagram text-2xl"></i> @BOGOFIJA
                 </a>
             </div>
-            <!-- Decals bg -->
             <i class="fa-solid fa-bicycle absolute -right-10 -bottom-10 text-[200px] text-black/10 -rotate-12 pointer-events-none"></i>
         </section>
 
@@ -806,11 +873,10 @@
             </div>
         </div>
 
-        <!-- NUEVO: MODAL DE CHECKOUT PREMIUM -->
+        <!-- MODAL DE CHECKOUT PREMIUM -->
         <div id="checkoutModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[120] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
             <div class="bg-zinc-950 text-white rounded-[30px] max-w-md w-full border border-zinc-800 shadow-2xl flex flex-col relative max-h-[90vh] overflow-y-auto scrollbar-hide transform scale-95 transition-transform duration-300" id="checkoutContent">
                 
-                <!-- Cabecera de Checkout -->
                 <div class="p-6 border-b border-zinc-900 flex justify-between items-center bg-black/50 sticky top-0 backdrop-blur-md z-10">
                     <h3 class="font-black text-lg uppercase tracking-wider text-white flex items-center gap-2">
                         <i class="fa-solid fa-file-invoice text-brand-yellow"></i> Datos de Envío
@@ -820,37 +886,35 @@
                     </button>
                 </div>
                 
-                <!-- Formulario -->
                 <form id="checkoutForm" class="p-6 space-y-4">
                     <div class="grid grid-cols-2 gap-3">
                         <div class="space-y-1">
-                            <label class="text-[9px] font-bold uppercase tracking-wider text-zinc-450">Nombre *</label>
+                            <label class="text-[9px] font-bold uppercase tracking-wider text-zinc-400">Nombre *</label>
                             <input type="text" id="custNombre" required class="w-full bg-zinc-900/60 border border-zinc-800 text-white text-xs rounded-xl focus:ring-1 focus:ring-brand-yellow focus:border-brand-yellow p-3 outline-none transition-all" placeholder="Ej. Sneyder">
                         </div>
                         <div class="space-y-1">
-                            <label class="text-[9px] font-bold uppercase tracking-wider text-zinc-450">Apellido *</label>
+                            <label class="text-[9px] font-bold uppercase tracking-wider text-zinc-400">Apellido *</label>
                             <input type="text" id="custApellido" required class="w-full bg-zinc-900/60 border border-zinc-800 text-white text-xs rounded-xl focus:ring-1 focus:ring-brand-yellow focus:border-brand-yellow p-3 outline-none transition-all" placeholder="Ej. Riaño">
                         </div>
                     </div>
                     
                     <div class="space-y-1">
-                        <label class="text-[9px] font-bold uppercase tracking-wider text-zinc-450">Celular *</label>
+                        <label class="text-[9px] font-bold uppercase tracking-wider text-zinc-400">Celular *</label>
                         <input type="tel" id="custCelular" required class="w-full bg-zinc-900/60 border border-zinc-800 text-white text-xs rounded-xl focus:ring-1 focus:ring-brand-yellow focus:border-brand-yellow p-3 outline-none transition-all" placeholder="Ej. 3110000000">
                     </div>
 
                     <div class="space-y-1">
-                        <label class="text-[9px] font-bold uppercase tracking-wider text-zinc-450">Dirección *</label>
+                        <label class="text-[9px] font-bold uppercase tracking-wider text-zinc-400">Dirección *</label>
                         <input type="text" id="custDireccion" required class="w-full bg-zinc-900/60 border border-zinc-800 text-white text-xs rounded-xl focus:ring-1 focus:ring-brand-yellow focus:border-brand-yellow p-3 outline-none transition-all" placeholder="Ej. Cra 68 B 10-29">
                     </div>
 
                     <div class="space-y-1">
-                        <label class="text-[9px] font-bold uppercase tracking-wider text-zinc-450">Ciudad *</label>
+                        <label class="text-[9px] font-bold uppercase tracking-wider text-zinc-400">Ciudad *</label>
                         <input type="text" id="custCiudad" required class="w-full bg-zinc-900/60 border border-zinc-800 text-white text-xs rounded-xl focus:ring-1 focus:ring-brand-yellow focus:border-brand-yellow p-3 outline-none transition-all" placeholder="Ej. Bogotá">
                     </div>
 
-                    <!-- Selección de Pago -->
                     <div class="space-y-2">
-                        <label class="text-[9px] font-bold uppercase tracking-wider text-zinc-450 block">Método de Pago *</label>
+                        <label class="text-[9px] font-bold uppercase tracking-wider text-zinc-400 block">Método de Pago *</label>
                         <div class="grid grid-cols-2 gap-2">
                             <label class="flex items-center gap-2 p-2.5 bg-zinc-900/40 border border-zinc-800 rounded-xl cursor-pointer hover:border-brand-yellow/30 transition-colors">
                                 <input type="radio" name="paymentMethod" value="Nequi" checked class="accent-brand-yellow">
@@ -871,7 +935,6 @@
                         </div>
                     </div>
 
-                    <!-- Resumen del Pedido -->
                     <div class="bg-zinc-900/80 p-4 rounded-2xl border border-zinc-800/80 mt-2">
                         <div class="flex justify-between items-center text-xs text-zinc-400 mb-1">
                             <span>Subtotal</span>
@@ -881,13 +944,12 @@
                             <span>Envío</span>
                             <span class="font-bold text-green-500">A Convenir</span>
                         </div>
-                        <div class="flex justify-between items-center border-t border-zinc-850 pt-2">
-                            <span class="text-xs font-bold uppercase text-zinc-350">Total General</span>
+                        <div class="flex justify-between items-center border-t border-zinc-800 pt-2">
+                            <span class="text-xs font-bold uppercase text-zinc-300">Total General</span>
                             <span id="checkoutTotal" class="text-brand-yellow text-lg font-black">$ 0</span>
                         </div>
                     </div>
 
-                    <!-- Botón Enviar WhatsApp -->
                     <button type="submit" class="w-full bg-[#25D366] text-black font-black py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-[#20bd5a] transition-all transform hover:scale-[1.01] shadow-[0_0_15px_rgba(37,211,102,0.2)]">
                         <i class="fa-brands fa-whatsapp text-lg"></i>
                         Confirmar vía WhatsApp
@@ -896,13 +958,11 @@
             </div>
         </div>
 
-        <!-- Contenedor de Notificaciones (Toasts) -->
         <div id="toastContainer" class="fixed bottom-4 right-4 z-[120] flex flex-col gap-2 pointer-events-none"></div>
 
     </main>
 
     <footer class="py-12 px-6 bg-black border-t border-zinc-900 text-center relative z-10">
-        <!-- Contenedor horizontal para los logotipos de la familia BOGO -->
         <div class="flex flex-wrap items-center justify-center gap-6 md:gap-8 mb-8 max-w-3xl mx-auto">
             <a href="https://www.instagram.com/bogofija/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all">
                 <img src="https://i.ibb.co/99R1NsRX/Logo-Bogofija-2021.png" alt="Bogofija" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
@@ -924,11 +984,9 @@
             </a>
         </div>
         
-        <!-- Ubicación y Correo -->
         <p class="text-zinc-500 text-sm mb-2 font-medium">Bogotá, Colombia</p>
         <a href="mailto:bogopublica@gmail.com" class="text-zinc-300 hover:text-brand-yellow font-bold block mb-8 transition-colors">bogopublica@gmail.com</a>
         
-        <!-- PRINCIPAL: Grupo salidas WhatsApp -->
         <div class="mb-8">
             <a href="https://chat.whatsapp.com/KAckgvLp521D4vt3FeP37U" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-6 py-3 bg-[#25D366] hover:bg-[#20bd5a] text-black font-extrabold text-sm rounded-full transition-all transform hover:scale-105 shadow-lg shadow-[#25D366]/10">
                 <i class="fa-brands fa-whatsapp text-lg"></i>
@@ -936,7 +994,6 @@
             </a>
         </div>
 
-        <!-- REDES SOCIALES -->
         <div class="flex justify-center items-center gap-6 mb-8">
             <a href="https://www.tiktok.com/@bogofija" target="_blank" rel="noopener noreferrer" class="text-zinc-600 hover:text-white text-xl transition-colors" aria-label="TikTok">
                 <i class="fa-brands fa-tiktok"></i>
@@ -952,25 +1009,21 @@
             </a>
         </div>
         
-        <!-- Copyright -->
         <p class="text-zinc-700 text-[10px] font-bold tracking-widest uppercase">&copy; 2021 by BOGOFIJA</p>
     </footer>
 
     <script>
-        
-        // --- 0. MENÚ MÓVIL (Lógica Agregada) ---
+        // --- 0. MENÚ MÓVIL ---
         const btnMobileMenu = document.getElementById('btnMobileMenu');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
         const iconMenu = btnMobileMenu?.querySelector('i');
 
         if (btnMobileMenu && mobileMenu) {
-            // Abrir y cerrar tocando el botón
             btnMobileMenu.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
                 mobileMenu.classList.toggle('flex');
                 
-                // Cambiar el icono visual
                 if (mobileMenu.classList.contains('flex')) {
                     iconMenu.classList.remove('fa-bars');
                     iconMenu.classList.add('fa-xmark');
@@ -980,7 +1033,6 @@
                 }
             });
 
-            // Cerrar menú automáticamente cuando se selecciona una opción
             mobileLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenu.classList.add('hidden');
@@ -991,7 +1043,7 @@
             });
         }
 
-        // --- 1. ANIMACIONES SCROLL (Intersection Observer) ---
+        // --- 1. ANIMACIONES SCROLL ---
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -1005,15 +1057,18 @@
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
             
-            // Inicializar vistas
             renderVol3Leaderboards();
             renderVol2History();
-            updateCalculator(); // Inicializar calculadora
-            renderizarSubidas(); // Inicializar lista de rutas
-            renderMarcosSelector(); // Inicializar selector de marcos en modal
+            updateCalculator(); 
+            renderizarSubidas(); 
+            renderMarcosSelector(); 
+            initModalMarcosHandlers();
+            initModalJerseyHandlers();
+            initCartAndCheckout();
         });
 
-        // --- BASE DE DATOS DE MARCOS EDITABLE ---
+        // --- STREAMING_CHUNK:Configuring databases for Marcos and Jerseys... ---
+        // BASE DE DATOS DE MARCOS
         const MARCOS_DB = [
             {
                 id: "marco-negro",
@@ -1038,11 +1093,424 @@
             }
         ];
 
-        let selectedMarcoIndex = 0;
-        let selectedQty = 1;
-        let selectedTalla = null;
+        // DATOS DEL JERSEY BOGOFIJA
+        const JERSEY_DATA = {
+            id: "jersey-bogofija-pro",
+            nombre: "Maillot & Culotte Bogofija (Kit)",
+            precio: 280000,
+            vistaFrente: "https://i.ibb.co/ZpxYPSPZ/Jersey-Bogofija.jpg",
+            vistaAtras: "https://i.ibb.co/3yVv4XZz/Jersey-Bogofija.jpg",
+            descripcion: "Maqueta a juego de maillot y culotte de ciclismo con base blanca minimalista y sutil patrón geométrico de finas líneas negras. «BOGOFIJA» en el pecho y escrito verticalmente en la columna."
+        };
 
-        // --- 2. LÓGICA CALCULADORA DE RENDIMIENTO ---
+        // ESTADO GLOBAL DE CARRITO Y MODALES
+        let shoppingCart = [];
+        let selectedMarcoIndex = 0;
+        let selectedMarcoQty = 1;
+        let selectedMarcoTalla = null;
+
+        let selectedJerseyQty = 1;
+        let selectedJerseyTalla = null;
+        let currentJerseyView = 'frente'; // 'frente' | 'atras'
+
+        // --- STREAMING_CHUNK:Defining modal logic for Marcos and size calculation... ---
+        function renderMarcosSelector() {
+            const container = document.getElementById('selectorModelosMarco');
+            if (!container) return;
+            container.innerHTML = '';
+
+            MARCOS_DB.forEach((m, idx) => {
+                const isSelected = idx === selectedMarcoIndex;
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `p-1.5 rounded-xl border flex flex-col items-center transition-all ${isSelected ? 'border-brand-yellow bg-brand-yellow/10 ring-2 ring-brand-yellow/30' : 'border-gray-200 bg-white hover:border-gray-300'}`;
+                btn.onclick = () => selectMarcoModel(idx);
+
+                btn.innerHTML = `
+                    <img src="${m.imagen}" alt="${m.nombre}" class="w-12 h-12 object-cover rounded-lg mb-1">
+                    <span class="text-[9px] font-extrabold text-gray-800 truncate max-w-[80px]">${m.nombre.replace('Marco ', '')}</span>
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        function selectMarcoModel(index) {
+            selectedMarcoIndex = index;
+            const item = MARCOS_DB[index];
+            
+            document.getElementById('marcoImagenPrevia').src = item.imagen;
+            document.getElementById('marcoNombrePrevia').innerText = item.nombre;
+            document.getElementById('marcoPrecioPrevia').innerText = `$ ${item.precio.toLocaleString('es-CO')}`;
+            document.getElementById('marcoDescripcionPrevia').innerText = item.descripcion;
+
+            renderMarcosSelector();
+        }
+
+        function initModalMarcosHandlers() {
+            const btnMarcos = document.getElementById('btnMarcos');
+            const modalMarcos = document.getElementById('modalMarcos');
+            const btnVolver = document.getElementById('btnVolver');
+            const contenedorTallas = document.getElementById('contenedorTallas');
+            const btnAgregar = document.getElementById('btnAgregarCarrito');
+
+            if (!btnMarcos || !modalMarcos) return;
+
+            btnMarcos.onclick = () => {
+                modalMarcos.classList.remove('opacity-0', 'pointer-events-none');
+                modalMarcos.querySelector('#modalContent').classList.remove('scale-95');
+                modalMarcos.querySelector('#modalContent').classList.add('scale-100');
+            };
+
+            const closeModal = () => {
+                modalMarcos.classList.add('opacity-0', 'pointer-events-none');
+                modalMarcos.querySelector('#modalContent').classList.remove('scale-100');
+                modalMarcos.querySelector('#modalContent').classList.add('scale-95');
+            };
+
+            btnVolver.onclick = closeModal;
+
+            // Selector Tallas Marcos
+            if (contenedorTallas) {
+                contenedorTallas.querySelectorAll('.btn-talla').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        contenedorTallas.querySelectorAll('.btn-talla').forEach(b => {
+                            b.classList.remove('bg-brand-yellow', 'text-black', 'ring-2', 'ring-brand-yellow/50');
+                            b.classList.add('bg-gray-100', 'text-gray-700');
+                        });
+
+                        btn.classList.remove('bg-gray-100', 'text-gray-700');
+                        btn.classList.add('bg-brand-yellow', 'text-black', 'ring-2', 'ring-brand-yellow/50');
+
+                        selectedMarcoTalla = btn.dataset.talla;
+                        btnAgregar.disabled = false;
+                        btnAgregar.innerText = `Agregar ${selectedMarcoTalla} al Carrito`;
+                    });
+                });
+            }
+
+            // Calculadora de Entrepierna
+            const btnCalcular = document.getElementById('btnCalcular');
+            const inputEntrepierna = document.getElementById('inputEntrepierna');
+            const resultadoCalculo = document.getElementById('resultadoCalculo');
+
+            if (btnCalcular && inputEntrepierna && resultadoCalculo) {
+                btnCalcular.onclick = () => {
+                    const val = parseFloat(inputEntrepierna.value);
+                    if (!val || val < 50 || val > 120) {
+                        resultadoCalculo.classList.remove('hidden');
+                        resultadoCalculo.innerText = "Por favor ingresa tu entrepierna en cm (ej: 78 cm).";
+                        return;
+                    }
+                    const tallaCalculada = Math.round(val * 0.67);
+                    resultadoCalculo.classList.remove('hidden');
+                    resultadoCalculo.innerHTML = `Tu talla recomendada es: <strong>${tallaCalculada} cm</strong>`;
+                };
+            }
+
+            // Cantidad Marcos
+            document.getElementById('btnDecQty').onclick = () => {
+                if (selectedMarcoQty > 1) {
+                    selectedMarcoQty--;
+                    document.getElementById('qtyVal').innerText = selectedMarcoQty;
+                }
+            };
+            document.getElementById('btnIncQty').onclick = () => {
+                selectedMarcoQty++;
+                document.getElementById('qtyVal').innerText = selectedMarcoQty;
+            };
+
+            // Agregar al Carrito
+            btnAgregar.onclick = () => {
+                if (!selectedMarcoTalla) return;
+                const marco = MARCOS_DB[selectedMarcoIndex];
+                addToCart({
+                    id: `${marco.id}-${selectedMarcoTalla}`,
+                    title: `${marco.nombre} (Talla ${selectedMarcoTalla})`,
+                    price: marco.precio,
+                    qty: selectedMarcoQty,
+                    imagen: marco.imagen,
+                    meta: `Talla: ${selectedMarcoTalla}`
+                });
+                closeModal();
+                showToast(`¡${marco.nombre} agregado al carrito!`);
+            };
+        }
+
+        // --- STREAMING_CHUNK:Defining Jersey modal interactive handlers and view toggles... ---
+        function initModalJerseyHandlers() {
+            const btnJersey = document.getElementById('btnJersey');
+            const modalJersey = document.getElementById('modalJersey');
+            const btnVolverJersey = document.getElementById('btnVolverJersey');
+            const btnVistaFrente = document.getElementById('btnVistaFrente');
+            const btnVistaAtras = document.getElementById('btnVistaAtras');
+            const jerseyImagenPrevia = document.getElementById('jerseyImagenPrevia');
+            const contenedorTallasJersey = document.getElementById('contenedorTallasJersey');
+            const btnAgregarCarritoJersey = document.getElementById('btnAgregarCarritoJersey');
+
+            if (!btnJersey || !modalJersey) return;
+
+            btnJersey.onclick = () => {
+                modalJersey.classList.remove('opacity-0', 'pointer-events-none');
+                modalJersey.querySelector('#modalJerseyContent').classList.remove('scale-95');
+                modalJersey.querySelector('#modalJerseyContent').classList.add('scale-100');
+            };
+
+            const closeModal = () => {
+                modalJersey.classList.add('opacity-0', 'pointer-events-none');
+                modalJersey.querySelector('#modalJerseyContent').classList.remove('scale-100');
+                modalJersey.querySelector('#modalJerseyContent').classList.add('scale-95');
+            };
+
+            btnVolverJersey.onclick = closeModal;
+
+            // Toggle Vista Frontal / Trasera
+            btnVistaFrente.onclick = () => {
+                currentJerseyView = 'frente';
+                jerseyImagenPrevia.src = JERSEY_DATA.vistaFrente;
+                btnVistaFrente.className = "px-3 py-1 rounded-full text-[10px] font-extrabold uppercase transition-all bg-brand-yellow text-black";
+                btnVistaAtras.className = "px-3 py-1 rounded-full text-[10px] font-extrabold uppercase transition-all text-white hover:text-brand-yellow";
+            };
+
+            btnVistaAtras.onclick = () => {
+                currentJerseyView = 'atras';
+                jerseyImagenPrevia.src = JERSEY_DATA.vistaAtras;
+                btnVistaAtras.className = "px-3 py-1 rounded-full text-[10px] font-extrabold uppercase transition-all bg-brand-yellow text-black";
+                btnVistaFrente.className = "px-3 py-1 rounded-full text-[10px] font-extrabold uppercase transition-all text-white hover:text-brand-yellow";
+            };
+
+            // Selector de Tallas Jersey
+            if (contenedorTallasJersey) {
+                contenedorTallasJersey.querySelectorAll('.btn-talla-jersey').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        contenedorTallasJersey.querySelectorAll('.btn-talla-jersey').forEach(b => {
+                            b.classList.remove('bg-brand-yellow', 'text-black', 'ring-2', 'ring-brand-yellow/50');
+                            b.classList.add('bg-gray-100', 'text-gray-700');
+                        });
+
+                        btn.classList.remove('bg-gray-100', 'text-gray-700');
+                        btn.classList.add('bg-brand-yellow', 'text-black', 'ring-2', 'ring-brand-yellow/50');
+
+                        selectedJerseyTalla = btn.dataset.talla;
+                        btnAgregarCarritoJersey.disabled = false;
+                        btnAgregarCarritoJersey.innerText = `Agregar Kit Talla ${selectedJerseyTalla}`;
+                    });
+                });
+            }
+
+            // Cantidad Jersey
+            document.getElementById('btnDecQtyJersey').onclick = () => {
+                if (selectedJerseyQty > 1) {
+                    selectedJerseyQty--;
+                    document.getElementById('qtyValJersey').innerText = selectedJerseyQty;
+                }
+            };
+            document.getElementById('btnIncQtyJersey').onclick = () => {
+                selectedJerseyQty++;
+                document.getElementById('qtyValJersey').innerText = selectedJerseyQty;
+            };
+
+            // Agregar Jersey al Carrito
+            btnAgregarCarritoJersey.onclick = () => {
+                if (!selectedJerseyTalla) return;
+                addToCart({
+                    id: `${JERSEY_DATA.id}-${selectedJerseyTalla}`,
+                    title: `${JERSEY_DATA.nombre} (Talla ${selectedJerseyTalla})`,
+                    price: JERSEY_DATA.precio,
+                    qty: selectedJerseyQty,
+                    imagen: JERSEY_DATA.vistaFrente,
+                    meta: `Talla: ${selectedJerseyTalla} | Kit Maillot + Culotte`
+                });
+                closeModal();
+                showToast(`¡Jersey Kit Talla ${selectedJerseyTalla} agregado!`);
+            };
+        }
+
+        // --- STREAMING_CHUNK:Implementing cart management and WhatsApp checkout... ---
+        function initCartAndCheckout() {
+            const btnOpenCart = document.getElementById('btnOpenCart');
+            const btnCloseCart = document.getElementById('btnCloseCart');
+            const cartSidebar = document.getElementById('cartSidebar');
+            const cartOverlay = document.getElementById('cartOverlay');
+            const btnCheckout = document.getElementById('btnCheckout');
+            const checkoutModal = document.getElementById('checkoutModal');
+            const btnCloseCheckout = document.getElementById('btnCloseCheckout');
+            const checkoutForm = document.getElementById('checkoutForm');
+
+            const toggleCart = (show) => {
+                if (show) {
+                    cartSidebar.classList.remove('translate-x-full');
+                    cartOverlay.classList.remove('opacity-0', 'pointer-events-none');
+                } else {
+                    cartSidebar.classList.add('translate-x-full');
+                    cartOverlay.classList.add('opacity-0', 'pointer-events-none');
+                }
+            };
+
+            btnOpenCart.onclick = () => toggleCart(true);
+            btnCloseCart.onclick = () => toggleCart(false);
+            cartOverlay.onclick = () => toggleCart(false);
+
+            btnCheckout.onclick = () => {
+                toggleCart(false);
+                checkoutModal.classList.remove('opacity-0', 'pointer-events-none');
+                checkoutModal.querySelector('#checkoutContent').classList.remove('scale-95');
+                checkoutModal.querySelector('#checkoutContent').classList.add('scale-100');
+                
+                const total = getCartTotal();
+                document.getElementById('checkoutSubtotal').innerText = `$ ${total.toLocaleString('es-CO')}`;
+                document.getElementById('checkoutTotal').innerText = `$ ${total.toLocaleString('es-CO')}`;
+            };
+
+            btnCloseCheckout.onclick = () => {
+                checkoutModal.classList.add('opacity-0', 'pointer-events-none');
+                checkoutModal.querySelector('#checkoutContent').classList.remove('scale-100');
+                checkoutModal.querySelector('#checkoutContent').classList.add('scale-95');
+            };
+
+            checkoutForm.onsubmit = (e) => {
+                e.preventDefault();
+                const nombre = document.getElementById('custNombre').value;
+                const apellido = document.getElementById('custApellido').value;
+                const celular = document.getElementById('custCelular').value;
+                const direccion = document.getElementById('custDireccion').value;
+                const ciudad = document.getElementById('custCiudad').value;
+                const pago = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+                let itemsText = shoppingCart.map(item => `• ${item.title} x${item.qty} = $${(item.price * item.qty).toLocaleString('es-CO')}`).join('\n');
+                
+                let msg = `🚴 *NUEVO PEDIDO BOGOFIJA*\n\n` +
+                          `*Cliente:* ${nombre} ${apellido}\n` +
+                          `*Teléfono:* ${celular}\n` +
+                          `*Dirección:* ${direccion}, ${ciudad}\n` +
+                          `*Pago:* ${pago}\n\n` +
+                          `*RESUMEN DEL PEDIDO:*\n${itemsText}\n\n` +
+                          `*TOTAL GENERAL:* $${getCartTotal().toLocaleString('es-CO')} COP`;
+
+                const encoded = encodeURIComponent(msg);
+                window.open(`https://wa.me/573110000000?text=${encoded}`, '_blank');
+            };
+        }
+
+        function addToCart(item) {
+            const existing = shoppingCart.find(i => i.id === item.id);
+            if (existing) {
+                existing.qty += item.qty;
+            } else {
+                shoppingCart.push(item);
+            }
+            renderCart();
+        }
+
+        function removeFromCart(id) {
+            shoppingCart = shoppingCart.filter(i => i.id !== id);
+            renderCart();
+        }
+
+        function getCartTotal() {
+            return shoppingCart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cartItemsContainer');
+            const cartBadge = document.getElementById('cartBadge');
+            const cartTotal = document.getElementById('cartTotal');
+            const btnCheckout = document.getElementById('btnCheckout');
+
+            const totalQty = shoppingCart.reduce((sum, item) => sum + item.qty, 0);
+
+            if (totalQty > 0) {
+                cartBadge.innerText = totalQty;
+                cartBadge.classList.remove('opacity-0', 'scale-50');
+                cartBadge.classList.add('opacity-100', 'scale-100');
+                btnCheckout.disabled = false;
+            } else {
+                cartBadge.classList.add('opacity-0', 'scale-50');
+                cartBadge.classList.remove('opacity-100', 'scale-100');
+                btnCheckout.disabled = true;
+            }
+
+            const total = getCartTotal();
+            cartTotal.innerText = `$ ${total.toLocaleString('es-CO')}`;
+
+            if (shoppingCart.length === 0) {
+                container.innerHTML = `
+                    <div class="flex flex-col items-center justify-center h-full text-zinc-500 opacity-60">
+                        <i class="fa-solid fa-cart-arrow-down text-4xl mb-3"></i>
+                        <p class="text-sm font-medium">Tu carrito está vacío.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = shoppingCart.map(item => `
+                <div class="flex items-center gap-3 bg-zinc-900/80 p-3 rounded-2xl border border-zinc-800">
+                    <img src="${item.imagen}" alt="${item.title}" class="w-12 h-12 object-cover rounded-xl bg-zinc-950 flex-shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="text-xs font-bold text-white truncate">${item.title}</h4>
+                        <p class="text-[10px] text-zinc-400 font-medium">${item.meta}</p>
+                        <span class="text-xs font-black text-brand-yellow">$ ${(item.price * item.qty).toLocaleString('es-CO')}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-zinc-300">x${item.qty}</span>
+                        <button onclick="removeFromCart('${item.id}')" class="text-zinc-500 hover:text-red-400 p-1.5 transition-colors">
+                            <i class="fa-solid fa-trash-can text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showToast(msg) {
+            const container = document.getElementById('toastContainer');
+            if(!container) return;
+            const toast = document.createElement('div');
+            toast.className = "bg-brand-yellow text-black font-extrabold text-xs px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2 transform translate-y-4 opacity-0 transition-all duration-300 pointer-events-auto";
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-base"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-4', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // --- STREAMING_CHUNK:Rendering list of active routes (subidas)... ---
+        const LISTA_SUBIDAS = [
+            { nombre: "Patios", dist: "14 KM", des: "420m", tipo: "Oficial", status: "Activa" },
+            { nombre: "La Vega - El Vino", dist: "28 KM", des: "1200m", tipo: "Oficial", status: "Activa" },
+            { nombre: "Romeral", dist: "10 KM", des: "750m", tipo: "Muro", status: "Activa" },
+            { nombre: "Sumapaz", dist: "30 KM", des: "980m", tipo: "Fondo", status: "Activa" },
+            { nombre: "Alto de Letras", dist: "81 KM", des: "3180m", tipo: "Mítica", status: "Activa" },
+            { nombre: "Alto El Sifón", dist: "84 KM", des: "3400m", tipo: "Extrema", status: "Activa" }
+        ];
+
+        function renderizarSubidas() {
+            const container = document.getElementById('subidas-container');
+            if(!container) return;
+            container.innerHTML = '';
+
+            LISTA_SUBIDAS.forEach(s => {
+                container.innerHTML += `
+                    <div class="subida-card">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[9px] font-black uppercase text-brand-yellow tracking-widest">${s.tipo}</span>
+                            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        </div>
+                        <h4 class="font-black text-xs text-white uppercase truncate-text">${s.nombre}</h4>
+                        <div class="flex justify-between items-center text-[10px] text-zinc-400 font-bold mt-1">
+                            <span><i class="fa-solid fa-arrows-left-right text-[8px] text-zinc-500 mr-1"></i>${s.dist}</span>
+                            <span><i class="fa-solid fa-mountain text-[8px] text-zinc-500 mr-1"></i>${s.des}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // --- STREAMING_CHUNK:Executing gear ratio mathematical engine... ---
         let isAmbi = false;
 
         function gcd(a, b) {
@@ -1074,18 +1542,15 @@
             document.getElementById('chainring-val').innerText = chainring + "T";
             document.getElementById('cog-val').innerText = cog + "T";
             
-            // 1. Cálculo de Relación (Ratio)
             const ratio = (chainring / cog).toFixed(2);
             animateNumber('res-ratio', ratio);
             
-            // Barra visual de dificultad del Ratio
             const minRatio = 1.9; 
             const maxRatio = 4.0; 
             let ratioPercent = ((ratio - minRatio) / (maxRatio - minRatio)) * 100;
             ratioPercent = Math.max(0, Math.min(100, ratioPercent));
             document.getElementById('ratio-bar').style.width = ratioPercent + '%';
 
-            // Retroalimentación del Ratio
             let feedback = "";
             if(ratio < 2.5) feedback = "Relación muy blanda. Ideal para muros extremos como Romeral.";
             else if(ratio < 2.9) feedback = "Relación versátil. Buen equilibrio para la sabana y subidas medias.";
@@ -1093,11 +1558,9 @@
             else feedback = "Rompepiernas. Solo para asfalto plano o descensos rápidos.";
             document.getElementById('ratio-feedback').innerText = feedback;
 
-            // 2. Desarrollo métrico (Avance estimado por pedalada para rueda 700x25c)
             const development = (ratio * 2.105).toFixed(2); 
             animateNumber('res-dev', development);
             
-            // 3. Puntos de Derrape (Skid Patches)
             const g = gcd(chainring, cog);
             let skidPatches = cog / g;
             if (isAmbi && ((chainring / g) % 2 !== 0)) {
@@ -1151,7 +1614,7 @@
             baseCircle.setAttribute("cy", "80");
             baseCircle.setAttribute("r", "70");
             baseCircle.setAttribute("fill", "none");
-            baseCircle.setAttribute("stroke", "#27272a"); // zinc-800
+            baseCircle.setAttribute("stroke", "#27272a"); 
             baseCircle.setAttribute("stroke-width", "4");
             svg.appendChild(baseCircle);
             
@@ -1169,13 +1632,13 @@
                 dot.setAttribute("cx", x);
                 dot.setAttribute("cy", y);
                 dot.setAttribute("r", "6");
-                dot.setAttribute("fill", "#FACC15"); // brand-yellow
+                dot.setAttribute("fill", "#FACC15"); 
                 
                 const innerDot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
                 innerDot.setAttribute("cx", x);
                 innerDot.setAttribute("cy", y);
                 innerDot.setAttribute("r", "2");
-                innerDot.setAttribute("fill", "#000000"); // black
+                innerDot.setAttribute("fill", "#000000"); 
                 
                 svg.appendChild(dot);
                 svg.appendChild(innerDot);
@@ -1249,7 +1712,7 @@
             }
         }
 
-        // --- 3. CUENTA REGRESIVA VOL 3 ---
+        // --- STREAMING_CHUNK:Managing Vol 3 timer and leaderboard simulations... ---
         const targetDate = new Date("Feb 21, 2027 00:00:00").getTime();
         function updateCountdown() {
             const now = new Date().getTime();
@@ -1276,7 +1739,6 @@
         updateCountdown();
         setInterval(updateCountdown, 1000);
 
-        // --- 4. LÓGICA VOL 3 (ESPERA / MOCK DATA) ---
         let isMockDataActive = false;
         const vol3MockData = {
             pinon: [
@@ -1311,6 +1773,7 @@
 
             Object.keys(containers).forEach(key => {
                 const container = containers[key];
+                if(!container) return;
                 container.innerHTML = ''; 
 
                 for (let i = 0; i < 5; i++) {
@@ -1402,7 +1865,7 @@
             renderVol3Leaderboards();
         }
 
-        // --- 5. LÓGICA VOL 2 (HISTORIAL ESTÁTICO) ---
+        // --- STREAMING_CHUNK:Rendering Vol 2 historical archive data... ---
         const vol2FinalData = {
             pinon: [
                 { name: 'Jhon Elmer Berrio', points: 95, trips: 6 },
@@ -1435,514 +1898,41 @@
             ];
 
             configs.forEach(cfg => {
-                const container = document.getElementById(cfg.id);
-                let html = `
-                    <div class="glass-card rounded-3xl p-6 h-full flex flex-col relative overflow-hidden group">
-                        <i class="fa-solid ${cfg.icon} absolute -right-4 -top-4 text-7xl text-white/5 group-hover:scale-110 transition-transform duration-500"></i>
-                        <h3 class="text-xl font-black mb-6 text-white uppercase flex items-center border-b border-white/10 pb-4">
-                            ${cfg.title}
-                        </h3>
-                        <div class="space-y-2.5">
-                `;
+                const el = document.getElementById(cfg.id);
+                if (!el) return;
 
-                cfg.data.forEach((p, idx) => {
-                    const pos = idx + 1;
-                    const isFirst = pos === 1;
-                    const isSecond = pos === 2;
-                    const isThird = pos === 3;
-                    
-                    const rankClass = isFirst ? 'legacy-rank-1' : isSecond ? 'legacy-rank-2' : isThird ? 'legacy-rank-3' : 'bg-white/5 border-l-[3px] border-transparent';
-                    const icon = isFirst ? '🥇' : isSecond ? '🥈' : isThird ? '🥉' : `<span class="text-xs font-bold text-zinc-500">#${pos}</span>`;
-                    const nameColor = isFirst ? 'text-brand-yellow font-black' : isSecond ? 'text-zinc-200' : isThird ? 'text-amber-500' : 'text-zinc-400';
+                let itemsHtml = cfg.data.map((r, idx) => {
+                    const rankClass = idx === 0 ? 'legacy-rank-1' : idx === 1 ? 'legacy-rank-2' : idx === 2 ? 'legacy-rank-3' : '';
+                    const medalIcon = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `#${idx+1}`;
 
-                    html += `
-                        <div class="flex items-center justify-between p-3 rounded-r-xl ${rankClass} hover:bg-white/10 transition-colors">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-6 text-center">${icon}</div>
-                                <div>
-                                    <h4 class="text-sm uppercase ${nameColor}">${p.name}</h4>
-                                    <div class="text-[9px] text-zinc-500 uppercase tracking-widest mt-0.5">
-                                        <i class="fa-solid fa-check text-zinc-600 mr-1"></i>${p.trips} Salidas
-                                    </div>
+                    return `
+                        <div class="p-3 rounded-xl border border-zinc-800 bg-zinc-900/40 flex items-center justify-between ${rankClass}">
+                            <div class="flex items-center space-x-3 overflow-hidden">
+                                <span class="text-xs font-black text-zinc-400 w-6 text-center">${medalIcon}</span>
+                                <div class="truncate">
+                                    <h4 class="text-xs font-bold text-white uppercase truncate">${r.name}</h4>
+                                    <span class="text-[9px] text-zinc-500 font-bold">${r.trips} Salidas</span>
                                 </div>
                             </div>
-                            <div class="text-right">
-                                <div class="text-base font-black ${nameColor}">${p.points}</div>
-                                <div class="text-[8px] uppercase text-zinc-600 font-bold">PTS</div>
+                            <div class="text-right ml-2 flex-shrink-0">
+                                <span class="text-sm font-black text-zinc-300">${r.points}</span>
+                                <span class="text-[8px] font-bold text-zinc-500 uppercase block">PTS</span>
                             </div>
                         </div>
                     `;
-                });
+                }).join('');
 
-                html += `</div></div>`;
-                container.innerHTML = html;
-            });
-        }
-
-        // --- 6. BASE DE DATOS Y RENDERIZADO DE RUTAS ---
-        const baseDeDatosSubidas = [
-            { nombre: "La Vega al Vino", referencia: "La Vega", distancia: "28 km", desnivel: "1000 m", pendiente: "3.6%", dificultad: "Alto", estado: "Próximamente" },
-            { nombre: "Romeral", referencia: "Bogotá Sur", distancia: "10 km", desnivel: "600 m", pendiente: "6%", dificultad: "Medio", estado: "Activa" },
-            { nombre: "Fusagasugá a Rosas", referencia: "Fusagasugá", distancia: "26.3 km", desnivel: "1368 m", pendiente: "5.2%", dificultad: "Muy Alto", estado: "Próximamente" },
-            { nombre: "Guadalupe", referencia: "Bogotá Centro", distancia: "2 km", desnivel: "200 m", pendiente: "10%", dificultad: "Alto", estado: "Próximamente" },
-            { nombre: "El Águila por Zipa", referencia: "Zipaquirá", distancia: "15.6 km", desnivel: "587 m", pendiente: "5%", dificultad: "Intermedio", estado: "Próximamente" },
-            { nombre: "Patios desde Arepas", referencia: "Bogotá Norte", distancia: "14 km", desnivel: "650 m", pendiente: "4.6%", dificultad: "Medio", estado: "Próximamente" },
-            { nombre: "El Verjón", referencia: "Bogotá", distancia: "11 km", desnivel: "698 m", pendiente: "4.7%", dificultad: "Alto", estado: "Próximamente" },
-            { nombre: "Canicas desde Tabio", referencia: "Tabio", distancia: "5 km", desnivel: "300 m", pendiente: "6%", dificultad: "Medio", estado: "Próximamente" },
-            { nombre: "Sumapaz", referencia: "Bogotá Sur", distancia: "30 km", desnivel: "1200 m", pendiente: "4%", dificultad: "Muy Alto", estado: "Próximamente" },
-            { nombre: "Choachí al Verjón", referencia: "Choachí", distancia: "22 km", desnivel: "1321 m", pendiente: "6%", dificultad: "Muy Alto", estado: "Próximamente" },
-            { nombre: "Yerbabuena", referencia: "Chía", distancia: "6 km", desnivel: "300 m", pendiente: "5%", dificultad: "Medio", estado: "Próximamente" },
-            { nombre: "Tribuna desde Albán", referencia: "Albán", distancia: "10 km", desnivel: "600 m", pendiente: "6%", dificultad: "Medio", estado: "Próximamente" },
-            { nombre: "Zipacón", referencia: "Zipacón", distancia: "5 km", desnivel: "400 m", pendiente: "8%", dificultad: "Medio", estado: "Próximamente" },
-            { nombre: "Mesitas al Tequendama", referencia: "Mesitas", distancia: "12 km", desnivel: "800 m", pendiente: "6.6%", dificultad: "Alto", estado: "Próximamente" },
-            { nombre: "La Cuchilla por Guasca", referencia: "Guasca", distancia: "18 km", desnivel: "1100 m", pendiente: "6.1%", dificultad: "Alto", estado: "Próximamente" },
-            { nombre: "Gran Vals", referencia: "Sabana", distancia: "125 km", desnivel: "1200 m", pendiente: "1.8%", dificultad: "Extremo", estado: "Próximamente" },
-            { nombre: "La Mesa a Mondoñedo", referencia: "La Mesa", distancia: "15 km", desnivel: "700 m", pendiente: "4.6%", dificultad: "Medio", estado: "Próximamente" },
-            { nombre: "Tequendama", referencia: "Bogotá Sur", distancia: "15 km", desnivel: "900 m", pendiente: "6%", dificultad: "Alto", estado: "Próximamente" },
-            { nombre: "Alto de Letras", referencia: "Mariquita", distancia: "80.4 km", desnivel: "3329 m", pendiente: "4.8%", dificultad: "Legendario", estado: "Próximamente" },
-            { nombre: "Alto La Línea", referencia: "Cajamarca", distancia: "20.8 km", desnivel: "1616 m", pendiente: "7.8%", dificultad: "Legendario", estado: "Próximamente" },
-            { nombre: "Alto El Sifón", referencia: "Líbano", distancia: "88.2 km", desnivel: "3800 m", pendiente: "4.3%", dificultad: "Extremo", estado: "Próximamente" },
-            { nombre: "El Crucero", referencia: "Boyacá", distancia: "100 km", desnivel: "1500 m", pendiente: "1.5%", dificultad: "Extremo", estado: "Próximamente" }
-        ];
-
-        const estilosEstado = {
-            "Activa": "border-green-800 text-green-500 bg-green-900/20",
-            "Próximamente": "border-yellow-800 text-yellow-500 bg-yellow-900/20",
-            "Cerrada": "border-red-800 text-red-500 bg-red-900/20"
-        };
-
-        const estilosDificultad = {
-            "Medio": "text-green-500",
-            "Intermedio": "text-yellow-400",
-            "Alto": "text-orange-500",
-            "Muy Alto": "text-red-500",
-            "Legendario": "text-zinc-400", 
-            "Extremo": "text-zinc-500"     
-        };
-
-        function renderizarSubidas() {
-            const contenedor = document.getElementById('subidas-container');
-            const subidasActivas = baseDeDatosSubidas; 
-
-            contenedor.innerHTML = '';
-
-            subidasActivas.forEach(subida => {
-                const claseEstado = estilosEstado[subida.estado] || "border-zinc-700 text-zinc-400 bg-zinc-900/50";
-                const claseDificultad = estilosDificultad[subida.dificultad] || "text-white";
-
-                const cardHTML = `
-                    <div class="subida-card">
-                        <div class="flex justify-between items-center w-full">
-                            <div class="flex items-center gap-1 overflow-hidden">
-                                <span class="text-[10px] shrink-0">⛰️</span>
-                                <h3 class="text-white font-bold text-[11px] leading-tight truncate-text">${subida.nombre}</h3>
-                            </div>
-                            <span class="text-[7px] font-black px-1 py-[1px] rounded border uppercase tracking-wider shrink-0 ml-1 ${claseEstado}">
-                                ${subida.estado}
-                            </span>
+                el.innerHTML = `
+                    <div class="bg-zinc-950 border border-zinc-850 rounded-3xl p-6 flex flex-col shadow-xl">
+                        <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-zinc-800">
+                            <i class="fa-solid ${cfg.icon} text-zinc-400 text-xl"></i>
+                            <h3 class="text-lg font-black text-white uppercase tracking-wider">${cfg.title}</h3>
                         </div>
-                        <div class="flex items-center gap-1 text-zinc-400 text-[9px] mt-0.5">
-                            <i class="fa-solid fa-location-dot text-[8px] w-[10px] text-center"></i>
-                            <span class="truncate-text">${subida.referencia}</span>
-                        </div>
-                        <div class="grid grid-cols-2 gap-x-1 gap-y-0.5 mt-1">
-                            <div class="flex items-center gap-1 text-zinc-300 text-[10px]">
-                                <span class="text-zinc-500 font-black text-[8px] w-[10px] text-center inline-block transform scale-x-150">-</span>
-                                <span class="font-medium">${subida.distancia}</span>
-                            </div>
-                            <div class="flex items-center justify-end gap-1 text-zinc-300 text-[10px]">
-                                <i class="fa-solid fa-arrow-trend-up text-[8px] text-zinc-500"></i>
-                                <span class="font-medium">${subida.desnivel}</span>
-                            </div>
-                            <div class="flex items-center gap-1 text-zinc-300 text-[10px]">
-                                <i class="fa-solid fa-angle-up text-[9px] text-zinc-500 w-[10px] text-center font-bold"></i>
-                                <span class="font-medium">${subida.pendiente}</span>
-                            </div>
-                            <div class="flex items-center justify-end gap-1 text-[9px] font-black uppercase ${claseDificultad}">
-                                <i class="fa-solid fa-medal text-[8px]"></i>
-                                <span>${subida.dificultad}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                
-                contenedor.insertAdjacentHTML('beforeend', cardHTML);
-            });
-        }
-
-        // --- 7. LÓGICA MODAL MARCOS Y CARRITO (COMPLETA) ---
-        const modalMarcos = document.getElementById('modalMarcos');
-        const modalContent = document.getElementById('modalContent');
-        const btnMarcos = document.getElementById('btnMarcos');
-        const btnVolver = document.getElementById('btnVolver');
-        
-        const inputEntrepierna = document.getElementById('inputEntrepierna');
-        const btnCalcularTalla = document.getElementById('btnCalcular');
-        const resultadoCalculo = document.getElementById('resultadoCalculo');
-        const botonesTalla = document.querySelectorAll('.btn-talla');
-        const btnAgregarCarrito = document.getElementById('btnAgregarCarrito');
-
-        const btnDecQty = document.getElementById('btnDecQty');
-        const btnIncQty = document.getElementById('btnIncQty');
-        const qtyVal = document.getElementById('qtyVal');
-
-        // Abrir Modal
-        if (btnMarcos) {
-            btnMarcos.addEventListener('click', (e) => {
-                e.preventDefault();
-                modalMarcos.classList.remove('opacity-0', 'pointer-events-none');
-                modalContent.classList.remove('scale-95');
-                selectMarco(0); // Seleccionar por defecto el primero
-            });
-        }
-
-        // Cerrar Modal
-        if (btnVolver) {
-            btnVolver.addEventListener('click', () => {
-                modalMarcos.classList.add('opacity-0', 'pointer-events-none');
-                modalContent.classList.add('scale-95');
-            });
-        }
-
-        // Renderizar miniaturas de modelos de marco
-        function renderMarcosSelector() {
-            const container = document.getElementById('selectorModelosMarco');
-            if(!container) return;
-            container.innerHTML = '';
-
-            MARCOS_DB.forEach((marco, index) => {
-                const button = document.createElement('button');
-                button.type = "button";
-                button.className = `marco-thumb-btn flex flex-col items-center p-1.5 rounded-xl border-2 transition-all hover:bg-slate-100 ${index === selectedMarcoIndex ? 'border-brand-yellow bg-slate-50' : 'border-transparent'}`;
-                button.onclick = () => selectMarco(index);
-                button.innerHTML = `
-                    <img src="${marco.imagen}" alt="${marco.nombre}" class="w-12 h-12 object-cover rounded-lg shadow-sm border border-slate-200">
-                    <span class="text-[8px] font-black uppercase text-center truncate w-full text-gray-800 mt-1">${marco.nombre.replace('Marco ', '')}</span>
-                `;
-                container.appendChild(button);
-            });
-        }
-
-        // Cambiar marco activo en la vista
-        function selectMarco(index) {
-            selectedMarcoIndex = index;
-            const marco = MARCOS_DB[index];
-
-            // Actualizar vista previa
-            document.getElementById('marcoImagenPrevia').src = marco.imagen;
-            document.getElementById('marcoImagenPrevia').alt = marco.nombre;
-            document.getElementById('marcoNombrePrevia').innerText = marco.nombre;
-            document.getElementById('marcoPrecioPrevia').innerText = `$ ${marco.precio.toLocaleString('es-CO')}`;
-            document.getElementById('marcoDescripcionPrevia').innerText = marco.descripcion;
-
-            // Resetear cantidad
-            selectedQty = 1;
-            qtyVal.innerText = selectedQty;
-
-            // Resetear tallas
-            selectedTalla = null;
-            botonesTalla.forEach(b => {
-                b.classList.remove('bg-brand-yellow', 'text-black', 'border-black');
-                b.classList.add('bg-gray-100', 'text-gray-700');
-            });
-
-            btnAgregarCarrito.disabled = true;
-            btnAgregarCarrito.innerText = "Selecciona una talla para agregar";
-            btnAgregarCarrito.classList.add('opacity-50');
-
-            // Actualizar clases de los botones selectores
-            const thumbs = document.querySelectorAll('.marco-thumb-btn');
-            thumbs.forEach((t, i) => {
-                if(i === index) {
-                    t.classList.add('border-brand-yellow', 'bg-slate-50');
-                    t.classList.remove('border-transparent');
-                } else {
-                    t.classList.remove('border-brand-yellow', 'bg-slate-50');
-                    t.classList.add('border-transparent');
-                }
-            });
-        }
-
-        // Lógica de Selector de Cantidad
-        if(btnDecQty) {
-            btnDecQty.addEventListener('click', () => {
-                if(selectedQty > 1) {
-                    selectedQty--;
-                    qtyVal.innerText = selectedQty;
-                }
-            });
-        }
-        if(btnIncQty) {
-            btnIncQty.addEventListener('click', () => {
-                selectedQty++;
-                qtyVal.innerText = selectedQty;
-            });
-        }
-
-        // Selección de Talla
-        botonesTalla.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Limpiar todas
-                botonesTalla.forEach(b => {
-                    b.classList.remove('bg-brand-yellow', 'text-black', 'border-black');
-                    b.classList.add('bg-gray-100', 'text-gray-700');
-                });
-                // Seleccionar actual
-                btn.classList.remove('bg-gray-100', 'text-gray-700');
-                btn.classList.add('bg-brand-yellow', 'text-black', 'border-black');
-                selectedTalla = btn.getAttribute('data-talla');
-                
-                // Habilitar botón de carrito
-                btnAgregarCarrito.disabled = false;
-                btnAgregarCarrito.innerText = "Agregar al Carrito";
-                btnAgregarCarrito.classList.remove('opacity-50');
-            });
-        });
-
-        // Calculadora de Entrepierna
-        if(btnCalcularTalla) {
-            btnCalcularTalla.addEventListener('click', () => {
-                const val = parseFloat(inputEntrepierna.value);
-                if(!val || val < 50 || val > 120) {
-                    resultadoCalculo.innerText = "Por favor ingresa un valor de entrepierna válido (ej. 80)";
-                    resultadoCalculo.classList.remove('hidden');
-                    return;
-                }
-                // Fórmula genérica pista/ruta urbana: Entrepierna * 0.65
-                const tallaEstimada = Math.round(val * 0.65);
-                resultadoCalculo.innerText = `Tu talla ideal de marco es aprox: ${tallaEstimada} cm`;
-                resultadoCalculo.classList.remove('hidden');
-            });
-        }
-
-        // --- 8. ESTADO Y FUNCIONES DEL CARRITO ---
-        let cart = [];
-        const cartBadge = document.getElementById('cartBadge');
-        const cartTotal = document.getElementById('cartTotal');
-        const checkoutSubtotal = document.getElementById('checkoutSubtotal');
-        const checkoutTotal = document.getElementById('checkoutTotal');
-        const cartItemsContainer = document.getElementById('cartItemsContainer');
-        const btnCheckout = document.getElementById('btnCheckout');
-        
-        function updateCartUI() {
-            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-            const totalPrice = cart.reduce((sum, item) => sum + (item.precio * item.qty), 0);
-            
-            // Actualizar Badge
-            if (totalItems > 0) {
-                cartBadge.innerText = totalItems;
-                cartBadge.classList.remove('opacity-0', 'scale-50');
-                btnCheckout.disabled = false;
-            } else {
-                cartBadge.classList.add('opacity-0', 'scale-50');
-                btnCheckout.disabled = true;
-            }
-            
-            // Actualizar Totales
-            const formattedTotal = `$ ${totalPrice.toLocaleString('es-CO')}`;
-            cartTotal.innerText = formattedTotal;
-            if(checkoutSubtotal) checkoutSubtotal.innerText = formattedTotal;
-            if(checkoutTotal) checkoutTotal.innerText = formattedTotal;
-            
-            renderCartItems();
-        }
-        
-        function renderCartItems() {
-            if (cart.length === 0) {
-                cartItemsContainer.innerHTML = `
-                    <div class="flex flex-col items-center justify-center h-full text-zinc-500 opacity-60 mt-10">
-                        <i class="fa-solid fa-cart-arrow-down text-4xl mb-3"></i>
-                        <p class="text-sm font-medium">Tu carrito está vacío.</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            cartItemsContainer.innerHTML = '';
-            cart.forEach((item, index) => {
-                cartItemsContainer.innerHTML += `
-                    <div class="flex justify-between items-center bg-zinc-900/50 p-3 rounded-xl border border-zinc-800 mb-2">
-                        <div class="flex gap-3 items-center">
-                            <img src="${item.imagen}" class="w-12 h-12 rounded object-cover border border-zinc-700">
-                            <div>
-                                <h4 class="text-xs font-bold text-white uppercase">${item.nombre}</h4>
-                                <p class="text-[10px] text-zinc-400">Talla: <span class="text-brand-yellow font-bold">${item.talla}</span> | Cant: ${item.qty}</p>
-                                <p class="text-xs font-black text-brand-yellow mt-1">$ ${(item.precio * item.qty).toLocaleString('es-CO')}</p>
-                            </div>
-                        </div>
-                        <button onclick="removeFromCart(${index})" class="text-zinc-500 hover:text-red-500 p-2 transition-colors" title="Eliminar">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
+                        <div class="space-y-2.5">${itemsHtml}</div>
                     </div>
                 `;
             });
         }
-        
-        window.removeFromCart = function(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        };
-
-        // Agregar al Carrito desde el Modal
-        if(btnAgregarCarrito) {
-            btnAgregarCarrito.addEventListener('click', () => {
-                if(!selectedTalla) return;
-                const marco = MARCOS_DB[selectedMarcoIndex];
-                
-                // Verificar si ya existe en el carrito con la misma talla
-                const existingItem = cart.find(i => i.id === marco.id && i.talla === selectedTalla);
-                if(existingItem) {
-                    existingItem.qty += selectedQty;
-                } else {
-                    cart.push({
-                        ...marco,
-                        talla: selectedTalla,
-                        qty: selectedQty
-                    });
-                }
-                
-                updateCartUI();
-                showToast('🛒 Producto agregado al carrito');
-                
-                // Cerrar modal de producto
-                modalMarcos.classList.add('opacity-0', 'pointer-events-none');
-                modalContent.classList.add('scale-95');
-                
-                // Opcional: Abrir carrito automáticamente
-                // toggleCart(true); 
-            });
-        }
-
-        // Funciones de UI para abrir/cerrar paneles de Carrito y Checkout
-        const btnOpenCart = document.getElementById('btnOpenCart');
-        const btnCloseCart = document.getElementById('btnCloseCart');
-        const cartSidebar = document.getElementById('cartSidebar');
-        const cartOverlay = document.getElementById('cartOverlay');
-        
-        const checkoutModal = document.getElementById('checkoutModal');
-        const checkoutContent = document.getElementById('checkoutContent');
-        const btnCloseCheckout = document.getElementById('btnCloseCheckout');
-        
-        function toggleCart(show) {
-            if(show) {
-                cartSidebar.classList.remove('translate-x-full');
-                cartOverlay.classList.remove('opacity-0', 'pointer-events-none');
-            } else {
-                cartSidebar.classList.add('translate-x-full');
-                cartOverlay.classList.add('opacity-0', 'pointer-events-none');
-            }
-        }
-        
-        if(btnOpenCart) btnOpenCart.addEventListener('click', () => toggleCart(true));
-        if(btnCloseCart) btnCloseCart.addEventListener('click', () => toggleCart(false));
-        if(cartOverlay) cartOverlay.addEventListener('click', () => toggleCart(false));
-        
-        if(btnCheckout) {
-            btnCheckout.addEventListener('click', () => {
-                toggleCart(false); // Cerramos el sidebar del carrito
-                // Abrimos el modal de checkout
-                checkoutModal.classList.remove('opacity-0', 'pointer-events-none');
-                checkoutContent.classList.remove('scale-95');
-            });
-        }
-        
-        if(btnCloseCheckout) {
-            btnCloseCheckout.addEventListener('click', () => {
-                checkoutModal.classList.add('opacity-0', 'pointer-events-none');
-                checkoutContent.classList.add('scale-95');
-            });
-        }
-
-        // --- 9. PROCESAMIENTO DE CHECKOUT Y CORRECCIÓN WHATSAPP ---
-        const checkoutForm = document.getElementById('checkoutForm');
-        
-        if (checkoutForm) {
-            checkoutForm.addEventListener('submit', function(e) {
-                e.preventDefault(); // Prevenir el envío normal del formulario
-                
-                if (cart.length === 0) {
-                    showToast("Tu carrito está vacío.");
-                    return;
-                }
-                
-                // 1. Recopilar datos del formulario
-                const nombre = document.getElementById('custNombre').value.trim();
-                const apellido = document.getElementById('custApellido').value.trim();
-                const celular = document.getElementById('custCelular').value.trim();
-                const direccion = document.getElementById('custDireccion').value.trim();
-                const ciudad = document.getElementById('custCiudad').value.trim();
-                const metodoPago = document.querySelector('input[name="paymentMethod"]:checked').value;
-                
-                // 2. Construir el mensaje formateado para WhatsApp
-                let mensaje = `*NUEVO PEDIDO BOGOFIJA* 🚴‍♂️\n\n`;
-                mensaje += `*Datos del Cliente:*\n`;
-                mensaje += `Nombre: ${nombre} ${apellido}\n`;
-                mensaje += `Celular: ${celular}\n`;
-                mensaje += `Envío a: ${direccion}, ${ciudad}\n`;
-                mensaje += `Pago vía: ${metodoPago}\n\n`;
-                mensaje += `*Resumen de Compra:*\n`;
-                
-                let totalPrice = 0;
-                cart.forEach(item => {
-                    const itemTotal = item.precio * item.qty;
-                    totalPrice += itemTotal;
-                    mensaje += `▪ ${item.qty}x ${item.nombre}\n  (Talla: ${item.talla}) - $${itemTotal.toLocaleString('es-CO')}\n`;
-                });
-                
-                mensaje += `\n*Total a pagar:* $${totalPrice.toLocaleString('es-CO')}\n`;
-                mensaje += `_(Envío a convenir con el asesor)_\n\n`;
-                mensaje += `Hola, quiero confirmar mi pedido. Quedo atento/a.`;
-
-                // NÚMERO DE DESTINO (Puedes cambiar este por el oficial de la tienda)
-                // Usando un genérico +57 fijo de ejemplo, cámbialo por el real.
-                const numeroDestino = "573118113811"; 
-                
-                // 3. LA CORRECCIÓN CLAVE PARA DISPOSITIVOS MÓVILES
-                // Creamos el enlace Universal (wa.me) que funciona mejor en todas las plataformas
-                const whatsappUrl = `https://wa.me/${numeroDestino}?text=${encodeURIComponent(mensaje)}`;
-                
-                // Detectamos si el usuario está navegando desde un celular/tablet
-                const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-                
-                if (isMobile) {
-                    // En móviles: Cambiamos la URL de la ventana actual. 
-                    // Esto evita el bloqueo de popups de Safari/Chrome y fuerza al SO a lanzar la App de WhatsApp.
-                    window.location.href = whatsappUrl;
-                } else {
-                    // En Computadoras: Usamos window.open para abrir WhatsApp Web cómodamente en otra pestaña.
-                    window.open(whatsappUrl, '_blank');
-                }
-                
-                // Opcional: Cerrar el modal tras enviar
-                checkoutModal.classList.add('opacity-0', 'pointer-events-none');
-                checkoutContent.classList.add('scale-95');
-                showToast("Redirigiendo a WhatsApp... 📲");
-            });
-        }
-
-        // Utilidad para mostrar notificaciones breves
-        function showToast(message) {
-            const container = document.getElementById('toastContainer');
-            if(!container) return;
-            
-            const toast = document.createElement('div');
-            toast.className = 'bg-brand-yellow text-black px-4 py-3 rounded-xl font-black text-xs shadow-2xl transform translate-y-10 opacity-0 transition-all duration-300 flex items-center gap-2 border border-yellow-400';
-            toast.innerHTML = message;
-            
-            container.appendChild(toast);
-            
-            // Animar entrada
-            setTimeout(() => {
-                toast.classList.remove('translate-y-10', 'opacity-0');
-            }, 10);
-            
-            // Animar salida y eliminar
-            setTimeout(() => {
-                toast.classList.add('translate-y-10', 'opacity-0');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
     </script>
 </body>
 </html>

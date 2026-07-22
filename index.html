@@ -276,10 +276,11 @@
                         <h3 class="font-black text-[10px] uppercase tracking-widest text-zinc-300 group-hover:text-white">Marcos</h3>
                     </button>
                     
-                    <a href="https://bogofija.catalog.kyte.site/" target="_blank" class="glass-card hover:bg-green-600/20 p-6 rounded-2xl flex flex-col items-center text-center group">
+                    <!-- Botón Modificado: Jersey abre Modal con selector -->
+                    <button type="button" id="btnJersey" class="glass-card hover:bg-green-600/20 p-6 rounded-2xl flex flex-col items-center text-center group focus:outline-none w-full">
                         <span class="text-3xl mb-3 group-hover:scale-110 transition-transform">👕</span>
-                        <h3 class="font-black text-[10px] uppercase tracking-widest text-zinc-300 group-hover:text-white">Jersey</h3>
-                    </a>
+                        <h3 class="font-black text-[10px] uppercase tracking-widest text-zinc-300 group-hover:text-white">Jerseys</h3>
+                    </button>
                     
                     <a href="https://aagoshoes.netlify.app/" target="_blank" class="glass-card hover:bg-teal-600/20 p-6 rounded-2xl flex flex-col items-center justify-center text-center group">
                         <img src="https://i.ibb.co/qFXjywhR/aagoshoes-logo.png" alt="aagoshoes-logo" class="h-8 w-auto object-contain mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_5px_rgba(255,255,255,0.2)]" />
@@ -298,11 +299,11 @@
                         <span class="text-3xl mb-3 group-hover:scale-110 transition-transform">💳</span>
                         <h3 class="font-black text-[10px] uppercase tracking-widest text-zinc-300 group-hover:text-white">Tarjetas</h3>
                     </a>
-                    <a href="https://bogofija.catalog.kyte.site/" target="_blank" class="glass-card hover:bg-brand-yellow/20 border-brand-yellow/30 p-6 rounded-2xl flex flex-col items-center text-center group">
+                    <a href="https://bogofija.catalog.kyte.site/" target="_blank" class="glass-card hover:bg-brand-yellow/20 border-brand-yellow/30 p-6 rounded-2xl flex flex-col items-center text-center group col-span-2 md:col-span-1">
                         <span class="text-3xl mb-3 group-hover:scale-110 transition-transform">📱</span>
                         <h3 class="font-black text-[10px] uppercase tracking-widest text-zinc-300 group-hover:text-brand-yellow">Porta Cel</h3>
                     </a>
-                    <a href="https://linktr.ee/bogofija" target="_blank" class="glass-card hover:bg-brand-yellow/20 border-brand-yellow/30 p-6 rounded-2xl flex flex-col items-center text-center group">
+                    <a href="https://linktr.ee/bogofija" target="_blank" class="glass-card hover:bg-brand-yellow/20 border-brand-yellow/30 p-6 rounded-2xl flex flex-col items-center text-center group col-span-2 md:col-span-1">
                         <span class="text-3xl mb-3 group-hover:scale-110 transition-transform">✨</span>
                         <h3 class="font-black text-[10px] uppercase tracking-widest text-zinc-300 group-hover:text-brand-yellow">Exhibición Completa</h3>
                     </a>
@@ -401,8 +402,10 @@
 
             </div>
         </div>
-<!-- NUEVA VENTANA SUB-VENTANA (MODAL SUPERPUESTO PARA JERSEY BOGOFIJA) -->
+
+        <!-- VENTANA SUB-VENTANA (MODAL SUPERPUESTO PARA JERSEYS) -->
         <div id="modalJersey" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+            <!-- Contenedor del Modal -->
             <div class="bg-white text-gray-900 rounded-[30px] max-w-sm w-full shadow-2xl border border-gray-100 flex flex-col relative max-h-[90vh] overflow-y-auto scrollbar-hide transform scale-95 transition-transform duration-300" id="modalJerseyContent">
                 
                 <!-- BOTÓN VOLVER / CERRAR -->
@@ -411,71 +414,64 @@
                     Volver
                 </button>
 
-                <!-- IMAGEN Y CONTROLES VISTA FRENTE / ATRÁS -->
-                <div class="relative overflow-hidden aspect-square bg-slate-100 flex items-center justify-center p-4 mt-12 group">
-                    <img id="jerseyImagenPrevia" src="https://i.ibb.co/ZpxYPSPZ/Jersey-Bogofija.jpg" alt="Jersey Bogofija" class="w-full h-full object-contain rounded-2xl relative z-10 shadow-md transition-all duration-300" />
-                    
-                    <!-- Badges superiores -->
-                    <div class="absolute top-3 right-3 flex flex-col gap-1 z-20">
-                        <span class="bg-black/90 backdrop-blur-sm text-brand-yellow text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow">Pro Kit 2026</span>
+                <!-- IMAGEN Y ETIQUETAS DEL JERSEY -->
+                <div class="relative overflow-hidden aspect-[4/3] bg-gray-50 flex flex-col items-center justify-center p-2 mt-12 group">
+                    <!-- Contenedor de imágenes para vista frontal y posterior -->
+                    <div class="relative w-full h-full flex transition-transform duration-500" id="jerseyImageContainer">
+                        <img id="jerseyImagenPreviaFrente" src="https://i.ibb.co/ZpxYPSPZ/Jersey-Bogofija.jpg" alt="Jersey Vista Frontal" class="w-full h-full object-cover rounded-2xl relative z-10 shadow-lg absolute inset-0 transition-opacity duration-300" />
+                        <img id="jerseyImagenPreviaAtras" src="https://i.ibb.co/3yVv4XZz/Jersey-Bogofija.jpg" alt="Jersey Vista Posterior" class="w-full h-full object-cover rounded-2xl relative z-10 shadow-lg absolute inset-0 opacity-0 transition-opacity duration-300" />
                     </div>
-
-                    <!-- SELECTOR INTERACTIVO VISTA FRONTAL / TRASERA -->
-                    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 bg-black/80 backdrop-blur-md p-1 rounded-full border border-white/10 flex gap-1 shadow-lg">
-                        <button type="button" id="btnVistaFrente" class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase transition-all bg-brand-yellow text-black">
-                            <i class="fa-solid fa-eye mr-1"></i> Frente
-                        </button>
-                        <button type="button" id="btnVistaAtras" class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase transition-all text-white hover:text-brand-yellow">
-                            Atrás <i class="fa-solid fa-rotate-right ml-1"></i>
-                        </button>
+                    
+                    <!-- Botón para alternar vistas superpuesto -->
+                    <button id="btnToggleJerseyView" class="absolute bottom-4 right-4 z-30 bg-gray-900/80 backdrop-blur-md text-white p-2 rounded-full hover:bg-brand-yellow hover:text-black transition-colors shadow-md">
+                        <i class="fa-solid fa-rotate"></i>
+                    </button>
+                    
+                    <div class="absolute bottom-4 left-4 flex flex-col gap-2 z-20">
+                        <span class="bg-gray-900 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md">Apparel</span>
+                        <span class="bg-blue-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider flex items-center gap-1 shadow-lg shadow-blue-500/30">
+                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 16h2v2h-2zm0-6h2v4h-2z"/></svg> 
+                            Ed. Limitada
+                        </span>
                     </div>
                 </div>
                 
-                <!-- CUERPO DE LA TARJETA JERSEY -->
+                <!-- CUERPO DE LA TARJETA -->
                 <div class="p-6 flex-1 flex flex-col justify-between bg-white text-left">
                     <div>
-                        <div class="flex justify-between items-start mb-2 gap-2">
-                            <div>
-                                <span class="text-[9px] font-black uppercase text-green-600 tracking-widest block">Edición Oficial</span>
-                                <h3 class="font-extrabold text-lg text-gray-900 leading-tight">
-                                    Maillot & Culotte Bogofija
-                                </h3>
-                            </div>
-                            <span class="font-black text-black bg-brand-yellow px-2 py-1 rounded-lg text-lg whitespace-nowrap shadow-sm">
-                                $ 280.000
+                        <div class="flex justify-between items-start mb-3 gap-3">
+                            <h3 id="jerseyNombrePrevia" class="font-extrabold text-lg text-gray-900 leading-tight">
+                                Edición Bogofija Camuflado 2027
+                            </h3>
+                            <span id="jerseyPrecioPrevia" class="font-black text-black bg-brand-yellow px-2 py-1 rounded-lg text-lg whitespace-nowrap shadow-sm">
+                                $ 180.000
                             </span>
                         </div>
+                        <p id="jerseyDescripcionPrevia" class="text-sm text-gray-500 mb-4 leading-relaxed font-medium">
+                            Jersey oficial aerodinámico. Material transpirable de alta tecnología ideal para rutas largas y carreras.
+                        </p>
 
-                        <!-- Detalle técnico fotorrealista -->
-                        <div class="bg-gray-50 border border-gray-200/80 rounded-2xl p-3.5 mb-4 text-xs text-gray-600 space-y-2">
-                            <p class="leading-relaxed font-medium">
-                                Base blanca minimalista con fino patrón geométrico de cuadrícula abstracta. Texto <strong class="text-black">«BOGOFIJA»</strong> centrado en el pecho y escrito verticalmente a lo largo de la columna vertebral.
+                        <!-- NUEVO: SELECTOR DE DISEÑO DE JERSEY -->
+                        <div class="mb-4 bg-slate-50 p-3 rounded-2xl border border-slate-150">
+                            <p class="text-[10px] font-black text-gray-800 uppercase tracking-widest mb-2 flex items-center gap-1">
+                                🎨 Modelo de Jersey
                             </p>
-                            <div class="grid grid-cols-2 gap-2 text-[10px] font-bold text-gray-700 pt-1 border-t border-gray-200/60">
-                                <span class="flex items-center gap-1.5"><i class="fa-solid fa-shirt text-brand-yellow"></i> Textil Microperforado</span>
-                                <span class="flex items-center gap-1.5"><i class="fa-solid fa-sun text-brand-yellow"></i> Protección UV50+</span>
-                                <span class="flex items-center gap-1.5"><i class="fa-solid fa-wind text-brand-yellow"></i> Ajuste Aerodinámico</span>
-                                <span class="flex items-center gap-1.5"><i class="fa-solid fa-arrows-spin text-brand-yellow"></i> Badana HD 120kg</span>
+                            <div class="grid grid-cols-2 gap-2" id="selectorModelosJersey">
+                                <!-- Se renderiza dinámicamente -->
                             </div>
                         </div>
 
-                        <!-- GUÍA DE TALLAS JERSEY -->
-                        <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 mb-4">
-                            <p class="text-xs font-black text-gray-800 uppercase tracking-widest mb-2 flex items-center gap-1">
-                                📏 Selecciona la talla del Jersey
-                            </p>
-                            <div class="flex flex-wrap gap-1.5" id="contenedorTallasJersey">
-                                <button type="button" class="btn-talla-jersey flex-1 min-w-[45px] h-9 rounded-xl text-xs font-extrabold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="XS">XS</button>
-                                <button type="button" class="btn-talla-jersey flex-1 min-w-[45px] h-9 rounded-xl text-xs font-extrabold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="S">S</button>
-                                <button type="button" class="btn-talla-jersey flex-1 min-w-[45px] h-9 rounded-xl text-xs font-extrabold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="M">M</button>
-                                <button type="button" class="btn-talla-jersey flex-1 min-w-[45px] h-9 rounded-xl text-xs font-extrabold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="L">L</button>
-                                <button type="button" class="btn-talla-jersey flex-1 min-w-[45px] h-9 rounded-xl text-xs font-extrabold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="XL">XL</button>
-                                <button type="button" class="btn-talla-jersey flex-1 min-w-[45px] h-9 rounded-xl text-xs font-extrabold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="XXL">XXL</button>
-                            </div>
+                        <!-- SELECCIÓN DE TALLAS COMERCIALES -->
+                        <p class="text-xs font-black text-gray-800 uppercase tracking-widest mb-2">Selecciona la talla</p>
+                        <div class="flex flex-wrap gap-2 mb-4 max-h-[110px] overflow-y-auto scrollbar-hide" id="contenedorTallasJersey">
+                            <button class="btn-talla-jersey flex-1 min-w-[55px] h-10 rounded-xl text-xs font-bold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="S">S</button>
+                            <button class="btn-talla-jersey flex-1 min-w-[55px] h-10 rounded-xl text-xs font-bold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="M">M</button>
+                            <button class="btn-talla-jersey flex-1 min-w-[55px] h-10 rounded-xl text-xs font-bold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="L">L</button>
+                            <button class="btn-talla-jersey flex-1 min-w-[55px] h-10 rounded-xl text-xs font-bold transition-all bg-gray-100 text-gray-700 hover:bg-brand-yellow/30" data-talla="XL">XL</button>
                         </div>
 
-                        <!-- SELECTOR DE CANTIDAD JERSEY -->
-                        <div class="flex items-center justify-between bg-slate-50 p-3.5 rounded-2xl border border-slate-200 mb-5">
+                        <!-- NUEVO: SELECTOR DE CANTIDAD -->
+                        <div class="flex items-center justify-between bg-slate-50 p-4 rounded-2xl border border-slate-200 mb-6">
                             <span class="text-xs font-black text-gray-800 uppercase tracking-widest">Cantidad</span>
                             <div class="flex items-center gap-2">
                                 <button type="button" id="btnDecQtyJersey" class="w-8 h-8 rounded-xl bg-gray-200 text-gray-850 font-black hover:bg-brand-yellow hover:text-black transition-colors flex items-center justify-center">-</button>
@@ -485,7 +481,7 @@
                         </div>
                     </div>
                     
-                    <!-- BOTÓN DE COMPRA JERSEY -->
+                    <!-- BOTÓN DE COMPRA -->
                     <button id="btnAgregarCarritoJersey" class="w-full bg-gray-900 text-white py-4 rounded-xl text-sm font-bold hover:bg-brand-yellow hover:text-black transition-colors shadow-lg active:scale-95 disabled:opacity-50 disabled:pointer-events-none" disabled>
                         Selecciona una talla para agregar
                     </button>
@@ -493,6 +489,7 @@
 
             </div>
         </div>
+
 
         <section id="calculadora" class="py-24 px-6 border-t border-zinc-900 bg-[#09090b] relative z-10 text-white">
             <div class="max-w-7xl mx-auto">
@@ -637,6 +634,7 @@
             </div>
         </section>
 
+        <!-- SECCIÓN: LISTA DE SUBIDAS (MODIFICADA) -->
         <section id="lista-subidas" class="py-24 px-6 bg-[#000000] relative z-10 border-t border-zinc-900 min-h-screen">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-12 reveal">
@@ -647,9 +645,9 @@
                     <p class="text-zinc-500 text-sm max-w-2xl mx-auto font-medium mt-3">Base de datos dinámica con las rutas oficiales. Solo se muestran las subidas que se encuentran activas en el reto actual.</p>
                 </div>
                 
-                <!-- Contenedor inyectado por JS -->
-                <div id="subidas-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 justify-items-center reveal" style="transition-delay: 100ms;">
-                    <!-- Cards se renderizan aquí mediante JavaScript -->
+                <!-- Contenedor de la Cuadrícula (Grid) -->
+                <div id="subidas-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 justify-items-center reveal" style="transition-delay: 100ms;">
+                    <!-- Las tarjetas se generan aquí con JavaScript -->
                 </div>
             </div>
         </section>
@@ -707,16 +705,32 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Carga de la librería canvas-confetti por CDN -->
+                    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
 
-                    <!-- Controlador Simulación -->
-                    <div class="flex flex-wrap gap-4 items-center justify-between p-4 bg-zinc-900/40 rounded-xl border border-zinc-800/60 text-xs">
-                        <span class="text-zinc-400 flex items-center">
-                            <i class="fa-solid fa-code text-brand-yellow mr-2"></i>
-                            Modo Desarrollador: Previsualiza el diseño del ranking activo.
-                        </span>
-                        <button onclick="toggleMockData()" id="btn-toggle" class="bg-brand-yellow hover:bg-yellow-400 text-black font-black px-4 py-2 rounded-lg transition-all transform hover:scale-105 flex items-center space-x-2">
-                            <i class="fa-solid fa-play"></i> <span>Simular Datos</span>
-                        </button>
+                    <!-- Banner de Convocatoria - Reto Bogofija 2027 -->
+                    <div class="relative overflow-hidden flex flex-wrap gap-4 items-center justify-between p-5 bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 rounded-2xl border border-brand-yellow/50 shadow-2xl shadow-brand-yellow/10 text-sm group">
+                        
+                        <!-- Efecto de brillo de fondo al pasar el cursor -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-brand-yellow/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+
+                        <!-- Texto Principal -->
+                        <div class="relative z-10 text-zinc-200 flex items-center font-medium">
+                            <span class="flex items-center justify-center w-10 h-10 rounded-xl bg-brand-yellow/10 border border-brand-yellow/30 mr-4 shadow-inner">
+                                <i class="fa-solid fa-fire text-brand-yellow text-lg animate-bounce"></i>
+                            </span>
+                            <div>
+                                <p class="text-xs uppercase tracking-widest text-brand-yellow font-extrabold mb-0.5">Convocatoria Abierta</p>
+                                <p class="text-zinc-300">¿Listo para hacer historia? <strong class="text-white underline decoration-brand-yellow decoration-2 underline-offset-4">Inscríbete al Reto Bogofija 2027</strong> y rompe los límites. 🚀</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Botón de Acción -->
+                        <a href="https://forms.gle/LvyD1WoV1KBrZDX67" target="_blank" rel="noopener noreferrer" id="btn-inscripcion" class="relative z-10 bg-gradient-to-r from-brand-yellow to-yellow-400 hover:from-yellow-400 hover:to-brand-yellow text-zinc-950 font-black px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center space-x-3 shadow-lg shadow-brand-yellow/30 hover:shadow-brand-yellow/50 cursor-pointer">
+                            <i class="fa-solid fa-bolt transition-transform duration-300 group-hover:rotate-12"></i> 
+                            <span>¡Dar el Salto!</span>
+                        </a>
                     </div>
                 </div>
 
@@ -1045,7 +1059,7 @@
         </div>
         
         <!-- Copyright -->
-        <p class="text-zinc-700 text-[10px] font-bold tracking-widest uppercase">&copy; 2021 by BOGOFIJA</p>
+        <p class="text-zinc-700 text-[10px] font-bold tracking-widest uppercase">&copy; 2020 by BOGOFIJA</p>
     </footer>
 
     <script>
@@ -1103,6 +1117,7 @@
             updateCalculator(); // Inicializar calculadora
             renderizarSubidas(); // Inicializar lista de rutas
             renderMarcosSelector(); // Inicializar selector de marcos en modal
+            renderJerseysSelector(); // Inicializar selector de jerseys en modal
         });
 
         // --- BASE DE DATOS DE MARCOS EDITABLE ---
@@ -1133,6 +1148,31 @@
         let selectedMarcoIndex = 0;
         let selectedQty = 1;
         let selectedTalla = null;
+
+        // --- BASE DE DATOS DE JERSEYS EDITABLE ---
+        const JERSEYS_DB = [
+            {
+                id: "jersey-godandfamous",
+                nombre: "Edición Bogofija Camuflado 2027",
+                precio: 180000,
+                imagenFrente: "https://i.ibb.co/ZpxYPSPZ/Jersey-Bogofija.jpg",
+                imagenAtras: "https://i.ibb.co/3yVv4XZz/Jersey-Bogofija.jpg",
+                descripcion: "Jersey oficial aerodinámico. Material transpirable de alta tecnología ideal para rutas largas y carreras."
+            },
+            {
+                id: "jersey-retobogofija",
+                nombre: "Jersey Edición #RetoBogofija 2027",
+                precio: 160000,
+                imagenFrente: "https://i.ibb.co/dJ1wBbnX/Frente-2027.jpg",
+                imagenAtras: "https://i.ibb.co/jZHrstV8/atras-2027.jpg",
+                descripcion: "Diseño exclusivo para los participantes del Reto. Ajuste race fit y bolsillos reforzados."
+            }
+        ];
+
+        let selectedJerseyIndex = 0;
+        let selectedQtyJersey = 1;
+        let selectedTallaJersey = null;
+        let isShowingFrontView = true;
 
         // --- 2. LÓGICA CALCULADORA DE RENDIMIENTO ---
         let isAmbi = false;
@@ -1375,22 +1415,19 @@
                 { name: "JHON ELMER BERRIO", score: 95, rides: 6, medal: "gold" },
                 { name: "DANIEL ALEJANDRO", score: 85, rides: 6, medal: "silver" },
                 { name: "SERGIO ANDRÉS", score: 83, rides: 5, medal: "bronze" },
-                { name: "JUAN CAMILO COBOS", score: 75, rides: 5, medal: "normal" },
-                { name: "ESTEBAN PINZON", score: 75, rides: 5, medal: "normal" }
+                
             ],
             rutaH: [
                 { name: "ESTEBAN CARDOZO", score: 50, rides: 6, medal: "gold" },
                 { name: "CRITIAN CUERVO", score: 44, rides: 5, medal: "silver" },
                 { name: "JHON PINILLA", score: 40, rides: 5, medal: "bronze" },
-                { name: "VICTOR PALOMINO", score: 35, rides: 4, medal: "normal" },
-                { name: "CRISTIAN VILLAMIL", score: 30, rides: 3, medal: "normal" }
+                
             ],
             rutaM: [
                 { name: "ANGIE CASTRO", score: 105, rides: 6, medal: "gold" },
                 { name: "ANDRE HERNANDEZ", score: 84, rides: 4, medal: "silver" },
                 { name: "PAOLA RUIZ", score: 64, rides: 3, medal: "bronze" },
-                { name: "SARA MEDINA", score: 20, rides: 3, medal: "normal" },
-                { name: "YENNY SEMIYARTE", score: 20, rides: 3, medal: "normal" }
+                
             ]
         };
 
@@ -1424,41 +1461,41 @@
                                     </div>
                                     <div class="flex-grow space-y-1.5">
                                         <div class="h-3 w-24 shimmer-bg rounded"></div>
-                                        <div class="h-2 w-12 shimmer-bg rounded opacity-50"></div>
+                                        <div class="h-2 w-16 shimmer-bg rounded opacity-50"></div>
                                     </div>
                                 </div>
-                                <div class="text-right">
-                                    <span class="block text-lg font-black text-zinc-700 leading-none">--</span>
+                                <div class="text-right space-y-1.5 flex-shrink-0 w-16">
+                                    <div class="h-4 w-full shimmer-bg rounded ml-auto"></div>
                                 </div>
                             </div>
                         `;
                     } else {
                         const rider = vol3MockData[key][i];
-                        let badgeStyle = rider.medal === 'gold' ? 'bg-brand-yellow text-black shadow-lg shadow-yellow-500/20' : 
-                                         rider.medal === 'silver' ? 'bg-zinc-300 text-black' :
-                                         rider.medal === 'bronze' ? 'bg-amber-600 text-white' : 
+                        let badgeStyle = pos === 1 ? 'bg-brand-yellow text-black' : 
+                                         pos === 2 ? 'bg-zinc-300 text-black' :
+                                         pos === 3 ? 'bg-amber-600 text-white' : 
                                          'bg-zinc-800 text-zinc-400';
                         
-                        let crown = rider.medal === 'gold' ? `<i class="fa-solid fa-crown text-[8px] absolute -top-1 left-1/2 -translate-x-1/2 rotate-12 text-brand-yellow"></i>` : '';
-                        let textNameClass = rider.medal === 'gold' ? 'text-brand-yellow' : 'text-white';
-                        let cardBorder = rider.medal === 'gold' ? 'border-brand-yellow/30 bg-brand-yellow/5' : 'border-zinc-800 bg-zinc-900/60';
+                        let rowStyle = pos === 1 ? 'bg-brand-yellow/5 border-brand-yellow/30' : 
+                                       pos === 2 ? 'bg-zinc-500/5 border-zinc-500/30' :
+                                       pos === 3 ? 'bg-amber-600/5 border-amber-600/30' : 
+                                       'bg-zinc-900/40 border-zinc-800';
+
+                        let crown = pos === 1 ? `<i class="fa-solid fa-crown text-[8px] absolute -top-1 left-1/2 -translate-x-1/2 rotate-12 text-brand-yellow"></i>` : '';
 
                         container.innerHTML += `
-                            <div class="p-3.5 rounded-xl border ${cardBorder} flex items-center justify-between hover:scale-[1.02] transition-transform">
-                                <div class="flex items-center space-x-3 overflow-hidden">
-                                    <div class="w-8 h-8 rounded-full ${badgeStyle} flex items-center justify-center font-black text-xs relative flex-shrink-0">
+                            <div class="p-3.5 rounded-xl border ${rowStyle} flex items-center justify-between transition-all hover:scale-[1.02]">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 rounded-full ${badgeStyle} flex items-center justify-center font-bold text-xs relative shadow-lg flex-shrink-0">
                                         ${crown}${pos}
                                     </div>
-                                    <div class="truncate">
-                                        <h4 class="${textNameClass} text-xs font-bold truncate uppercase">${rider.name}</h4>
-                                        <div class="text-[9px] text-zinc-400 font-bold uppercase mt-0.5">
-                                            <i class="fa-solid fa-bicycle mr-1"></i>${rider.rides} salidas
-                                        </div>
+                                    <div>
+                                        <h4 class="font-bold text-white text-xs tracking-wide uppercase truncate w-32 md:w-40">${rider.name}</h4>
+                                        <span class="text-[10px] text-zinc-500 font-medium">${rider.rides} puertos coronados</span>
                                     </div>
                                 </div>
-                                <div class="text-right ml-2 flex-shrink-0">
-                                    <span class="block text-lg font-black ${textNameClass} leading-none">${rider.score}</span>
-                                    <span class="text-[8px] font-bold text-zinc-500 uppercase">PTS</span>
+                                <div class="text-right">
+                                    <span class="block text-brand-yellow font-black text-sm">${rider.score} <span class="text-[9px] text-zinc-500">PTS</span></span>
                                 </div>
                             </div>
                         `;
@@ -1466,13 +1503,14 @@
                 }
             });
 
+            // Actualizar etiquetas de estado
             document.querySelectorAll('.v3-status').forEach(el => {
-                if(isMockDataActive){
-                    el.className = 'text-[10px] font-bold px-2 py-1 rounded bg-brand-yellow/10 border border-brand-yellow/30 text-brand-yellow v3-status uppercase';
-                    el.innerText = 'Demo Activa';
+                if(isMockDataActive) {
+                    el.innerText = "Simulación";
+                    el.className = "text-[10px] font-bold px-2 py-1 rounded bg-brand-yellow/20 border border-brand-yellow/50 text-brand-yellow v3-status uppercase animate-pulse";
                 } else {
-                    el.className = 'text-[10px] font-bold px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-500 v3-status uppercase';
-                    el.innerText = 'Esperando';
+                    el.innerText = "Esperando";
+                    el.className = "text-[10px] font-bold px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-500 v3-status uppercase";
                 }
             });
         }
@@ -1480,88 +1518,105 @@
         function toggleMockData() {
             isMockDataActive = !isMockDataActive;
             const btn = document.getElementById('btn-toggle');
-            if (isMockDataActive) {
-                btn.innerHTML = `<i class="fa-solid fa-stop text-sm"></i> <span>Detener Demo</span>`;
-                btn.classList.replace('bg-brand-yellow', 'bg-red-500');
-                btn.classList.replace('hover:bg-yellow-400', 'hover:bg-red-600');
-                btn.classList.replace('text-black', 'text-white');
+            const icon = btn.querySelector('i');
+            const text = btn.querySelector('span');
+
+            if(isMockDataActive) {
+                btn.className = "bg-red-500 hover:bg-red-600 text-white font-black px-4 py-2 rounded-lg transition-all transform hover:scale-105 flex items-center space-x-2";
+                icon.className = "fa-solid fa-stop";
+                text.innerText = "Detener Simulación";
             } else {
-                btn.innerHTML = `<i class="fa-solid fa-play text-sm"></i> <span>Simular Datos</span>`;
-                btn.classList.replace('bg-red-500', 'bg-brand-yellow');
-                btn.classList.replace('hover:bg-red-600', 'hover:bg-yellow-400');
-                btn.classList.replace('text-white', 'text-black');
+                btn.className = "bg-brand-yellow hover:bg-yellow-400 text-black font-black px-4 py-2 rounded-lg transition-all transform hover:scale-105 flex items-center space-x-2";
+                icon.className = "fa-solid fa-play";
+                text.innerText = "Simular Datos";
             }
             renderVol3Leaderboards();
         }
 
-        // --- 5. LÓGICA VOL 2 (HISTORIAL ESTÁTICO) ---
-        const vol2FinalData = {
+        // --- 5. LÓGICA VOL 2 (HISTORIAL) ---
+        const vol2Data = {
             pinon: [
-                { name: 'Jhon Elmer Berrio', points: 95, trips: 6 },
-                { name: 'Daniel A. Acosta', points: 85, trips: 6 },
-                { name: 'Sergio A. Veloza', points: 83, trips: 5 },
-                { name: 'Juan Camilo Cobos', points: 75, trips: 5 },
-                { name: 'Esteban Pinzon', points: 75, trips: 5 }
+                { pos: 1, name: "JHON ELMER BERRIO", pts: 219.0, puertos: 13 },
+                { pos: 2, name: "DANIEL ALEJANDRO", pts: 0.0, puertos: 0 },
+                { pos: 3, name: "SERGIO ANDRÉS", pts: 0.0, puertos: 0 },
+                { pos: 4, name: "JUAN CAMILO COBOS", pts: 147.0, puertos: 10 },
+                { pos: 5, name: "ESTEBAN PINZON", pts: 0.0, puertos: 0 }
             ],
             rutaH: [
-                { name: 'Esteban Cardozo', points: 50, trips: 6 },
-                { name: 'Critian Cuervo', points: 44, trips: 5 },
-                { name: 'Jhon Pinilla', points: 40, trips: 5 },
-                { name: 'Victor Palomino', points: 35, trips: 4 },
-                { name: 'Cristian Villamil', points: 30, trips: 3 }
+                { pos: 1, name: "ESTEBAN CARDOZO", pts: 195.0, puertos: 13 },
+                { pos: 2, name: "CRITIAN CUERVO", pts: 150.0, puertos: 11 }, 
+                { pos: 3, name: "JHON PINILLA", pts: 0.0, puertos: 0 },
+                { pos: 4, name: "VICTOR PALOMINO", pts: 0.0, puertos: 0 },
+                { pos: 5, name: "CRISTIAN VILLAMIL", pts: 0.0, puertos: 0 }
             ],
             rutaM: [
-                { name: 'Angie Castro', points: 105, trips: 6 },
-                { name: 'Andre Hernandez', points: 84, trips: 4 },
-                { name: 'Paola Ruiz', points: 64, trips: 3 },
-                { name: 'Sara Medina', points: 20, trips: 3 },
-                { name: 'Yenny Semiyarte', points: 20, trips: 3 }
+                { pos: 1, name: "ANGIE CASTRO", pts: 140.0, puertos: 9 },
+                { pos: 2, name: "ANDRE HERNANDEZ", pts: 0.0, puertos: 0 },
+                { pos: 3, name: "PAOLA RUIZ", pts: 215.0, puertos: 13 },
+                { pos: 4, name: "SARA MEDINA", pts: 0.0, puertos: 0 },
+                { pos: 5, name: "YENNY SEMIYARTE", pts: 0.0, puertos: 0 }
             ]
         };
 
         function renderVol2History() {
-            const configs = [
-                { id: 'col-v2-pinon', title: 'Piñón Fijo', icon: 'fa-cog', data: vol2FinalData.pinon },
-                { id: 'col-v2-ruta-h', title: 'Ruta Hombre', icon: 'fa-person-biking', data: vol2FinalData.rutaH },
-                { id: 'col-v2-ruta-m', title: 'Ruta Mujer', icon: 'fa-person-biking', data: vol2FinalData.rutaM }
-            ];
+            const containers = {
+                pinon: document.getElementById('col-v2-pinon'),
+                rutaH: document.getElementById('col-v2-ruta-h'),
+                rutaM: document.getElementById('col-v2-ruta-m')
+            };
 
-            configs.forEach(cfg => {
-                const container = document.getElementById(cfg.id);
+            const titles = {
+                pinon: { icon: 'fa-cog text-brand-yellow', title: 'Piñón Fijo' },
+                rutaH: { icon: 'fa-person-biking text-blue-400', title: 'Ruta Hombre' },
+                rutaM: { icon: 'fa-person-biking text-pink-400', title: 'Ruta Mujer' }
+            };
+
+            Object.keys(containers).forEach(key => {
+                const container = containers[key];
+                if(!container) return;
+
                 let html = `
-                    <div class="glass-card rounded-3xl p-6 h-full flex flex-col relative overflow-hidden group">
-                        <i class="fa-solid ${cfg.icon} absolute -right-4 -top-4 text-7xl text-white/5 group-hover:scale-110 transition-transform duration-500"></i>
-                        <h3 class="text-xl font-black mb-6 text-white uppercase flex items-center border-b border-white/10 pb-4">
-                            ${cfg.title}
-                        </h3>
-                        <div class="space-y-2.5">
+                    <div class="bg-black border border-zinc-800 rounded-3xl p-6 flex flex-col h-full opacity-80 hover:opacity-100 transition-opacity">
+                        <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-zinc-800/50">
+                            <i class="fa-solid ${titles[key].icon} text-xl opacity-70"></i>
+                            <h3 class="text-lg font-bold text-white uppercase tracking-wider opacity-90">${titles[key].title}</h3>
+                        </div>
+                        <div class="space-y-1.5 overflow-y-auto pr-2 custom-scrollbar flex-1" style="max-height: 500px;">
                 `;
 
-                cfg.data.forEach((p, idx) => {
-                    const pos = idx + 1;
-                    const isFirst = pos === 1;
-                    const isSecond = pos === 2;
-                    const isThird = pos === 3;
-                    
-                    const rankClass = isFirst ? 'legacy-rank-1' : isSecond ? 'legacy-rank-2' : isThird ? 'legacy-rank-3' : 'bg-white/5 border-l-[3px] border-transparent';
-                    const icon = isFirst ? '🥇' : isSecond ? '🥈' : isThird ? '🥉' : `<span class="text-xs font-bold text-zinc-500">#${pos}</span>`;
-                    const nameColor = isFirst ? 'text-brand-yellow font-black' : isSecond ? 'text-zinc-200' : isThird ? 'text-amber-500' : 'text-zinc-400';
+                vol2Data[key].forEach(rider => {
+                    let legacyStyle = '';
+                    let textHighlight = 'text-zinc-300';
+                    let ptsHighlight = 'text-zinc-500';
+                    let rankIcon = `<span class="w-5 font-mono text-zinc-600 text-xs">${rider.pos}.</span>`;
+
+                    if (rider.pos === 1) {
+                        legacyStyle = 'legacy-rank-1';
+                        textHighlight = 'text-brand-yellow font-black';
+                        ptsHighlight = 'text-brand-yellow font-bold';
+                        rankIcon = `<i class="fa-solid fa-trophy text-brand-yellow w-5 text-xs"></i>`;
+                    } else if (rider.pos === 2) {
+                        legacyStyle = 'legacy-rank-2';
+                        textHighlight = 'text-zinc-200 font-bold';
+                        ptsHighlight = 'text-zinc-400 font-bold';
+                        rankIcon = `<i class="fa-solid fa-medal text-zinc-300 w-5 text-xs"></i>`;
+                    } else if (rider.pos === 3) {
+                        legacyStyle = 'legacy-rank-3';
+                        textHighlight = 'text-amber-600 font-bold';
+                        ptsHighlight = 'text-amber-600/80 font-bold';
+                        rankIcon = `<i class="fa-solid fa-medal text-amber-600 w-5 text-xs"></i>`;
+                    }
 
                     html += `
-                        <div class="flex items-center justify-between p-3 rounded-r-xl ${rankClass} hover:bg-white/10 transition-colors">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-6 text-center">${icon}</div>
-                                <div>
-                                    <h4 class="text-sm uppercase ${nameColor}">${p.name}</h4>
-                                    <div class="text-[9px] text-zinc-500 uppercase tracking-widest mt-0.5">
-                                        <i class="fa-solid fa-check text-zinc-600 mr-1"></i>${p.trips} Salidas
-                                    </div>
+                        <div class="flex items-center justify-between p-2.5 rounded-lg ${legacyStyle} hover:bg-zinc-900/50 transition-colors">
+                            <div class="flex items-center space-x-2 overflow-hidden">
+                                ${rankIcon}
+                                <div class="truncate">
+                                    <span class="block text-xs uppercase tracking-wide truncate w-32 md:w-40 ${textHighlight}">${rider.name}</span>
+                                    <span class="text-[9px] text-zinc-600 uppercase font-medium block">${rider.puertos} puertos</span>
                                 </div>
                             </div>
-                            <div class="text-right">
-                                <div class="text-base font-black ${nameColor}">${p.points}</div>
-                                <div class="text-[8px] uppercase text-zinc-600 font-bold">PTS</div>
-                            </div>
+                            <span class="text-xs ${ptsHighlight}">${rider.pts} <span class="text-[8px] opacity-60">PTS</span></span>
                         </div>
                     `;
                 });
@@ -1571,393 +1626,790 @@
             });
         }
 
-        // --- 6. BASE DE DATOS Y RENDERIZADO DE RUTAS ---
-        const baseDeDatosSubidas = [
-            { nombre: "La Vega al Vino", referencia: "La Vega", distancia: "28 km", desnivel: "1000 m", pendiente: "3.6%", dificultad: "Alto", estado: "Próximamente" },
-            { nombre: "Romeral", referencia: "Bogotá Sur", distancia: "10 km", desnivel: "600 m", pendiente: "6%", dificultad: "Medio", estado: "Activa" },
-            { nombre: "Fusagasugá a Rosas", referencia: "Fusagasugá", distancia: "26.3 km", desnivel: "1368 m", pendiente: "5.2%", dificultad: "Muy Alto", estado: "Próximamente" },
-            { nombre: "Guadalupe", referencia: "Bogotá Centro", distancia: "2 km", desnivel: "200 m", pendiente: "10%", dificultad: "Alto", estado: "Próximamente" },
-            { nombre: "El Águila por Zipa", referencia: "Zipaquirá", distancia: "15.6 km", desnivel: "587 m", pendiente: "5%", dificultad: "Intermedio", estado: "Próximamente" },
-            { nombre: "Patios desde Arepas", referencia: "Bogotá Norte", distancia: "14 km", desnivel: "650 m", pendiente: "4.6%", dificultad: "Medio", estado: "Próximamente" },
-            { nombre: "El Verjón", referencia: "Bogotá", distancia: "11 km", desnivel: "698 m", pendiente: "4.7%", dificultad: "Alto", estado: "Próximamente" },
-            { nombre: "Canicas desde Tabio", referencia: "Tabio", distancia: "5 km", desnivel: "300 m", pendiente: "6%", dificultad: "Medio", estado: "Próximamente" },
-            { nombre: "Sumapaz", referencia: "Bogotá Sur", distancia: "30 km", desnivel: "1200 m", pendiente: "4%", dificultad: "Muy Alto", estado: "Próximamente" },
-            { nombre: "Choachí al Verjón", referencia: "Choachí", distancia: "22 km", desnivel: "1321 m", pendiente: "6%", dificultad: "Muy Alto", estado: "Próximamente" },
-            { nombre: "Yerbabuena", referencia: "Chía", distancia: "6 km", desnivel: "300 m", pendiente: "5%", dificultad: "Medio", estado: "Próximamente" },
-            { nombre: "Tribuna desde Albán", referencia: "Albán", distancia: "10 km", desnivel: "600 m", pendiente: "6%", dificultad: "Medio", estado: "Próximamente" },
-            { nombre: "Zipacón", referencia: "Zipacón", distancia: "5 km", desnivel: "400 m", pendiente: "8%", dificultad: "Medio", estado: "Próximamente" },
-            { nombre: "Mesitas al Tequendama", referencia: "Mesitas", distancia: "12 km", desnivel: "800 m", pendiente: "6.6%", dificultad: "Alto", estado: "Próximamente" },
-            { nombre: "La Cuchilla por Guasca", referencia: "Guasca", distancia: "18 km", desnivel: "1100 m", pendiente: "6.1%", dificultad: "Alto", estado: "Próximamente" },
-            { nombre: "Gran Vals", referencia: "Sabana", distancia: "125 km", desnivel: "1200 m", pendiente: "1.8%", dificultad: "Extremo", estado: "Próximamente" },
-            { nombre: "La Mesa a Mondoñedo", referencia: "La Mesa", distancia: "15 km", desnivel: "700 m", pendiente: "4.6%", dificultad: "Medio", estado: "Próximamente" },
-            { nombre: "Tequendama", referencia: "Bogotá Sur", distancia: "15 km", desnivel: "900 m", pendiente: "6%", dificultad: "Alto", estado: "Próximamente" },
-            { nombre: "Alto de Letras", referencia: "Mariquita", distancia: "80.4 km", desnivel: "3329 m", pendiente: "4.8%", dificultad: "Legendario", estado: "Próximamente" },
-            { nombre: "Alto La Línea", referencia: "Cajamarca", distancia: "20.8 km", desnivel: "1616 m", pendiente: "7.8%", dificultad: "Legendario", estado: "Próximamente" },
-            { nombre: "Alto El Sifón", referencia: "Líbano", distancia: "88.2 km", desnivel: "3800 m", pendiente: "4.3%", dificultad: "Extremo", estado: "Próximamente" },
-            { nombre: "El Crucero", referencia: "Boyacá", distancia: "100 km", desnivel: "1500 m", pendiente: "1.5%", dificultad: "Extremo", estado: "Próximamente" }
+
+        // --- 6. DATOS Y LÓGICA DE RUTAS (REEMPLAZADO) ---
+        const rutasOficiales = [
+            { nombre: "La Vega", estado: "Próximamente", ubicacion: "La Vega", distancia: "28 km", desnivel: "1000 m", pendiente: "3.6%", dificultad: "Alto" },
+            { nombre: "Romeral", estado: "Próximamente", ubicacion: "Bogotá Sur", distancia: "10 km", desnivel: "600 m", pendiente: "6%", dificultad: "Medio" },
+            { nombre: "Fusagasugá", estado: "Próximamente", ubicacion: "Fusagasugá", distancia: "26.3 km", desnivel: "1368 m", pendiente: "5.2%", dificultad: "Muy Alto" },
+            { nombre: "Guadalupe", estado: "Próximamente", ubicacion: "Bogotá Centro", distancia: "2 km", desnivel: "200 m", pendiente: "10%", dificultad: "Alto" },
+            { nombre: "El Águila", estado: "Próximamente", ubicacion: "Zipaquirá", distancia: "15.6 km", desnivel: "587 m", pendiente: "5%", dificultad: "Intermedio" },
+            { nombre: "Patios", estado: "Próximamente", ubicacion: "Bogotá Norte", distancia: "14 km", desnivel: "650 m", pendiente: "4.6%", dificultad: "Medio" },
+            { nombre: "El Verjón", estado: "Próximamente", ubicacion: "Bogotá", distancia: "11 km", desnivel: "698 m", pendiente: "4.7%", dificultad: "Alto" },
+            { nombre: "Canicas de Tabio", estado: "Próximamente", ubicacion: "Tabio", distancia: "5 km", desnivel: "300 m", pendiente: "6%", dificultad: "Medio" },
+            { nombre: "Sumapaz", estado: "Próximamente", ubicacion: "Bogotá Sur", distancia: "30 km", desnivel: "1200 m", pendiente: "4%", dificultad: "Muy Alto" },
+            { nombre: "Choachí", estado: "Próximamente", ubicacion: "Choachí", distancia: "22 km", desnivel: "1321 m", pendiente: "6%", dificultad: "Muy Alto" },
+            { nombre: "Yerbabuena", estado: "Próximamente", ubicacion: "Chía", distancia: "6 km", desnivel: "300 m", pendiente: "5%", dificultad: "Medio" },
+            { nombre: "Tribuna de Albán", estado: "Próximamente", ubicacion: "Albán", distancia: "10 km", desnivel: "600 m", pendiente: "6%", dificultad: "Medio" },
+            { nombre: "Zipacón", estado: "Próximamente", ubicacion: "Zipacón", distancia: "5 km", desnivel: "400 m", pendiente: "8%", dificultad: "Medio" },
+            { nombre: "Mesitas", estado: "Próximamente", ubicacion: "Mesitas", distancia: "12 km", desnivel: "800 m", pendiente: "6.6%", dificultad: "Alto" },
+            { nombre: "La Cuchilla", estado: "Próximamente", ubicacion: "Guasca", distancia: "18 km", desnivel: "1100 m", pendiente: "6.1%", dificultad: "Alto" },
+            { nombre: "Gran Vals", estado: "Próximamente", ubicacion: "Sabana", distancia: "125 km", desnivel: "1200 m", pendiente: "1.8%", dificultad: "Extremo" },
+            { nombre: "La Mesa", estado: "Próximamente", ubicacion: "La Mesa", distancia: "15 km", desnivel: "700 m", pendiente: "4.6%", dificultad: "Medio" },
+            { nombre: "Tequendama", estado: "Próximamente", ubicacion: "Bogotá Sur", distancia: "15 km", desnivel: "900 m", pendiente: "6%", dificultad: "Alto" },
+            { nombre: "Alto de Letras", estado: "Próximamente", ubicacion: "Mariquita", distancia: "80.4 km", desnivel: "3329 m", pendiente: "4.8%", dificultad: "Legendario" },
+            { nombre: "Alto La Línea", estado: "Próximamente", ubicacion: "Cajamarca", distancia: "20.8 km", desnivel: "1616 m", pendiente: "7.8%", dificultad: "Legendario" },
+            { nombre: "Alto El Sifón", estado: "Próximamente", ubicacion: "Líbano", distancia: "88.2 km", desnivel: "3800 m", pendiente: "4.3%", dificultad: "Extremo" },
+            { nombre: "El Crucero", estado: "Próximamente", ubicacion: "Boyacá", distancia: "100 km", desnivel: "1500 m", pendiente: "1.5%", dificultad: "Extremo" }
         ];
 
-        const estilosEstado = {
-            "Activa": "border-green-800 text-green-500 bg-green-900/20",
-            "Próximamente": "border-yellow-800 text-yellow-500 bg-yellow-900/20",
-            "Cerrada": "border-red-800 text-red-500 bg-red-900/20"
-        };
-
-        const estilosDificultad = {
-            "Medio": "text-green-500",
-            "Intermedio": "text-yellow-400",
-            "Alto": "text-orange-500",
-            "Muy Alto": "text-red-500",
-            "Legendario": "text-zinc-400", 
-            "Extremo": "text-zinc-500"     
-        };
-
         function renderizarSubidas() {
-            const contenedor = document.getElementById('subidas-container');
-            const subidasActivas = baseDeDatosSubidas; 
+            const container = document.getElementById('subidas-container');
+            if(!container) return;
 
-            contenedor.innerHTML = '';
+            container.innerHTML = '';
 
-            subidasActivas.forEach(subida => {
-                const claseEstado = estilosEstado[subida.estado] || "border-zinc-700 text-zinc-400 bg-zinc-900/50";
-                const claseDificultad = estilosDificultad[subida.dificultad] || "text-white";
+            rutasOficiales.forEach(ruta => {
+                // Determinar el color de dificultad (similar a los cols de Strava)
+                let colorDificultad = 'text-gray-400 bg-gray-900'; 
+                switch (ruta.dificultad.toLowerCase()) {
+                    case 'intermedio': colorDificultad = 'text-green-400 bg-green-900/20 border-green-500/30'; break;
+                    case 'medio': colorDificultad = 'text-blue-400 bg-blue-900/20 border-blue-500/30'; break;
+                    case 'alto': colorDificultad = 'text-yellow-400 bg-yellow-900/20 border-yellow-500/30'; break;
+                    case 'muy alto': colorDificultad = 'text-orange-400 bg-orange-900/20 border-orange-500/30'; break;
+                    case 'extremo': colorDificultad = 'text-red-400 bg-red-900/20 border-red-500/30'; break;
+                    case 'legendario': colorDificultad = 'text-purple-400 bg-purple-900/20 border-purple-500/30'; break;
+                }
 
                 const cardHTML = `
-                    <div class="subida-card">
-                        <div class="flex justify-between items-center w-full">
-                            <div class="flex items-center gap-1 overflow-hidden">
-                                <span class="text-[10px] shrink-0">⛰️</span>
-                                <h3 class="text-white font-bold text-[11px] leading-tight truncate-text">${subida.nombre}</h3>
+                    <div class="subida-card w-full">
+                        <!-- Cabecera: Nombre y Estado -->
+                        <div class="flex justify-between items-start mb-2 border-b border-zinc-800 pb-2">
+                            <h3 class="font-bold text-white text-xs uppercase tracking-tight truncate-text pr-2" title="${ruta.nombre}">${ruta.nombre}</h3>
+                            <span class="text-[8px] font-black uppercase bg-brand-yellow/20 text-brand-yellow border border-brand-yellow/50 px-1.5 py-0.5 rounded whitespace-nowrap">${ruta.estado}</span>
+                        </div>
+                        
+                        <!-- Detalles Técnicos Compactos -->
+                        <div class="space-y-1.5">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[9px] text-zinc-500 uppercase tracking-widest flex items-center gap-1"><i class="fa-solid fa-location-dot w-3 text-center"></i> Lc</span>
+                                <span class="text-[10px] font-medium text-zinc-300 truncate-text text-right max-w-[90px]" title="${ruta.ubicacion}">${ruta.ubicacion}</span>
                             </div>
-                            <span class="text-[7px] font-black px-1 py-[1px] rounded border uppercase tracking-wider shrink-0 ml-1 ${claseEstado}">
-                                ${subida.estado}
+                            
+                            <div class="flex items-center justify-between">
+                                <span class="text-[9px] text-zinc-500 uppercase tracking-widest flex items-center gap-1"><i class="fa-solid fa-ruler-horizontal w-3 text-center"></i> Ds</span>
+                                <span class="text-[10px] font-medium text-white">${ruta.distancia}</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <span class="text-[9px] text-zinc-500 uppercase tracking-widest flex items-center gap-1"><i class="fa-solid fa-arrow-up-right-dots w-3 text-center"></i> +</span>
+                                <span class="text-[10px] font-medium text-white">${ruta.desnivel}</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <span class="text-[9px] text-zinc-500 uppercase tracking-widest flex items-center gap-1"><i class="fa-solid fa-percent w-3 text-center"></i> Pd</span>
+                                <span class="text-[10px] font-medium text-white">${ruta.pendiente}</span>
+                            </div>
+                        </div>
+
+                        <!-- Badge Dificultad -->
+                        <div class="mt-2 pt-2 border-t border-zinc-800/50">
+                            <span class="block w-full text-center text-[9px] font-black uppercase tracking-wider py-1 rounded border ${colorDificultad}">
+                                ${ruta.dificultad}
                             </span>
-                        </div>
-                        <div class="flex items-center gap-1 text-zinc-400 text-[9px] mt-0.5">
-                            <i class="fa-solid fa-location-dot text-[8px] w-[10px] text-center"></i>
-                            <span class="truncate-text">${subida.referencia}</span>
-                        </div>
-                        <div class="grid grid-cols-2 gap-x-1 gap-y-0.5 mt-1">
-                            <div class="flex items-center gap-1 text-zinc-300 text-[10px]">
-                                <span class="text-zinc-500 font-black text-[8px] w-[10px] text-center inline-block transform scale-x-150">-</span>
-                                <span class="font-medium">${subida.distancia}</span>
-                            </div>
-                            <div class="flex items-center justify-end gap-1 text-zinc-300 text-[10px]">
-                                <i class="fa-solid fa-arrow-trend-up text-[8px] text-zinc-500"></i>
-                                <span class="font-medium">${subida.desnivel}</span>
-                            </div>
-                            <div class="flex items-center gap-1 text-zinc-300 text-[10px]">
-                                <i class="fa-solid fa-angle-up text-[9px] text-zinc-500 w-[10px] text-center font-bold"></i>
-                                <span class="font-medium">${subida.pendiente}</span>
-                            </div>
-                            <div class="flex items-center justify-end gap-1 text-[9px] font-black uppercase ${claseDificultad}">
-                                <i class="fa-solid fa-medal text-[8px]"></i>
-                                <span>${subida.dificultad}</span>
-                            </div>
                         </div>
                     </div>
                 `;
-                
-                contenedor.insertAdjacentHTML('beforeend', cardHTML);
+                container.innerHTML += cardHTML;
             });
         }
 
-        // --- 7. LÓGICA MODAL MARCOS Y CARRITO (COMPLETA) ---
-        const modalMarcos = document.getElementById('modalMarcos');
-        const modalContent = document.getElementById('modalContent');
-        const btnMarcos = document.getElementById('btnMarcos');
-        const btnVolver = document.getElementById('btnVolver');
-        
-        const inputEntrepierna = document.getElementById('inputEntrepierna');
-        const btnCalcularTalla = document.getElementById('btnCalcular');
-        const resultadoCalculo = document.getElementById('resultadoCalculo');
-        const botonesTalla = document.querySelectorAll('.btn-talla');
-        const btnAgregarCarrito = document.getElementById('btnAgregarCarrito');
 
-        const btnDecQty = document.getElementById('btnDecQty');
-        const btnIncQty = document.getElementById('btnIncQty');
-        const qtyVal = document.getElementById('qtyVal');
-
-        // Abrir Modal
-        if (btnMarcos) {
-            btnMarcos.addEventListener('click', (e) => {
-                e.preventDefault();
-                modalMarcos.classList.remove('opacity-0', 'pointer-events-none');
-                modalContent.classList.remove('scale-95');
-                selectMarco(0); // Seleccionar por defecto el primero
-            });
-        }
-
-        // Cerrar Modal
-        if (btnVolver) {
-            btnVolver.addEventListener('click', () => {
-                modalMarcos.classList.add('opacity-0', 'pointer-events-none');
-                modalContent.classList.add('scale-95');
-            });
-        }
-
-        // Renderizar miniaturas de modelos de marco
-        function renderMarcosSelector() {
-            const container = document.getElementById('selectorModelosMarco');
-            if(!container) return;
-            container.innerHTML = '';
-
-            MARCOS_DB.forEach((marco, index) => {
-                const button = document.createElement('button');
-                button.type = "button";
-                button.className = `marco-thumb-btn flex flex-col items-center p-1.5 rounded-xl border-2 transition-all hover:bg-slate-100 ${index === selectedMarcoIndex ? 'border-brand-yellow bg-slate-50' : 'border-transparent'}`;
-                button.onclick = () => selectMarco(index);
-                button.innerHTML = `
-                    <img src="${marco.imagen}" alt="${marco.nombre}" class="w-12 h-12 object-cover rounded-lg shadow-sm border border-slate-200">
-                    <span class="text-[8px] font-black uppercase text-center truncate w-full text-gray-800 mt-1">${marco.nombre.replace('Marco ', '')}</span>
-                `;
-                container.appendChild(button);
-            });
-        }
-
-        // Cambiar marco activo en la vista
-        function selectMarco(index) {
-            selectedMarcoIndex = index;
-            const marco = MARCOS_DB[index];
-
-            // Actualizar vista previa
-            document.getElementById('marcoImagenPrevia').src = marco.imagen;
-            document.getElementById('marcoImagenPrevia').alt = marco.nombre;
-            document.getElementById('marcoNombrePrevia').innerText = marco.nombre;
-            document.getElementById('marcoPrecioPrevia').innerText = `$ ${marco.precio.toLocaleString('es-CO')}`;
-            document.getElementById('marcoDescripcionPrevia').innerText = marco.descripcion;
-
-            // Resetear cantidad
-            selectedQty = 1;
-            qtyVal.innerText = selectedQty;
-
-            // Resetear tallas
-            selectedTalla = null;
-            botonesTalla.forEach(b => {
-                b.classList.remove('bg-brand-yellow', 'text-black', 'border-black');
-                b.classList.add('bg-gray-100', 'text-gray-700');
-            });
-
-            btnAgregarCarrito.disabled = true;
-            btnAgregarCarrito.innerText = "Selecciona una talla para agregar";
-            btnAgregarCarrito.classList.add('opacity-50');
-
-            // Actualizar clases de los botones selectores
-            const thumbs = document.querySelectorAll('.marco-thumb-btn');
-            thumbs.forEach((t, i) => {
-                if(i === index) {
-                    t.classList.add('border-brand-yellow', 'bg-slate-50');
-                    t.classList.remove('border-transparent');
-                } else {
-                    t.classList.remove('border-brand-yellow', 'bg-slate-50');
-                    t.classList.add('border-transparent');
-                }
-            });
-        }
-
-        // Lógica de Selector de Cantidad
-        if(btnDecQty) {
-            btnDecQty.addEventListener('click', () => {
-                if(selectedQty > 1) {
-                    selectedQty--;
-                    qtyVal.innerText = selectedQty;
-                }
-            });
-        }
-        if(btnIncQty) {
-            btnIncQty.addEventListener('click', () => {
-                selectedQty++;
-                qtyVal.innerText = selectedQty;
-            });
-        }
-
-        // Selección de Talla
-        botonesTalla.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Limpiar todas
-                botonesTalla.forEach(b => {
-                    b.classList.remove('bg-brand-yellow', 'text-black', 'border-black');
-                    b.classList.add('bg-gray-100', 'text-gray-700');
-                });
-                // Seleccionar actual
-                btn.classList.remove('bg-gray-100', 'text-gray-700');
-                btn.classList.add('bg-brand-yellow', 'text-black', 'border-black');
-                selectedTalla = btn.getAttribute('data-talla');
-                
-                // Habilitar botón de carrito
-                btnAgregarCarrito.disabled = false;
-                btnAgregarCarrito.innerText = "Agregar al Carrito";
-                btnAgregarCarrito.classList.remove('opacity-50');
-            });
-        });
-
-        // Calculadora de Entrepierna
-        if(btnCalcularTalla) {
-            btnCalcularTalla.addEventListener('click', () => {
-                const val = parseFloat(inputEntrepierna.value);
-                if(!val || val < 50 || val > 120) {
-                    resultadoCalculo.innerText = "Por favor ingresa un valor de entrepierna válido (ej. 80)";
-                    resultadoCalculo.classList.remove('hidden');
-                    return;
-                }
-                // Fórmula genérica pista/ruta urbana: Entrepierna * 0.65
-                const tallaEstimada = Math.round(val * 0.65);
-                resultadoCalculo.innerText = `Tu talla ideal de marco es aprox: ${tallaEstimada} cm`;
-                resultadoCalculo.classList.remove('hidden');
-            });
-        }
-
-        // --- 8. ESTADO Y FUNCIONES DEL CARRITO ---
+        // --- 7. FUNCIONALIDAD DEL CARRITO ---
         let cart = [];
-        const cartBadge = document.getElementById('cartBadge');
-        const cartTotal = document.getElementById('cartTotal');
-        const checkoutSubtotal = document.getElementById('checkoutSubtotal');
-        const checkoutTotal = document.getElementById('checkoutTotal');
-        const cartItemsContainer = document.getElementById('cartItemsContainer');
-        const btnCheckout = document.getElementById('btnCheckout');
-        
-        function updateCartUI() {
-            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-            const totalPrice = cart.reduce((sum, item) => sum + (item.precio * item.qty), 0);
-            
-            // Actualizar Badge
-            if (totalItems > 0) {
-                cartBadge.innerText = totalItems;
-                cartBadge.classList.remove('opacity-0', 'scale-50');
-                btnCheckout.disabled = false;
-            } else {
-                cartBadge.classList.add('opacity-0', 'scale-50');
-                btnCheckout.disabled = true;
-            }
-            
-            // Actualizar Totales
-            const formattedTotal = `$ ${totalPrice.toLocaleString('es-CO')}`;
-            cartTotal.innerText = formattedTotal;
-            if(checkoutSubtotal) checkoutSubtotal.innerText = formattedTotal;
-            if(checkoutTotal) checkoutTotal.innerText = formattedTotal;
-            
-            renderCartItems();
+
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                minimumFractionDigits: 0
+            }).format(value);
         }
-        
-        function renderCartItems() {
+
+        function updateCartUI() {
+            const cartBadge = document.getElementById('cartBadge');
+            const cartItemsContainer = document.getElementById('cartItemsContainer');
+            const cartTotal = document.getElementById('cartTotal');
+            const btnCheckout = document.getElementById('btnCheckout');
+            
+            // Actualizar Badge (Solo mostramos cantidad total de items)
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            if(totalItems > 0) {
+                cartBadge.textContent = totalItems;
+                cartBadge.classList.remove('opacity-0', 'scale-50');
+                cartBadge.classList.add('opacity-100', 'scale-100');
+            } else {
+                cartBadge.classList.remove('opacity-100', 'scale-100');
+                cartBadge.classList.add('opacity-0', 'scale-50');
+            }
+
+            // Actualizar Container
             if (cart.length === 0) {
                 cartItemsContainer.innerHTML = `
-                    <div class="flex flex-col items-center justify-center h-full text-zinc-500 opacity-60 mt-10">
+                    <div class="flex flex-col items-center justify-center h-full text-zinc-500 opacity-60">
                         <i class="fa-solid fa-cart-arrow-down text-4xl mb-3"></i>
                         <p class="text-sm font-medium">Tu carrito está vacío.</p>
                     </div>
                 `;
+                cartTotal.textContent = "$ 0";
+                btnCheckout.disabled = true;
                 return;
             }
-            
-            cartItemsContainer.innerHTML = '';
+
+            let totalAmount = 0;
+            let itemsHTML = '';
+
             cart.forEach((item, index) => {
-                cartItemsContainer.innerHTML += `
-                    <div class="flex justify-between items-center bg-zinc-900/50 p-3 rounded-xl border border-zinc-800 mb-2">
-                        <div class="flex gap-3 items-center">
-                            <img src="${item.imagen}" class="w-12 h-12 rounded object-cover border border-zinc-700">
-                            <div>
-                                <h4 class="text-xs font-bold text-white uppercase">${item.nombre}</h4>
-                                <p class="text-[10px] text-zinc-400">Talla: <span class="text-brand-yellow font-bold">${item.talla}</span> | Cant: ${item.qty}</p>
-                                <p class="text-xs font-black text-brand-yellow mt-1">$ ${(item.precio * item.qty).toLocaleString('es-CO')}</p>
+                const itemTotal = item.price * item.quantity;
+                totalAmount += itemTotal;
+                
+                // Extraer un nombre corto para mostrar en el carrito
+                const shortName = item.name.length > 25 ? item.name.substring(0,22) + '...' : item.name;
+
+                itemsHTML += `
+                    <div class="bg-zinc-900/50 border border-zinc-800 p-4 rounded-2xl flex gap-4 relative group hover:border-zinc-700 transition-colors">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-xl bg-white/5">
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start mb-1">
+                                <div>
+                                    <h4 class="font-bold text-xs uppercase tracking-wide text-white leading-tight">${shortName}</h4>
+                                    <span class="text-[10px] text-zinc-400 uppercase font-bold tracking-widest bg-zinc-800 px-2 py-0.5 rounded mt-1 inline-block">TALLA: ${item.size}</span>
+                                </div>
+                                <button onclick="removeFromCart(${index})" class="text-zinc-500 hover:text-red-500 transition-colors p-1" title="Eliminar">
+                                    <i class="fa-solid fa-trash-can text-sm"></i>
+                                </button>
+                            </div>
+                            <div class="flex justify-between items-end mt-2">
+                                <span class="font-black text-brand-yellow text-sm">${formatCurrency(itemTotal)}</span>
+                                <div class="flex items-center gap-2 bg-black rounded-lg border border-zinc-800 p-1">
+                                    <button onclick="updateCartItemQty(${index}, -1)" class="w-6 h-6 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-900 rounded hover:bg-zinc-700 transition-colors">
+                                        <i class="fa-solid fa-minus text-[10px]"></i>
+                                    </button>
+                                    <span class="text-xs font-bold w-4 text-center">${item.quantity}</span>
+                                    <button onclick="updateCartItemQty(${index}, 1)" class="w-6 h-6 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-900 rounded hover:bg-zinc-700 transition-colors">
+                                        <i class="fa-solid fa-plus text-[10px]"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <button onclick="removeFromCart(${index})" class="text-zinc-500 hover:text-red-500 p-2 transition-colors" title="Eliminar">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
                     </div>
                 `;
             });
+
+            cartItemsContainer.innerHTML = itemsHTML;
+            cartTotal.textContent = formatCurrency(totalAmount);
+            btnCheckout.disabled = false;
         }
-        
+
         window.removeFromCart = function(index) {
             cart.splice(index, 1);
             updateCartUI();
         };
 
-        // Agregar al Carrito desde el Modal
+        window.updateCartItemQty = function(index, change) {
+            const item = cart[index];
+            const newQty = item.quantity + change;
+            if (newQty > 0 && newQty <= 10) {
+                item.quantity = newQty;
+                updateCartUI();
+            }
+        };
+
+        function showToast(message, type = 'success') {
+            const toastContainer = document.getElementById('toastContainer');
+            if(!toastContainer) return;
+            
+            const toast = document.createElement('div');
+            
+            let bgClass, iconClass;
+            if (type === 'success') {
+                bgClass = 'bg-brand-yellow/10 border-brand-yellow/50 text-brand-yellow';
+                iconClass = 'fa-check-circle text-brand-yellow';
+            } else {
+                bgClass = 'bg-red-500/10 border-red-500/50 text-red-500';
+                iconClass = 'fa-circle-exclamation text-red-500';
+            }
+
+            toast.className = `flex items-center gap-3 p-4 rounded-2xl border ${bgClass} shadow-lg backdrop-blur-md transform transition-all duration-300 translate-x-full opacity-0 max-w-xs w-full pointer-events-auto`;
+            
+            toast.innerHTML = `
+                <i class="fa-solid ${iconClass} text-xl"></i>
+                <span class="text-xs font-bold uppercase tracking-wider text-white">${message}</span>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Animar entrada
+            setTimeout(() => {
+                toast.classList.remove('translate-x-full', 'opacity-0');
+            }, 10);
+            
+            // Remover después de 3s
+            setTimeout(() => {
+                toast.classList.add('translate-x-full', 'opacity-0');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        // --- MANEJO DEL MODAL DE MARCOS Y SU LÓGICA INTERNA ---
+        const modalMarcos = document.getElementById('modalMarcos');
+        const modalContent = document.getElementById('modalContent');
+        const btnMarcos = document.getElementById('btnMarcos');
+        const btnVolver = document.getElementById('btnVolver');
+
+        // Referencias elementos de UI del Modal
+        const marcoImagenPrevia = document.getElementById('marcoImagenPrevia');
+        const marcoNombrePrevia = document.getElementById('marcoNombrePrevia');
+        const marcoPrecioPrevia = document.getElementById('marcoPrecioPrevia');
+        const marcoDescripcionPrevia = document.getElementById('marcoDescripcionPrevia');
+        const selectorModelosMarco = document.getElementById('selectorModelosMarco');
+        
+        const inputEntrepierna = document.getElementById('inputEntrepierna');
+        const btnCalcular = document.getElementById('btnCalcular');
+        const resultadoCalculo = document.getElementById('resultadoCalculo');
+        const botonesTalla = document.querySelectorAll('.btn-talla');
+        const btnAgregarCarrito = document.getElementById('btnAgregarCarrito');
+        
+        // Elementos Cantidad
+        const btnDecQty = document.getElementById('btnDecQty');
+        const btnIncQty = document.getElementById('btnIncQty');
+        const qtyVal = document.getElementById('qtyVal');
+
+        function openModalMarcos() {
+            modalMarcos.classList.remove('opacity-0', 'pointer-events-none');
+            // Pequeño delay para la animación del contenido interior
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 50);
+            
+            // Resetear estado al abrir
+            selectedTalla = null;
+            selectedQty = 1;
+            qtyVal.textContent = selectedQty;
+            actualizarSeleccionTalla();
+            btnAgregarCarrito.disabled = true;
+            btnAgregarCarrito.textContent = "Selecciona una talla para agregar";
+            inputEntrepierna.value = "";
+            resultadoCalculo.classList.add('hidden');
+        }
+
+        function closeModalMarcos() {
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modalMarcos.classList.add('opacity-0', 'pointer-events-none');
+            }, 300);
+        }
+
+        // Event Listeners Abrir/Cerrar
+        if(btnMarcos) btnMarcos.addEventListener('click', openModalMarcos);
+        if(btnVolver) btnVolver.addEventListener('click', closeModalMarcos);
+        if(modalMarcos) {
+            modalMarcos.addEventListener('click', (e) => {
+                if (e.target === modalMarcos) closeModalMarcos();
+            });
+        }
+
+        // Renderizar selector de modelos
+        function renderMarcosSelector() {
+            if(!selectorModelosMarco) return;
+            selectorModelosMarco.innerHTML = '';
+            
+            MARCOS_DB.forEach((marco, index) => {
+                // Determinar colores para el botón (solo representativo)
+                let gradient = '';
+                if(marco.id === 'marco-negro') gradient = 'from-gray-900 to-black';
+                if(marco.id === 'marco-tornasol') gradient = 'from-purple-500 via-pink-500 to-blue-500';
+                if(marco.id === 'marco-bogochicas') gradient = 'from-pink-400 to-rose-600';
+                
+                const isSelected = index === selectedMarcoIndex;
+                const borderClass = isSelected ? 'border-brand-yellow ring-2 ring-brand-yellow/30' : 'border-gray-200 hover:border-gray-300';
+                
+                const btn = document.createElement('button');
+                btn.className = `flex flex-col items-center p-2 rounded-xl border-2 transition-all ${borderClass} bg-white`;
+                btn.onclick = () => selectMarco(index);
+                
+                btn.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr ${gradient} shadow-inner mb-1 border border-gray-100"></div>
+                    <span class="text-[9px] font-bold text-gray-700 leading-tight">${marco.nombre.split(' ').slice(-1)}</span>
+                `;
+                
+                selectorModelosMarco.appendChild(btn);
+            });
+            
+            updateMarcoView();
+        }
+
+        function selectMarco(index) {
+            selectedMarcoIndex = index;
+            renderMarcosSelector(); // Re-render para actualizar estilos de selección
+        }
+
+        function updateMarcoView() {
+            const marco = MARCOS_DB[selectedMarcoIndex];
+            if(!marco || !marcoImagenPrevia) return;
+            
+            // Animación suave de cambio
+            marcoImagenPrevia.style.opacity = '0';
+            setTimeout(() => {
+                marcoImagenPrevia.src = marco.imagen;
+                marcoNombrePrevia.textContent = marco.nombre;
+                marcoPrecioPrevia.textContent = formatCurrency(marco.precio);
+                marcoDescripcionPrevia.textContent = marco.descripcion;
+                marcoImagenPrevia.style.opacity = '1';
+            }, 150);
+        }
+
+        // Lógica de Tallas Marcos
+        botonesTalla.forEach(boton => {
+            boton.addEventListener('click', function() {
+                selectedTalla = this.getAttribute('data-talla');
+                actualizarSeleccionTalla();
+                btnAgregarCarrito.disabled = false;
+                btnAgregarCarrito.textContent = `Agregar al Carrito • ${formatCurrency(MARCOS_DB[selectedMarcoIndex].precio * selectedQty)}`;
+            });
+        });
+
+        function actualizarSeleccionTalla() {
+            botonesTalla.forEach(btn => {
+                if (btn.getAttribute('data-talla') === selectedTalla) {
+                    btn.classList.remove('bg-gray-100', 'text-gray-700');
+                    btn.classList.add('bg-gray-900', 'text-white', 'scale-105', 'shadow-md');
+                } else {
+                    btn.classList.add('bg-gray-100', 'text-gray-700');
+                    btn.classList.remove('bg-gray-900', 'text-white', 'scale-105', 'shadow-md');
+                }
+            });
+        }
+
+        // Lógica de Cantidad Marcos
+        if(btnDecQty) {
+            btnDecQty.addEventListener('click', () => {
+                if(selectedQty > 1) {
+                    selectedQty--;
+                    qtyVal.textContent = selectedQty;
+                    if(selectedTalla) {
+                        btnAgregarCarrito.textContent = `Agregar al Carrito • ${formatCurrency(MARCOS_DB[selectedMarcoIndex].precio * selectedQty)}`;
+                    }
+                }
+            });
+        }
+        
+        if(btnIncQty) {
+            btnIncQty.addEventListener('click', () => {
+                if(selectedQty < 5) { // Límite arbitrario
+                    selectedQty++;
+                    qtyVal.textContent = selectedQty;
+                    if(selectedTalla) {
+                        btnAgregarCarrito.textContent = `Agregar al Carrito • ${formatCurrency(MARCOS_DB[selectedMarcoIndex].precio * selectedQty)}`;
+                    }
+                }
+            });
+        }
+
+        // Calculadora de talla
+        if(btnCalcular) {
+            btnCalcular.addEventListener('click', () => {
+                const entrepierna = parseFloat(inputEntrepierna.value);
+                if (isNaN(entrepierna) || entrepierna < 60 || entrepierna > 120) {
+                    resultadoCalculo.textContent = "⚠️ Ingresa un valor válido (60 - 120 cm).";
+                    resultadoCalculo.classList.remove('bg-brand-yellow/20', 'border-brand-yellow/50', 'text-black');
+                    resultadoCalculo.classList.add('bg-red-100', 'border-red-300', 'text-red-700', 'block');
+                    resultadoCalculo.classList.remove('hidden');
+                    return;
+                }
+
+                // Fórmula base simplificada: Entrepierna * 0.65 = Talla C-T aproximada
+                let tallaCalculada = Math.round(entrepierna * 0.65);
+                let tallaSugerida = "";
+                let tallaID = "";
+
+                if (tallaCalculada <= 48) { tallaSugerida = "XXS (46-48cm)"; tallaID = "XXS"; }
+                else if (tallaCalculada <= 50) { tallaSugerida = "XS (49-50cm)"; tallaID = "XS"; }
+                else if (tallaCalculada <= 52) { tallaSugerida = "S (51-52cm)"; tallaID = "S"; }
+                else if (tallaCalculada <= 54) { tallaSugerida = "M (53-54cm)"; tallaID = "M"; }
+                else if (tallaCalculada <= 56) { tallaSugerida = "L (55-56cm)"; tallaID = "L"; }
+                else { tallaSugerida = "XL (57-58cm+)"; tallaID = "XL"; }
+
+                resultadoCalculo.innerHTML = `✅ Tu talla ideal es: <span class="text-lg font-black">${tallaSugerida}</span>`;
+                resultadoCalculo.classList.remove('bg-red-100', 'border-red-300', 'text-red-700');
+                resultadoCalculo.classList.add('bg-brand-yellow/20', 'border-brand-yellow/50', 'text-black', 'block');
+                resultadoCalculo.classList.remove('hidden');
+                
+                // Autoseleccionar la talla calculada visualmente
+                botonesTalla.forEach(btn => {
+                    if (btn.getAttribute('data-talla') === tallaID) {
+                        btn.click();
+                        // Hacer un pequeño scroll hacia las tallas si es necesario
+                        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                });
+            });
+        }
+
+        // Agregar al Carrito (Marco)
         if(btnAgregarCarrito) {
             btnAgregarCarrito.addEventListener('click', () => {
                 if(!selectedTalla) return;
+                
                 const marco = MARCOS_DB[selectedMarcoIndex];
                 
-                // Verificar si ya existe en el carrito con la misma talla
-                const existingItem = cart.find(i => i.id === marco.id && i.talla === selectedTalla);
-                if(existingItem) {
-                    existingItem.qty += selectedQty;
+                // Verificar si ya existe en el carrito con misma ID y Talla
+                const existingItemIndex = cart.findIndex(item => item.id === marco.id && item.size === selectedTalla);
+                
+                if(existingItemIndex !== -1) {
+                    cart[existingItemIndex].quantity += selectedQty;
                 } else {
                     cart.push({
-                        ...marco,
-                        talla: selectedTalla,
-                        qty: selectedQty
+                        id: marco.id,
+                        name: marco.nombre,
+                        price: marco.precio,
+                        image: marco.imagen,
+                        size: selectedTalla,
+                        quantity: selectedQty,
+                        type: 'marco'
                     });
                 }
                 
                 updateCartUI();
-                showToast('🛒 Producto agregado al carrito');
-                
-                // Cerrar modal de producto
-                modalMarcos.classList.add('opacity-0', 'pointer-events-none');
-                modalContent.classList.add('scale-95');
-                
-                // Opcional: Abrir carrito automáticamente
-                // toggleCart(true); 
+                closeModalMarcos();
+                showToast(`${marco.nombre} (Talla ${selectedTalla}) añadido al carrito.`);
             });
         }
 
-        // Funciones de UI para abrir/cerrar paneles de Carrito y Checkout
+        // --- MANEJO DEL MODAL DE JERSEYS Y SU LÓGICA INTERNA ---
+        const modalJersey = document.getElementById('modalJersey');
+        const modalJerseyContent = document.getElementById('modalJerseyContent');
+        const btnJerseyButton = document.getElementById('btnJersey'); // El botón en el grid
+        const btnVolverJersey = document.getElementById('btnVolverJersey');
+
+        // Referencias elementos de UI del Modal Jerseys
+        const jerseyImagenPreviaFrente = document.getElementById('jerseyImagenPreviaFrente');
+        const jerseyImagenPreviaAtras = document.getElementById('jerseyImagenPreviaAtras');
+        const btnToggleJerseyView = document.getElementById('btnToggleJerseyView');
+        const jerseyNombrePrevia = document.getElementById('jerseyNombrePrevia');
+        const jerseyPrecioPrevia = document.getElementById('jerseyPrecioPrevia');
+        const jerseyDescripcionPrevia = document.getElementById('jerseyDescripcionPrevia');
+        const selectorModelosJersey = document.getElementById('selectorModelosJersey');
+        
+        const botonesTallaJersey = document.querySelectorAll('.btn-talla-jersey');
+        const btnAgregarCarritoJersey = document.getElementById('btnAgregarCarritoJersey');
+        
+        // Elementos Cantidad Jersey
+        const btnDecQtyJersey = document.getElementById('btnDecQtyJersey');
+        const btnIncQtyJersey = document.getElementById('btnIncQtyJersey');
+        const qtyValJersey = document.getElementById('qtyValJersey');
+
+        function openModalJersey() {
+            modalJersey.classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                modalJerseyContent.classList.remove('scale-95');
+                modalJerseyContent.classList.add('scale-100');
+            }, 50);
+            
+            // Resetear estado al abrir
+            selectedTallaJersey = null;
+            selectedQtyJersey = 1;
+            qtyValJersey.textContent = selectedQtyJersey;
+            actualizarSeleccionTallaJersey();
+            btnAgregarCarritoJersey.disabled = true;
+            btnAgregarCarritoJersey.textContent = "Selecciona una talla para agregar";
+            
+            // Asegurar que siempre inicie mostrando el frente
+            isShowingFrontView = true;
+            actualizarVistaJersey();
+        }
+
+        function closeModalJersey() {
+            modalJerseyContent.classList.remove('scale-100');
+            modalJerseyContent.classList.add('scale-95');
+            setTimeout(() => {
+                modalJersey.classList.add('opacity-0', 'pointer-events-none');
+            }, 300);
+        }
+
+        // Event Listeners Abrir/Cerrar
+        if(btnJerseyButton) btnJerseyButton.addEventListener('click', openModalJersey);
+        if(btnVolverJersey) btnVolverJersey.addEventListener('click', closeModalJersey);
+        if(modalJersey) {
+            modalJersey.addEventListener('click', (e) => {
+                if (e.target === modalJersey) closeModalJersey();
+            });
+        }
+
+        // Alternar vista Frente/Atrás
+        if(btnToggleJerseyView) {
+            btnToggleJerseyView.addEventListener('click', () => {
+                isShowingFrontView = !isShowingFrontView;
+                actualizarVistaJersey();
+            });
+        }
+
+        function actualizarVistaJersey() {
+            if(!jerseyImagenPreviaFrente || !jerseyImagenPreviaAtras) return;
+            
+            if(isShowingFrontView) {
+                jerseyImagenPreviaFrente.style.opacity = '1';
+                jerseyImagenPreviaAtras.style.opacity = '0';
+            } else {
+                jerseyImagenPreviaFrente.style.opacity = '0';
+                jerseyImagenPreviaAtras.style.opacity = '1';
+            }
+        }
+
+        // Renderizar selector de modelos
+        function renderJerseysSelector() {
+            if(!selectorModelosJersey) return;
+            selectorModelosJersey.innerHTML = '';
+            
+            JERSEYS_DB.forEach((jersey, index) => {
+                const isSelected = index === selectedJerseyIndex;
+                const borderClass = isSelected ? 'border-brand-yellow ring-2 ring-brand-yellow/30' : 'border-gray-200 hover:border-gray-300';
+                
+                // Usamos la miniatura del frente
+                const btn = document.createElement('button');
+                btn.className = `flex flex-col items-center p-2 rounded-xl border-2 transition-all ${borderClass} bg-white h-full`;
+                btn.onclick = () => selectJersey(index);
+                
+                btn.innerHTML = `
+                    <div class="w-full aspect-video rounded overflow-hidden mb-1 border border-gray-100 bg-gray-50 flex items-center justify-center">
+                        <img src="${jersey.imagenFrente}" alt="Miniatura" class="w-full h-full object-cover">
+                    </div>
+                    <span class="text-[9px] font-bold text-gray-700 leading-tight w-full truncate">${jersey.nombre.split(' ').slice(0,2).join(' ')}</span>
+                `;
+                
+                selectorModelosJersey.appendChild(btn);
+            });
+            
+            updateJerseyView();
+        }
+
+        function selectJersey(index) {
+            selectedJerseyIndex = index;
+            isShowingFrontView = true; // Reiniciar vista al cambiar
+            renderJerseysSelector(); // Re-render
+        }
+
+        function updateJerseyView() {
+            const jersey = JERSEYS_DB[selectedJerseyIndex];
+            if(!jersey || !jerseyImagenPreviaFrente) return;
+            
+            // Animación suave de cambio
+            jerseyImagenPreviaFrente.style.opacity = '0';
+            jerseyImagenPreviaAtras.style.opacity = '0';
+            
+            setTimeout(() => {
+                jerseyImagenPreviaFrente.src = jersey.imagenFrente;
+                jerseyImagenPreviaAtras.src = jersey.imagenAtras;
+                jerseyNombrePrevia.textContent = jersey.nombre;
+                jerseyPrecioPrevia.textContent = formatCurrency(jersey.precio);
+                jerseyDescripcionPrevia.textContent = jersey.descripcion;
+                
+                actualizarVistaJersey();
+            }, 150);
+        }
+
+        // Lógica de Tallas Jerseys
+        botonesTallaJersey.forEach(boton => {
+            boton.addEventListener('click', function() {
+                selectedTallaJersey = this.getAttribute('data-talla');
+                actualizarSeleccionTallaJersey();
+                btnAgregarCarritoJersey.disabled = false;
+                btnAgregarCarritoJersey.textContent = `Agregar al Carrito • ${formatCurrency(JERSEYS_DB[selectedJerseyIndex].precio * selectedQtyJersey)}`;
+            });
+        });
+
+        function actualizarSeleccionTallaJersey() {
+            botonesTallaJersey.forEach(btn => {
+                if (btn.getAttribute('data-talla') === selectedTallaJersey) {
+                    btn.classList.remove('bg-gray-100', 'text-gray-700');
+                    btn.classList.add('bg-gray-900', 'text-white', 'scale-105', 'shadow-md');
+                } else {
+                    btn.classList.add('bg-gray-100', 'text-gray-700');
+                    btn.classList.remove('bg-gray-900', 'text-white', 'scale-105', 'shadow-md');
+                }
+            });
+        }
+
+        // Lógica de Cantidad Jerseys
+        if(btnDecQtyJersey) {
+            btnDecQtyJersey.addEventListener('click', () => {
+                if(selectedQtyJersey > 1) {
+                    selectedQtyJersey--;
+                    qtyValJersey.textContent = selectedQtyJersey;
+                    if(selectedTallaJersey) {
+                        btnAgregarCarritoJersey.textContent = `Agregar al Carrito • ${formatCurrency(JERSEYS_DB[selectedJerseyIndex].precio * selectedQtyJersey)}`;
+                    }
+                }
+            });
+        }
+        
+        if(btnIncQtyJersey) {
+            btnIncQtyJersey.addEventListener('click', () => {
+                if(selectedQtyJersey < 5) { // Límite
+                    selectedQtyJersey++;
+                    qtyValJersey.textContent = selectedQtyJersey;
+                    if(selectedTallaJersey) {
+                        btnAgregarCarritoJersey.textContent = `Agregar al Carrito • ${formatCurrency(JERSEYS_DB[selectedJerseyIndex].precio * selectedQtyJersey)}`;
+                    }
+                }
+            });
+        }
+
+        // Agregar al Carrito (Jersey)
+        if(btnAgregarCarritoJersey) {
+            btnAgregarCarritoJersey.addEventListener('click', () => {
+                if(!selectedTallaJersey) return;
+                
+                const jersey = JERSEYS_DB[selectedJerseyIndex];
+                
+                // Verificar si ya existe en el carrito
+                const existingItemIndex = cart.findIndex(item => item.id === jersey.id && item.size === selectedTallaJersey);
+                
+                if(existingItemIndex !== -1) {
+                    cart[existingItemIndex].quantity += selectedQtyJersey;
+                } else {
+                    cart.push({
+                        id: jersey.id,
+                        name: jersey.nombre,
+                        price: jersey.precio,
+                        image: jersey.imagenFrente, // Usamos la imagen frontal para el carrito
+                        size: selectedTallaJersey,
+                        quantity: selectedQtyJersey,
+                        type: 'jersey'
+                    });
+                }
+                
+                updateCartUI();
+                closeModalJersey();
+                showToast(`${jersey.nombre} (Talla ${selectedTallaJersey}) añadido al carrito.`);
+            });
+        }
+
+        // --- MANEJO DEL SIDEBAR Y CHECKOUT ---
         const btnOpenCart = document.getElementById('btnOpenCart');
         const btnCloseCart = document.getElementById('btnCloseCart');
         const cartSidebar = document.getElementById('cartSidebar');
         const cartOverlay = document.getElementById('cartOverlay');
+        const btnCheckoutSidebar = document.getElementById('btnCheckout');
         
         const checkoutModal = document.getElementById('checkoutModal');
         const checkoutContent = document.getElementById('checkoutContent');
         const btnCloseCheckout = document.getElementById('btnCloseCheckout');
+        const checkoutForm = document.getElementById('checkoutForm');
         
-        function toggleCart(show) {
-            if(show) {
-                cartSidebar.classList.remove('translate-x-full');
-                cartOverlay.classList.remove('opacity-0', 'pointer-events-none');
-            } else {
-                cartSidebar.classList.add('translate-x-full');
-                cartOverlay.classList.add('opacity-0', 'pointer-events-none');
-            }
+        const checkoutSubtotal = document.getElementById('checkoutSubtotal');
+        const checkoutTotal = document.getElementById('checkoutTotal');
+
+        function openCart() {
+            cartSidebar.classList.remove('translate-x-full');
+            cartOverlay.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'hidden';
         }
-        
-        if(btnOpenCart) btnOpenCart.addEventListener('click', () => toggleCart(true));
-        if(btnCloseCart) btnCloseCart.addEventListener('click', () => toggleCart(false));
-        if(cartOverlay) cartOverlay.addEventListener('click', () => toggleCart(false));
-        
-        if(btnCheckout) {
-            btnCheckout.addEventListener('click', () => {
-                toggleCart(false); // Cerramos el sidebar del carrito
-                // Abrimos el modal de checkout
+
+        function closeCart() {
+            cartSidebar.classList.add('translate-x-full');
+            cartOverlay.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = '';
+        }
+
+        if(btnOpenCart) btnOpenCart.addEventListener('click', openCart);
+        if(btnCloseCart) btnCloseCart.addEventListener('click', closeCart);
+        if(cartOverlay) cartOverlay.addEventListener('click', () => {
+            closeCart();
+            closeCheckout();
+        });
+
+        // Abrir Checkout
+        if(btnCheckoutSidebar) {
+            btnCheckoutSidebar.addEventListener('click', () => {
+                if(cart.length === 0) return;
+                
+                // Calcular totales
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                checkoutSubtotal.textContent = formatCurrency(subtotal);
+                checkoutTotal.textContent = formatCurrency(subtotal); // Envío a convenir, total = subtotal
+                
+                // Mostrar Modal Checkout sobre el carrito
                 checkoutModal.classList.remove('opacity-0', 'pointer-events-none');
-                checkoutContent.classList.remove('scale-95');
-            });
-        }
-        
-        if(btnCloseCheckout) {
-            btnCloseCheckout.addEventListener('click', () => {
-                checkoutModal.classList.add('opacity-0', 'pointer-events-none');
-                checkoutContent.classList.add('scale-95');
+                setTimeout(() => {
+                    checkoutContent.classList.remove('scale-95');
+                    checkoutContent.classList.add('scale-100');
+                }, 50);
             });
         }
 
-        // --- 9. PROCESAMIENTO DE CHECKOUT Y CORRECCIÓN WHATSAPP ---
-        const checkoutForm = document.getElementById('checkoutForm');
-        
-        if (checkoutForm) {
-            checkoutForm.addEventListener('submit', function(e) {
-                e.preventDefault(); // Prevenir el envío normal del formulario
+        function closeCheckout() {
+            checkoutContent.classList.remove('scale-100');
+            checkoutContent.classList.add('scale-95');
+            setTimeout(() => {
+                checkoutModal.classList.add('opacity-0', 'pointer-events-none');
+            }, 300);
+        }
+
+        if(btnCloseCheckout) btnCloseCheckout.addEventListener('click', closeCheckout);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnInscripcion = document.getElementById('btn-inscripcion');
+
+            if (btnInscripcion) {
+                // Saludo personalizado y llamativo en la consola
+                console.log(
+                    "%c🚀 [RETO BOGOFIJA 2027] %c\n¡Modo innovación activado! Gracias por inspeccionar el código. Es tu momento de brillar. ✨",
+                    "background: #facc15; color: #000; font-weight: 900; padding: 6px 10px; border-radius: 6px; font-size: 12px;",
+                    "color: #e4e4e7; font-style: italic; font-size: 11px;"
+                );
+
+                // Efecto visual y feedback al hacer clic
+                btnInscripcion.addEventListener('click', (e) => {
+                    const spanText = btnInscripcion.querySelector('span');
+                    const icon = btnInscripcion.querySelector('i');
+                    
+                    // 1. Disparar el confeti
+                    if (typeof confetti === 'function') {
+                        confetti({
+                            particleCount: 150,    
+                            spread: 100,            
+                            origin: { y: 0.6 },    
+                            colors: ['#facc15', '#eab308', '#ffffff', '#18181b'], // Adaptado a los colores de tu diseño
+                            zIndex: 9999           
+                        });
+                    }
+                    
+                    // 2. Animación y cambio de texto momentáneo
+                    if (icon && spanText) {
+                        // Guardar los valores originales
+                        const originalIconClass = icon.className;
+                        const originalText = spanText.textContent;
+
+                        // Aplicar el cambio
+                        icon.className = "fa-solid fa-rocket animate-bounce";
+                        spanText.textContent = "¡Nos fuimos! 🔥";
+
+                        // Restaurar el botón después de 3 segundos
+                        setTimeout(() => {
+                            icon.className = originalIconClass;
+                            spanText.textContent = originalText;
+                        }, 3000);
+                    }
+                    
+                    console.log("🎉 ¡Increíble! Un nuevo talento acaba de aceptar el Reto Bogofija 2027.");
+                });
+            }
+        });
+
+        // Procesar Checkout vía WhatsApp
+        if(checkoutForm) {
+            checkoutForm.addEventListener('submit', (e) => {
+                e.preventDefault();
                 
-                if (cart.length === 0) {
-                    showToast("Tu carrito está vacío.");
-                    return;
-                }
-                
-                // 1. Recopilar datos del formulario
+                if(cart.length === 0) return;
+
+                // Recopilar datos
                 const nombre = document.getElementById('custNombre').value.trim();
                 const apellido = document.getElementById('custApellido').value.trim();
                 const celular = document.getElementById('custCelular').value.trim();
@@ -1965,74 +2417,41 @@
                 const ciudad = document.getElementById('custCiudad').value.trim();
                 const metodoPago = document.querySelector('input[name="paymentMethod"]:checked').value;
                 
-                // 2. Construir el mensaje formateado para WhatsApp
-                let mensaje = `*NUEVO PEDIDO BOGOFIJA* 🚴‍♂️\n\n`;
-                mensaje += `*Datos del Cliente:*\n`;
-                mensaje += `Nombre: ${nombre} ${apellido}\n`;
-                mensaje += `Celular: ${celular}\n`;
-                mensaje += `Envío a: ${direccion}, ${ciudad}\n`;
-                mensaje += `Pago vía: ${metodoPago}\n\n`;
-                mensaje += `*Resumen de Compra:*\n`;
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+                // Construir mensaje
+                let mensaje = `*NUEVO PEDIDO - BOGOFIJA STORE* 🚴‍♂️🔥\n\n`;
+                mensaje += `*Cliente:* ${nombre} ${apellido}\n`;
+                mensaje += `*Cel:* ${celular}\n`;
+                mensaje += `*Dir:* ${direccion}, ${ciudad}\n`;
+                mensaje += `*Pago:* ${metodoPago}\n\n`;
+                mensaje += `*PRODUCTOS:*\n`;
                 
-                let totalPrice = 0;
                 cart.forEach(item => {
-                    const itemTotal = item.precio * item.qty;
-                    totalPrice += itemTotal;
-                    mensaje += `▪ ${item.qty}x ${item.nombre}\n  (Talla: ${item.talla}) - $${itemTotal.toLocaleString('es-CO')}\n`;
+                    mensaje += `• ${item.quantity}x ${item.name} (Talla: ${item.size})\n`;
                 });
                 
-                mensaje += `\n*Total a pagar:* $${totalPrice.toLocaleString('es-CO')}\n`;
-                mensaje += `_(Envío a convenir con el asesor)_\n\n`;
-                mensaje += `Hola, quiero confirmar mi pedido. Quedo atento/a.`;
+                mensaje += `\n*TOTAL APROXIMADO: ${formatCurrency(subtotal)}*\n`;
+                mensaje += `_(Sin incluir costo de envío)_\n\n`;
+                mensaje += `Hola Bogofija, quiero confirmar mi pedido.`;
 
-                // NÚMERO DE DESTINO (Puedes cambiar este por el oficial de la tienda)
-                // Usando un genérico +57 fijo de ejemplo, cámbialo por el real.
-                const numeroDestino = "573118113811"; 
+                // Codificar para URL
+                const urlMensaje = encodeURIComponent(mensaje);
                 
-                // 3. LA CORRECCIÓN CLAVE PARA DISPOSITIVOS MÓVILES
-                // Creamos el enlace Universal (wa.me) que funciona mejor en todas las plataformas
-                const whatsappUrl = `https://wa.me/${numeroDestino}?text=${encodeURIComponent(mensaje)}`;
+                // Número oficial (usar el del grupo o uno específico para ventas)
+                // Aquí usamos un número de ejemplo, reemplazar por el real
+                const numeroVentas = "573118113811"; 
                 
-                // Detectamos si el usuario está navegando desde un celular/tablet
-                const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                // Abrir WhatsApp
+                window.open(`https://wa.me/${numeroVentas}?text=${urlMensaje}`, '_blank');
                 
-                if (isMobile) {
-                    // En móviles: Cambiamos la URL de la ventana actual. 
-                    // Esto evita el bloqueo de popups de Safari/Chrome y fuerza al SO a lanzar la App de WhatsApp.
-                    window.location.href = whatsappUrl;
-                } else {
-                    // En Computadoras: Usamos window.open para abrir WhatsApp Web cómodamente en otra pestaña.
-                    window.open(whatsappUrl, '_blank');
-                }
-                
-                // Opcional: Cerrar el modal tras enviar
-                checkoutModal.classList.add('opacity-0', 'pointer-events-none');
-                checkoutContent.classList.add('scale-95');
-                showToast("Redirigiendo a WhatsApp... 📲");
+                // Limpiar carrito (Opcional, se puede dejar comentado si se prefiere que el usuario lo limpie al volver)
+                // cart = [];
+                // updateCartUI();
+                // closeCheckout();
+                // closeCart();
+                // showToast("Pedido preparado. Completa el envío en WhatsApp.");
             });
-        }
-
-        // Utilidad para mostrar notificaciones breves
-        function showToast(message) {
-            const container = document.getElementById('toastContainer');
-            if(!container) return;
-            
-            const toast = document.createElement('div');
-            toast.className = 'bg-brand-yellow text-black px-4 py-3 rounded-xl font-black text-xs shadow-2xl transform translate-y-10 opacity-0 transition-all duration-300 flex items-center gap-2 border border-yellow-400';
-            toast.innerHTML = message;
-            
-            container.appendChild(toast);
-            
-            // Animar entrada
-            setTimeout(() => {
-                toast.classList.remove('translate-y-10', 'opacity-0');
-            }, 10);
-            
-            // Animar salida y eliminar
-            setTimeout(() => {
-                toast.classList.add('translate-y-10', 'opacity-0');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
         }
 
     </script>

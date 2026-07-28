@@ -347,9 +347,13 @@
                 </button>
 
                 <!-- IMAGEN Y ETIQUETAS DEL MARCO -->
-                <div class="relative overflow-hidden aspect-square bg-gray-50 flex items-center justify-center p-6 mt-12">
-                    <img id="marcoImagenPrevia" src="https://i.ibb.co/r282NKDQ/marco-bogofija-negra.png" alt="Marco Fixie Track" class="w-full h-full object-cover rounded-2xl relative z-10 shadow-lg transition-all duration-300" />
-                    
+                <div class="relative overflow-hidden aspect-square bg-gray-50 flex items-center justify-center p-6 mt-12 group">
+                    <img id="marcoImagenPrevia" src="https://i.ibb.co/r282NKDQ/marco-bogofija-negra.png" alt="Marco Fixie Track" class="w-full h-full object-cover rounded-2xl relative z-10 shadow-lg transition-all duration-300 cursor-zoom-in" />
+
+                    <div class="absolute top-4 right-4 z-20 bg-gray-900/70 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        <i class="fa-solid fa-magnifying-glass-plus"></i> Ampliar
+                    </div>
+
                     <div class="absolute bottom-4 left-4 flex flex-col gap-2 z-20">
                         <span class="bg-gray-900 text-white text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-md">Piñón Fijo</span>
                         <span class="bg-green-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider flex items-center gap-1 shadow-lg shadow-green-500/30">
@@ -442,10 +446,14 @@
                 <div class="relative overflow-hidden aspect-[4/3] bg-gray-50 flex flex-col items-center justify-center p-2 mt-12 group">
                     <!-- Contenedor de imágenes para vista frontal y posterior -->
                     <div class="relative w-full h-full flex transition-transform duration-500" id="jerseyImageContainer">
-                        <img id="jerseyImagenPreviaFrente" src="https://i.ibb.co/ZpxYPSPZ/Jersey-Bogofija.jpg" alt="Jersey Vista Frontal" class="w-full h-full object-cover rounded-2xl relative z-10 shadow-lg absolute inset-0 transition-opacity duration-300" />
-                        <img id="jerseyImagenPreviaAtras" src="https://i.ibb.co/3yVv4XZz/Jersey-Bogofija.jpg" alt="Jersey Vista Posterior" class="w-full h-full object-cover rounded-2xl relative z-10 shadow-lg absolute inset-0 opacity-0 transition-opacity duration-300" />
+                        <img id="jerseyImagenPreviaFrente" src="https://i.ibb.co/ZpxYPSPZ/Jersey-Bogofija.jpg" alt="Jersey Vista Frontal" class="w-full h-full object-cover rounded-2xl relative z-10 shadow-lg absolute inset-0 transition-opacity duration-300 cursor-zoom-in" />
+                        <img id="jerseyImagenPreviaAtras" src="https://i.ibb.co/3yVv4XZz/Jersey-Bogofija.jpg" alt="Jersey Vista Posterior" class="w-full h-full object-cover rounded-2xl relative z-10 shadow-lg absolute inset-0 opacity-0 transition-opacity duration-300 cursor-zoom-in" />
                     </div>
-                    
+
+                    <div class="absolute top-4 right-4 z-20 bg-gray-900/70 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        <i class="fa-solid fa-magnifying-glass-plus"></i> Ampliar
+                    </div>
+
                     <!-- Botón para alternar vistas superpuesto -->
                     <button id="btnToggleJerseyView" class="absolute bottom-4 right-4 z-30 bg-gray-900/80 backdrop-blur-md text-white p-2 rounded-full hover:bg-brand-yellow hover:text-black transition-colors shadow-md">
                         <i class="fa-solid fa-rotate"></i>
@@ -527,9 +535,13 @@
                 <!-- IMAGEN Y ETIQUETAS DE LA CAP -->
                 <div class="relative overflow-hidden aspect-[4/3] bg-gray-50 flex items-center justify-center p-2 mt-12 group">
                     <div class="relative w-full h-full flex items-center justify-center" id="capsImageContainer">
-                        <img id="capsImagenPrevia" src="" alt="Cap Preview" class="w-full h-full object-contain rounded-2xl relative z-10 shadow-lg transition-opacity duration-300" />
+                        <img id="capsImagenPrevia" src="" alt="Cap Preview" class="w-full h-full object-contain rounded-2xl relative z-10 shadow-lg transition-opacity duration-300 cursor-zoom-in" />
                     </div>
-                    
+
+                    <div class="absolute top-4 right-4 z-20 bg-gray-900/70 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        <i class="fa-solid fa-magnifying-glass-plus"></i> Ampliar
+                    </div>
+
                     <!-- Botón para alternar vistas superpuesto (se muestra si hay más de 1 imagen) -->
                     <button id="btnToggleCapsView" class="absolute bottom-4 right-4 z-30 bg-gray-900/80 backdrop-blur-md text-white p-2 rounded-full hover:bg-brand-yellow hover:text-black transition-colors shadow-md hidden">
                         <i class="fa-solid fa-rotate"></i>
@@ -584,6 +596,32 @@
                     </button>
                 </div>
 
+            </div>
+        </div>
+
+        <!-- MODAL ZOOM DE FOTO PREMIUM (VISTA AMPLIADA DEL PRODUCTO) -->
+        <div id="modalZoomFoto" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+            <div id="modalZoomContent" class="bg-white text-gray-900 rounded-[30px] w-full max-w-5xl shadow-2xl border border-gray-100 flex flex-col md:flex-row relative max-h-[90vh] overflow-hidden transform scale-95 transition-transform duration-300">
+
+                <!-- BOTÓN CERRAR (X) MUY VISIBLE -->
+                <button id="btnCerrarZoom" type="button" aria-label="Cerrar vista ampliada" class="absolute top-4 right-4 z-30 bg-gray-900/85 backdrop-blur-md text-white w-11 h-11 rounded-full text-xl hover:bg-brand-yellow hover:text-black transition-colors flex items-center justify-center shadow-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <!-- LADO IZQUIERDO: FOTO PROTAGONISTA (60-70% del espacio) -->
+                <div class="w-full md:w-[65%] bg-gray-100 flex items-center justify-center p-4 sm:p-10 aspect-square md:aspect-auto md:min-h-[540px]">
+                    <img id="zoomFotoImg" src="" alt="Vista ampliada del producto" class="max-w-full max-h-full object-contain rounded-xl shadow-xl" />
+                </div>
+
+                <!-- LADO DERECHO: INFO SUTIL (TÍTULO, PRECIO Y AGREGAR AL CARRITO) -->
+                <div class="w-full md:w-[35%] p-6 sm:p-8 flex flex-col justify-center bg-white text-left border-t md:border-t-0 md:border-l border-gray-100">
+                    <span class="text-[10px] font-black text-brand-yellow uppercase tracking-widest mb-2">Vista Ampliada</span>
+                    <h3 id="zoomFotoTitulo" class="font-extrabold text-2xl text-gray-900 leading-tight mb-3"></h3>
+                    <span id="zoomFotoPrecio" class="inline-block font-black text-black bg-brand-yellow px-3 py-1.5 rounded-lg text-xl whitespace-nowrap shadow-sm mb-6 w-fit"></span>
+                    <button id="btnZoomAgregarCarrito" type="button" class="w-full bg-gray-900 text-white py-4 rounded-xl text-sm font-bold hover:bg-brand-yellow hover:text-black transition-colors shadow-lg active:scale-95">
+                        Agregar al Carrito
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -2637,16 +2675,28 @@ function setAmbiMode(mode) {
         const checkoutSubtotal = document.getElementById('checkoutSubtotal');
         const checkoutTotal = document.getElementById('checkoutTotal');
 
+        // Widget BOGOBOT: se oculta mientras el carrito o el checkout estén abiertos
+        // para que nunca tape el botón principal de compra.
+        const bogobotLauncher = document.querySelector('.bogobot-launcher');
+        function updateBogobotVisibility() {
+            if (!bogobotLauncher) return;
+            const cartAbierto = cartSidebar && !cartSidebar.classList.contains('translate-x-full');
+            const checkoutAbierto = checkoutModal && !checkoutModal.classList.contains('opacity-0');
+            bogobotLauncher.classList.toggle('bogobot-hidden', cartAbierto || checkoutAbierto);
+        }
+
         function openCart() {
             cartSidebar.classList.remove('translate-x-full');
             cartOverlay.classList.remove('opacity-0', 'pointer-events-none');
             document.body.style.overflow = 'hidden';
+            updateBogobotVisibility();
         }
 
         function closeCart() {
             cartSidebar.classList.add('translate-x-full');
             cartOverlay.classList.add('opacity-0', 'pointer-events-none');
             document.body.style.overflow = '';
+            updateBogobotVisibility();
         }
 
         if(btnOpenCart) btnOpenCart.addEventListener('click', openCart);
@@ -2673,6 +2723,7 @@ function setAmbiMode(mode) {
                     checkoutContent.classList.remove('scale-95');
                     checkoutContent.classList.add('scale-100');
                 }, 50);
+                updateBogobotVisibility();
             });
         }
 
@@ -2681,6 +2732,7 @@ function setAmbiMode(mode) {
             checkoutContent.classList.add('scale-95');
             setTimeout(() => {
                 checkoutModal.classList.add('opacity-0', 'pointer-events-none');
+                updateBogobotVisibility();
             }, 300);
         }
 
@@ -2828,6 +2880,97 @@ const CAPS_DB = [
 let selectedCapsIndex = 0;
 let selectedQtyCaps = 1;
 let currentCapsImageIndex = 0;
+
+    // ============================================
+    // MODAL ZOOM DE FOTO PREMIUM (Vista ampliada)
+    // ============================================
+    (function () {
+        const modalZoom = document.getElementById('modalZoomFoto');
+        const modalZoomContent = document.getElementById('modalZoomContent');
+        const zoomFotoImg = document.getElementById('zoomFotoImg');
+        const zoomFotoTitulo = document.getElementById('zoomFotoTitulo');
+        const zoomFotoPrecio = document.getElementById('zoomFotoPrecio');
+        const btnZoomAgregarCarrito = document.getElementById('btnZoomAgregarCarrito');
+        const btnCerrarZoom = document.getElementById('btnCerrarZoom');
+
+        if (!modalZoom || !modalZoomContent) return;
+
+        let zoomTargetBtnId = null;
+
+        function openZoomFoto(src, titulo, precio, targetBtnId) {
+            if (!src) return;
+            zoomFotoImg.src = src;
+            zoomFotoTitulo.textContent = titulo || '';
+            zoomFotoPrecio.textContent = precio || '';
+            zoomTargetBtnId = targetBtnId || null;
+
+            modalZoom.classList.remove('opacity-0', 'pointer-events-none');
+            requestAnimationFrame(() => {
+                modalZoomContent.classList.remove('scale-95');
+                modalZoomContent.classList.add('scale-100');
+            });
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeZoomFoto() {
+            modalZoom.classList.add('opacity-0', 'pointer-events-none');
+            modalZoomContent.classList.remove('scale-100');
+            modalZoomContent.classList.add('scale-95');
+            document.body.style.overflow = '';
+        }
+
+        // Cerrar con el botón X
+        btnCerrarZoom?.addEventListener('click', closeZoomFoto);
+
+        // Cerrar al hacer clic en el fondo oscuro (fuera del contenido)
+        modalZoom.addEventListener('click', (e) => {
+            if (e.target === modalZoom) closeZoomFoto();
+        });
+
+        // Cerrar con la tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modalZoom.classList.contains('opacity-0')) {
+                closeZoomFoto();
+            }
+        });
+
+        // Botón "Agregar al Carrito" de la vista ampliada: reutiliza el botón real
+        // del producto (Marcos/Jersey/Caps) para no duplicar ni romper la lógica del carrito.
+        btnZoomAgregarCarrito?.addEventListener('click', () => {
+            if (zoomTargetBtnId) {
+                const realBtn = document.getElementById(zoomTargetBtnId);
+                if (realBtn && !realBtn.disabled) {
+                    realBtn.click();
+                }
+            }
+            closeZoomFoto();
+        });
+
+        // --- Conectar clics de las fotos de cada producto ---
+
+        // Marco
+        document.getElementById('marcoImagenPrevia')?.addEventListener('click', function () {
+            const nombre = document.getElementById('marcoNombrePrevia')?.textContent.trim();
+            const precio = document.getElementById('marcoPrecioPrevia')?.textContent.trim();
+            openZoomFoto(this.src, nombre, precio, 'btnAgregarCarrito');
+        });
+
+        // Jersey (frente y atrás, usa la imagen visible en el momento del clic)
+        ['jerseyImagenPreviaFrente', 'jerseyImagenPreviaAtras'].forEach((id) => {
+            document.getElementById(id)?.addEventListener('click', function () {
+                const nombre = document.getElementById('jerseyNombrePrevia')?.textContent.trim();
+                const precio = document.getElementById('jerseyPrecioPrevia')?.textContent.trim();
+                openZoomFoto(this.src, nombre, precio, 'btnAgregarCarritoJersey');
+            });
+        });
+
+        // Caps
+        document.getElementById('capsImagenPrevia')?.addEventListener('click', function () {
+            const nombre = document.getElementById('capsNombrePrevia')?.textContent.trim();
+            const precio = document.getElementById('capsPrecioPrevia')?.textContent.trim();
+            openZoomFoto(this.src, nombre, precio, 'btnAgregarCarritoCaps');
+        });
+    })();
     </script>
     <!-- Script base de Botpress Cloud y tu Bot integrado -->
     <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
@@ -2861,6 +3004,14 @@ let currentCapsImageIndex = 0;
         transform: translateY(-4px) scale(1.03);
         box-shadow: 0 12px 30px rgba(255, 230, 0, 0.45);
         background: linear-gradient(135deg, #2a2a2a 0%, #141414 100%);
+    }
+
+    /* Oculta el widget de BOGOBOT cuando el carrito o el checkout están abiertos,
+       para que nunca tape el botón principal de compra */
+    .bogobot-launcher.bogobot-hidden {
+        opacity: 0;
+        transform: translateY(30px) scale(0.85);
+        pointer-events: none;
     }
 
     /* Icono con badge / animación de pulso */

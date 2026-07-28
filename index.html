@@ -2675,28 +2675,84 @@ function setAmbiMode(mode) {
         const checkoutSubtotal = document.getElementById('checkoutSubtotal');
         const checkoutTotal = document.getElementById('checkoutTotal');
 
-        // Widget BOGOBOT: se oculta mientras el carrito o el checkout estén abiertos
-        // para que nunca tape el botón principal de compra.
-        const bogobotLauncher = document.querySelector('.bogobot-launcher');
-        function updateBogobotVisibility() {
-            if (!bogobotLauncher) return;
-            const cartAbierto = cartSidebar && !cartSidebar.classList.contains('translate-x-full');
-            const checkoutAbierto = checkoutModal && !checkoutModal.classList.contains('opacity-0');
-            bogobotLauncher.classList.toggle('bogobot-hidden', cartAbierto || checkoutAbierto);
-        }
+        // ============================================================
+        //  MÓDULO: ChatbotCartUX
+        //  Controla la visibilidad del widget de chat (BOGOBOT) en
+        //  función del estado del carrito / checkout, para que nunca
+        //  se superponga al botón principal de compra.
+        //
+        //  Estrategia (Opción A): ocultar por completo el lanzador del
+        //  bot y, si la ventana de chat ya estaba abierta, cerrarla.
+        //  Se restaura al cerrar TODAS las superposiciones activas.
+        // ============================================================
+        const ChatbotCartUX = (() => {
+            const BOT_SELECTOR = '.bogobot-launcher';
+            const HIDDEN_CLASS = 'bogobot-hidden';
+
+            // Contador de superposiciones activas que exigen ocultar el bot.
+            // Se usa un contador (no un booleano) para soportar casos donde
+            // el carrito y el checkout estén abiertos simultáneamente: el
+            // bot solo debe reaparecer cuando la última se haya cerrado.
+            let hideRequests = 0;
+
+            function getLauncher() {
+                return document.querySelector(BOT_SELECTOR);
+            }
+
+            // Cierra la ventana del chat si el SDK de Botpress está disponible.
+            // Nunca lanza error si el SDK no ha cargado o no expone el método.
+            function closeChatWindow() {
+                try {
+                    if (window.botpress && typeof window.botpress.close === 'function') {
+                        window.botpress.close();
+                    }
+                } catch (err) {
+                    console.warn('[ChatbotCartUX] No se pudo cerrar el widget de chat:', err);
+                }
+            }
+
+            function hideLauncher() {
+                getLauncher()?.classList.add(HIDDEN_CLASS);
+            }
+
+            function showLauncher() {
+                getLauncher()?.classList.remove(HIDDEN_CLASS);
+            }
+
+            // Llamar cuando se ABRE una superposición que puede chocar con el bot.
+            function onOverlayOpen() {
+                hideRequests += 1;
+                closeChatWindow();
+                hideLauncher();
+            }
+
+            // Llamar cuando se CIERRA una superposición. Solo restaura la
+            // visibilidad si ya no queda ninguna superposición activa.
+            function onOverlayClose() {
+                hideRequests = Math.max(0, hideRequests - 1);
+                if (hideRequests === 0) showLauncher();
+            }
+
+            return {
+                onCartOpen: onOverlayOpen,
+                onCartClose: onOverlayClose,
+                onCheckoutOpen: onOverlayOpen,
+                onCheckoutClose: onOverlayClose,
+            };
+        })();
 
         function openCart() {
             cartSidebar.classList.remove('translate-x-full');
             cartOverlay.classList.remove('opacity-0', 'pointer-events-none');
             document.body.style.overflow = 'hidden';
-            updateBogobotVisibility();
+            ChatbotCartUX.onCartOpen();
         }
 
         function closeCart() {
             cartSidebar.classList.add('translate-x-full');
             cartOverlay.classList.add('opacity-0', 'pointer-events-none');
             document.body.style.overflow = '';
-            updateBogobotVisibility();
+            ChatbotCartUX.onCartClose();
         }
 
         if(btnOpenCart) btnOpenCart.addEventListener('click', openCart);
@@ -2723,7 +2779,7 @@ function setAmbiMode(mode) {
                     checkoutContent.classList.remove('scale-95');
                     checkoutContent.classList.add('scale-100');
                 }, 50);
-                updateBogobotVisibility();
+                ChatbotCartUX.onCheckoutOpen();
             });
         }
 
@@ -2732,7 +2788,7 @@ function setAmbiMode(mode) {
             checkoutContent.classList.add('scale-95');
             setTimeout(() => {
                 checkoutModal.classList.add('opacity-0', 'pointer-events-none');
-                updateBogobotVisibility();
+                ChatbotCartUX.onCheckoutClose();
             }, 300);
         }
 
@@ -3010,6 +3066,7 @@ let currentCapsImageIndex = 0;
        para que nunca tape el botón principal de compra */
     .bogobot-launcher.bogobot-hidden {
         opacity: 0;
+        visibility: hidden;
         transform: translateY(30px) scale(0.85);
         pointer-events: none;
     }

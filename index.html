@@ -1401,6 +1401,42 @@
         }
     });
     // --- AGREGAR CAPS AL CARRITO ---
+    document.getElementById('btnAgregarCarritoCaps')?.addEventListener('click', () => {
+        const cap = CAPS_DB[selectedCapsIndex];
+        if(!cap) return;
+
+        // Verificar si ya existe en el carrito
+        const existingItemIndex = cart.findIndex(item => item.id === cap.id);
+
+        if(existingItemIndex !== -1) {
+            cart[existingItemIndex].quantity += selectedQtyCaps;
+        } else {
+            cart.push({
+                id: cap.id,
+                name: cap.nombre,
+                price: cap.precio,
+                image: cap.imagenes[0],
+                size: 'Única',
+                quantity: selectedQtyCaps,
+                type: 'cap'
+            });
+        }
+
+        updateCartUI();
+
+        // Cerrar el modal de caps
+        modalCaps.classList.add('opacity-0', 'pointer-events-none');
+        modalCapsContent.classList.add('scale-95');
+        modalCapsContent.classList.remove('scale-100');
+
+        // Resetear la cantidad seleccionada para la próxima vez
+        selectedQtyCaps = 1;
+        const qtyValCapsEl = document.getElementById('qtyValCaps');
+        if(qtyValCapsEl) qtyValCapsEl.innerText = selectedQtyCaps;
+
+        showToast(`${cap.nombre} añadido al carrito.`);
+    });
+
 function setAmbiMode(mode) {
             isAmbi = mode;
             
